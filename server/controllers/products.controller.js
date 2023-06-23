@@ -7,31 +7,34 @@ module.exports = {
 
     getAllProducts: async (req, res, next) => {
         try {
-            let {category, type, limit, page} = req.query;
-            page = page || 1
-            limit = limit || 6
-            let products;
-            let count;
+            const products = await Product.find({});
 
-            if (!category && !type) {
-                products = await Product.find({}).limit(limit * 1).skip((page - 1) * limit);
-                count = await Product.countDocuments();
-            }
-            if (category && !type) {
-                products = await Product.find({category}).limit(limit * 1).skip((page - 1) * limit);
-                count = await Product.countDocuments({category});
-            }
-            if (category && type) {
-                products = await Product.find({category, type}).limit(limit * 1).skip((page - 1) * limit);
-                count = await Product.countDocuments({category, type});
-            }
+            res.json(products);
+            // let {category, type, limit, page} = req.query;
+            // page = page || 1
+            // limit = limit || 6
+            // let products;
+            // let count;
+            //
+            // if (!category && !type) {
+            //     products = await Product.find({}).limit(limit * 1).skip((page - 1) * limit);
+            //     count = await Product.countDocuments();
+            // }
+            // if (category && !type) {
+            //     products = await Product.find({category}).limit(limit * 1).skip((page - 1) * limit);
+            //     count = await Product.countDocuments({category});
+            // }
+            // if (category && type) {
+            //     products = await Product.find({category, type}).limit(limit * 1).skip((page - 1) * limit);
+            //     count = await Product.countDocuments({category, type});
+            // }
 
-            return res.json({
-                products,
-                count: count,
-                totalPages: Math.ceil(count / limit),
-                currentPage: page
-            });
+            // return res.json({
+            // products,
+            // count: count,
+            // totalPages: Math.ceil(count / limit),
+            // currentPage: page
+            // });
         } catch (e) {
             next(e);
         }

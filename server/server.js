@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const fileUpload = require('express-fileupload');
 const path = require('path');
 mongoose.set('strictQuery', false);
@@ -15,16 +16,9 @@ app.use(fileUpload({}));
 app.use(express.static(path.resolve(__dirname, 'server', 'static')));
 app.use(express.static(path.resolve(__dirname, 'server', 'dataBase', 'images')));
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-
-app.use('/api', router);
-app.use('/account', accountRouter)
-
-app.get('/', (req, res) => {
-    res.json('WELCOME');
-    console.log('Welcome page.');
-});
 
 
 app.use((err, req, res, next) => {
@@ -35,6 +29,17 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(configs.PORT, async () => {
-    await mongoose.connect(configs.MONGO_URL);
+    await mongoose.connect(configs.MONGO_URL, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    });
     console.log(`Backend server is running on port ${configs.PORT} !`);
 });
+
+app.get('/', (req, res) => {
+    res.json({message: "WELCOME"});
+    console.log('Welcome page.');
+});
+
+app.use('/api', router);
+app.use('/account', accountRouter)
