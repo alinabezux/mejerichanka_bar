@@ -1,9 +1,15 @@
+import {Button, Card} from 'react-bootstrap';
+
 const Product = ({product}) => {
     return (
-        <div>
-            <h3>{product.title} -- {product.price}</h3>
-            <button>Add to cart</button>
-        </div>
+        <Card style={{ width: '18rem' }}>
+            <Card.Img variant="top" src= {product.image}/>
+            <Card.Body>
+                <Card.Title>{product.title}</Card.Title>
+                <Card.Subtitle>{product.price}</Card.Subtitle>
+                <Button variant="primary">Добавити в корзину</Button>
+            </Card.Body>
+        </Card>
     );
 }
 
