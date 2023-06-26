@@ -1,8 +1,9 @@
+import {Slider} from "../components/Slider";
+
 const HomePage = () => {
     return (
-        <div>
-            Ласкаво просимо!
-        </div>
+        <Slider/>
+
     );
 }
 

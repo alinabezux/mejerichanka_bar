@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Routes, Route, BrowserRouter} from "react-router-dom";
-import {HomePage, Menu, Reserve} from "./pages";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {AboutUsPage, HomePage, HookahPage, Menu, ReservePage} from "./pages";
 import {NaviBar} from "./components/NaviBar";
 
 function App() {
@@ -9,8 +9,10 @@ function App() {
             <NaviBar/>
             <Routes>
                 <Route path={'/'} element={<HomePage/>}/>
+                <Route path={'/about'} element={<AboutUsPage/>}/>
                 <Route path={'/menu'} element={<Menu/>}/>
-                <Route path={'/reserve'} element={<Reserve/>}/>
+                <Route path={'/reserve'} element={<ReservePage/>}/>
+                <Route path={'/hookah'} element={<HookahPage/>}/>
             </Routes>
         </BrowserRouter>
     );

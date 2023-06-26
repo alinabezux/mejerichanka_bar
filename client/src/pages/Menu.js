@@ -4,8 +4,11 @@ const Menu = () => {
     return (
         <div>
             <h3>
-                products
+                Меню
             </h3>
+            <div>
+                Категорії
+            </div>
             <Products/>
         </div>
     );

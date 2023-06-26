@@ -1,3 +1,6 @@
 export * from './HomePage'
+export * from './AboutUsPage'
 export * from './Menu'
-export * from './Reserve'
+export * from './HookahPage'
+export * from './ReservePage'
+

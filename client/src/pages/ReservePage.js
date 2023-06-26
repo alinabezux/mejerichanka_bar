@@ -1,4 +1,4 @@
-const Reserve = () => {
+const ReservePage = () => {
     return (
         <div>
            Reserve
@@ -6,4 +6,4 @@ const Reserve = () => {
     );
 }
 
-export {Reserve}
+export {ReservePage}

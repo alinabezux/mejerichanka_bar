@@ -9,11 +9,3 @@ const productsService = {
 export {productsService}
 
 
-// import {$host} from "./axios.service";
-// import {urls} from "../configs/urls";
-//
-// export const fetchProducts = async () => {
-//     const {data} = await $host.get(`${urls.products}`)
-//     return data
-//
-// }
