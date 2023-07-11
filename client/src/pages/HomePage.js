@@ -1,10 +1,13 @@
-import {Slider} from "../components/Slider";
+import {Categories, Menu, Slider} from "../components";
 
 const HomePage = () => {
     return (
-        <Slider/>
-
-    );
+        <div>
+            <Slider/>
+            <Categories/>
+            <Menu/>
+        </div>
+    )
 }
 
 export {HomePage}

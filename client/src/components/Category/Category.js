@@ -1,9 +1,10 @@
+import Button from 'react-bootstrap/Button';
+
+
 const Category = ({category}) => {
     return (
-        <div>
-           Category
-        </div>
-    );
+        <Button variant="outline-dark" size="lg">{category.category}</Button>
+    )
 }
 
 export {Category}

@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {AboutUsPage, HomePage, HookahPage, Menu, ReservePage} from "./pages";
-import {NaviBar} from "./components/NaviBar";
+import {AboutUsPage, HomePage, HookahPage, ReservePage} from "./pages";
+import {Menu, NaviBar} from "./components";
 
 function App() {
     return (

@@ -11,13 +11,13 @@ const NaviBar = () => {
             <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end " >
                 <Nav>
                     <Nav.Link href="/about"><h5>Про Нас</h5></Nav.Link>
-                    <Nav.Link href="/menu"><h5>Меню</h5></Nav.Link>
-                    <Nav.Link href="/about/delivery"><h5>Доставка</h5></Nav.Link>
+                    <Nav.Link href="/#menu"><h5>Меню</h5></Nav.Link>
+                    <Nav.Link href="/about#delivery"><h5>Доставка</h5></Nav.Link>
                     <Nav.Link href="/hookah"><h5>Кальяни</h5></Nav.Link>
                 </Nav>
             </Navbar.Collapse>
             <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
-                <Button href="/about/reserve" variant="outline-danger">Забронювати</Button>
+                <Button href="/about#reserve" variant="outline-danger">Забронювати</Button>
             </Navbar.Collapse>
 
         </Navbar>

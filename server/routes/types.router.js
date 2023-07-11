@@ -4,7 +4,7 @@ const typesController = require("../controllers/types.controller");
 const checkRoleMiddleware = require('../middlewares/checkRole.middleware');
 
 typesRouter.get('/',
-    checkRoleMiddleware.checkRole,
+    // checkRoleMiddleware.checkRole,
     typesController.getAllTypes);
 
 typesRouter.post('/new',

@@ -5,3 +5,7 @@ export * from './User/Users'
 export * from './User/User'
 export * from './Category/Categories'
 export * from './Category/Category'
+
+export * from './Slider'
+export * from './Menu'
+export * from './NaviBar'
