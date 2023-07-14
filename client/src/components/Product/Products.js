@@ -8,16 +8,10 @@ const Products = () => {
     const dispatch = useDispatch();
     const {products} = useSelector(state => state.productsReducer);
 
-    useEffect(() => {
-        dispatch(productsActions.getAll())
+    useEffect((category, type) => {
+        dispatch(productsActions.getAll(category, type))
     }, [dispatch]);
-    // const filteredProducts = products.filter((product) => {
-    //     if (type) {
-    //         return product.category === category && product.type === type;
-    //     } else {
-    //         return product.category === category;
-    //     }
-    // });
+
 
     return (
         <div className="d-flex flex-row flex-wrap">

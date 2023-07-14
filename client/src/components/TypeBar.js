@@ -6,6 +6,7 @@ import {ListGroup} from "react-bootstrap";
 const TypeBar = () => {
     const dispatch = useDispatch();
     const {types} = useSelector(state => state.typesReducer);
+
     useEffect(() => {
         dispatch(typesActions.getAll())
     }, [dispatch]);
@@ -15,10 +16,10 @@ const TypeBar = () => {
             {
                 types.map(type =>
                     <ListGroup.Item
-                        style={{cursor: 'pointer'}}
-                        // active={type.id === device.selectedType.id}
-                        // onClick={() => device.setSelectedType(type)}
                         key={type.id}
+                        variant="light"
+                        style={{cursor: 'pointer'}}
+                        onClick={() => dispatch(typesActions.setSelectedType(type))}
                     >
                         {type.type}
                     </ListGroup.Item>
