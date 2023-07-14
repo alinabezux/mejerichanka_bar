@@ -1,19 +1,18 @@
-import {useEffect, useState} from "react";
-
 import {Products} from "./Product/Products";
-import {categoriesService} from "../services/categories.service";
-import {typesService} from "../services/types.service";
+import {CategoryBar} from "./CategoryBar";
+import {TypeBar} from "./TypeBar";
+
 
 const Menu = () => {
-
-    const [categories, setCategories] = useState([]);
-    const [types, setTypes] = useState([]);
-
-    useEffect(() => {
-        categoriesService.getAll().then(({data}) => setCategories(data))
-        typesService.getAll().then(({data}) => setTypes(data))
-
-    }, []);
+    //
+    // const [categories, setCategories] = useState([]);
+    // const [types, setTypes] = useState([]);
+    //
+    // useEffect(() => {
+    //     // categoriesService.getAll().then(({data}) => setCategories(data))
+    //     // typesService.getAll().then(({data}) => setTypes(data))
+    //
+    // }, []);
 
     return (
         <div className="m-2">
@@ -34,7 +33,9 @@ const Menu = () => {
             {/*            }*/}
             {/*        </div>))*/}
             {/*}*/}
-            menu
+            <CategoryBar/>
+            <TypeBar/>
+            <Products/>
         </div>
     );
 

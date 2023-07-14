@@ -1,27 +1,27 @@
-import {useEffect, useState} from "react";
-import {productsService} from "../../services";
+import {useEffect} from "react";
 import {Product} from "./Product";
+import {useDispatch, useSelector} from "react-redux";
+import {productsActions} from "../../redux";
 
 
-const Products = ({category, type}) => {
-
-    const [products, setProducts] = useState([]);
+const Products = () => {
+    const dispatch = useDispatch();
+    const {products} = useSelector(state => state.productsReducer);
 
     useEffect(() => {
-        productsService.getAll(null, null).then(({data}) => setProducts(data))
-    }, [])
-
-    const filteredProducts = products.filter((product) => {
-        if (type) {
-            return product.category === category && product.type === type;
-        } else {
-            return product.category === category;
-        }
-    });
+        dispatch(productsActions.getAll())
+    }, [dispatch]);
+    // const filteredProducts = products.filter((product) => {
+    //     if (type) {
+    //         return product.category === category && product.type === type;
+    //     } else {
+    //         return product.category === category;
+    //     }
+    // });
 
     return (
         <div className="d-flex flex-row flex-wrap">
-            {filteredProducts.map((product) => (
+            {products.map((product) => (
                 <Product key={product.id} product={product}/>
             ))}
         </div>
