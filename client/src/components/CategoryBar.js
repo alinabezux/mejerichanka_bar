@@ -6,7 +6,7 @@ import {TypeBar} from "./TypeBar";
 
 const CategoryBar = () => {
     const dispatch = useDispatch();
-    const {categories} = useSelector(state => state.categoriesReducer);
+    const {categories, selectedCategory} = useSelector(state => state.categoriesReducer);
     const [showTypeBar, setShowTypeBar] = useState(false);
 
     useEffect(() => {
@@ -27,10 +27,11 @@ const CategoryBar = () => {
             <div className="m-4 d-flex flex-wrap justify-content-evenly">
                 {categories.map(category => (
                     <Button
-                        variant="outline-dark"
+                        variant={selectedCategory === category ? "dark" : "outline-dark"}
                         size="lg"
                         key={category.id}
                         onClick={() => handleCategoryClick(category)}
+
                     >
                         {category.category}
                     </Button>

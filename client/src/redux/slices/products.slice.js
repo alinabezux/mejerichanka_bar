@@ -9,8 +9,8 @@ const initialState = {
 }
 
 const getAll = createAsyncThunk(
-    'productsSlice/getProducts',
-    async (category, type, {rejectWithValue}) => {
+    'productsSlice/getAll',
+    async ({category, type}, {rejectWithValue}) => {
         try {
             const {data} = await productsService.getAll(category, type);
             return data;
@@ -67,7 +67,7 @@ const productsSlice = createSlice({
 const {reducer: productsReducer} = productsSlice;
 
 const productsActions = {
-    getAll,getProductById
+    getAll, getProductById
 }
 
 export {
