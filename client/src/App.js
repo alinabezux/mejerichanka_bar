@@ -1,21 +1,37 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {AboutUsPage, HomePage, HookahPage, ReservePage} from "./pages";
+import './App.css'
+
+import {BrowserRouter, Route, Routes, useLocation} from "react-router-dom";
+import {AboutUsPage, AdminPage, HomePage, HookahPage} from "./pages";
 import {NaviBar} from "./components";
+
+// Компонент, який відповідає за виведення NaviBar, окрім /admin
+function RenderNaviBar() {
+    const location = useLocation();
+    const isAdminPage = location.pathname.includes('/admin');
+
+    if (isAdminPage) {
+        return null; // Повертаємо null, щоб NaviBar не відображався на /admin
+    }
+
+    return <NaviBar/>;
+}
 
 function App() {
     return (
         <BrowserRouter>
-            <NaviBar/>
+            {/* Виводить компонент NaviBar на всіх сторінках, окрім /admin */}
+            <RenderNaviBar/>
+
             <Routes>
                 <Route path={'/'} element={<HomePage/>}/>
                 <Route path={'/about'} element={<AboutUsPage/>}/>
-                {/*<Route path={'/menu'} element={<Menu/>}/>*/}
-                <Route path={'/reserve'} element={<ReservePage/>}/>
                 <Route path={'/hookah'} element={<HookahPage/>}/>
+                <Route path={'/admin'} element={<AdminPage/>}/>
             </Routes>
         </BrowserRouter>
     );
 }
+
 
 export default App;

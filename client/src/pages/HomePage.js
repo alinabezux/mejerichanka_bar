@@ -1,12 +1,10 @@
 import {Menu, Slider} from "../components";
-import {Outlet} from "react-router-dom";
 
 const HomePage = () => {
     return (
-        <div>
+        <div className="home-page">
             <Slider/>
             <Menu/>
-            <Outlet/>
         </div>
     )
 }

@@ -1,6 +1,5 @@
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import Button from "react-bootstrap/Button";
 import {categoriesActions} from "../redux";
 import {TypeBar} from "./TypeBar";
 
@@ -23,21 +22,14 @@ const CategoryBar = () => {
     };
 
     return (
-        <div>
-            <div className="m-4 d-flex flex-wrap justify-content-evenly">
+        <div className="categories">
+            <div>
                 {categories.map(category => (
-                    <Button
-                        variant={selectedCategory === category ? "dark" : "outline-dark"}
-                        size="lg"
-                        key={category.id}
-                        onClick={() => handleCategoryClick(category)}
-
-                    >
-                        {category.category}
-                    </Button>
+                    <img className="m-3" src={category.image} alt={category.category}
+                         onClick={() => handleCategoryClick(category)}/>
                 ))}
             </div>
-            <div className="d-flex justify-content-evenly">
+            <div>
                 {showTypeBar && <TypeBar/>}
             </div>
         </div>

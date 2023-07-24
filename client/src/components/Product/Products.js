@@ -18,7 +18,7 @@ const Products = () => {
     const filteredProducts = products.filter(product => selectedCategory.category === product.category && selectedType.type === product.type)
 
     return (
-        <div className="d-flex flex-row flex-wrap">
+        <div className="products m-3">
             {
                 filteredProducts.map(product =>
                     <Product key={product.id} product={product}/>)

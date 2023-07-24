@@ -2,9 +2,9 @@ import {Products} from "./Product/Products";
 import {CategoryBar} from "./CategoryBar";
 
 const Menu = () => {
-
     return (
-        <div className="m-2">
+        <div className="menu">
+            <div className="title" id="menu">Меню</div>
             <CategoryBar/>
             <Products/>
         </div>

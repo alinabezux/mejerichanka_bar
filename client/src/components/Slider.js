@@ -1,86 +1,63 @@
 import {Carousel} from "react-bootstrap";
-import music from './pictures/207002_Mud_Bars_Haus_1.jpg' ;
+import music from './pictures/жива музика.png' ;
+import hookah from './pictures/кальян.png'
+import bbq from './pictures/мангал-меню.png'
+import banket from './pictures/банкети.png'
+import bar from './pictures/MEJERICHANKA.png'
+import lunches from './pictures/комплексні обіди.png'
+import outside from './pictures/задній двір.png'
 
 const Slider = () => {
     return (
-        <Carousel>
+        <Carousel className="carousel" >
 
-            <Carousel.Item style={{'height': '500px'}}>
+            <Carousel.Item>
                 <img
-                    className="d-block w-100"
-                    src={music}
+                    src={bar}
                     alt="МЕЖИРІЧАНКА"
                 />
-                <Carousel.Caption>
-                    <h2>МЕЖИРІЧАНКА</h2>
-                </Carousel.Caption>
             </Carousel.Item>
 
-
-            <Carousel.Item style={{'height': '500px'}}>
+            <Carousel.Item>
                 <img
-                    className="d-block w-100"
-                    src={music}
+                    src={banket}
                     alt="Банкети"
                 />
-                <Carousel.Caption>
-                    <h3>Банкети</h3>
-                </Carousel.Caption>
             </Carousel.Item>
 
-            <Carousel.Item style={{'height': '500px'}}>
+            <Carousel.Item>
                 <img
-                    className="d-block w-100"
-                    src={music}
-                    alt=""
+                    src={lunches}
+                    alt="Комплексні обіди"
                 />
-                <Carousel.Caption>
-                    <h3>Комплексні обіди</h3>
-                </Carousel.Caption>
             </Carousel.Item>
 
-            <Carousel.Item style={{'height': '500px'}}>
+            <Carousel.Item>
                 <img
-                    className="d-block w-100"
-                    src={music}
+                    src={outside}
                     alt="Задній двір"
                 />
-                <Carousel.Caption>
-                    <h3>Задній двір</h3>
-                </Carousel.Caption>
             </Carousel.Item>
 
-            <Carousel.Item style={{'height': '500px'}}>
+            <Carousel.Item>
                 <img
-                    className="d-block w-100"
-                    src={music}
+                    src={bbq}
                     alt="Мангал-меню"
                 />
-                <Carousel.Caption>
-                    <h3>Мангал-меню</h3>
-                </Carousel.Caption>
             </Carousel.Item>
 
-            <Carousel.Item style={{'height': '500px'}}>
+            <Carousel.Item>
                 <img
-                    className="d-block w-100"
                     src={music}
                     alt="Жива музика"
                 />
-                <Carousel.Caption>
-                    <h3>Жива музика</h3>
-                </Carousel.Caption>
             </Carousel.Item>
 
-            <Carousel.Item style={{'height': '500px'}}>
+            <Carousel.Item>
                 <img
-                    className="d-block w-100"
-                    src={music}
+                    src={hookah}
                     alt="Кальянна кімната"
                 />
-                <Carousel.Caption>
-                    <h2>Кальянна кімната</h2>
-                </Carousel.Caption>
             </Carousel.Item>
 
         </Carousel>

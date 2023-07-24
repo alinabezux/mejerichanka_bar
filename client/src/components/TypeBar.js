@@ -1,31 +1,31 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {typesActions} from "../redux";
-import {ListGroup} from "react-bootstrap";
+import {Button} from "react-bootstrap";
 
 const TypeBar = () => {
     const dispatch = useDispatch();
-    const {types,selectedType} = useSelector(state => state.typesReducer);
+    const {types, selectedType} = useSelector(state => state.typesReducer);
 
     useEffect(() => {
         dispatch(typesActions.getAll())
     }, [dispatch]);
 
     return (
-        <ListGroup>
+        <div className="types">
             {
                 types.map(type =>
-                    <ListGroup.Item
-                        key={type.id}
-                        variant={selectedType === type ? "dark" : "light"}
-                        style={{cursor: 'pointer'}}
-                        onClick={() => dispatch(typesActions.setSelectedType(type))}
+                    <Button className=" m-3"
+                            variant={selectedType === type ? "dark" : "outline-dark"}
+                            size="lg"
+                            key={type.id}
+                            onClick={() => dispatch(typesActions.setSelectedType(type))}
                     >
                         {type.type}
-                    </ListGroup.Item>
+                    </Button>
                 )
             }
-        </ListGroup>
+        </div>
     );
 }
 

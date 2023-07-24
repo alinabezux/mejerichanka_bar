@@ -1,38 +1,191 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;500&family=Forum&family=Nunito:ital,wght@0,200;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600&display=swap');
+
+
+.hookah-page, .home-page, .about-page {
+    margin-top: -76px;
+    position: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.carousel img {
+    width: 100%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+
+h1, h2, h3, h4, h5 {
+    font-family: 'Nunito', sans-serif;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+p {
+    font-family: 'Forum', cursive;
+    font-size: xx-large;
+    color: white;
+    text-align: center;
+    margin: 20px 0;
 }
 
-.App-link {
-  color: #61dafb;
+.menu img {
+    height: 180px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
+    border-radius: 5rem;
+    border: transparent;
+    box-shadow: rgba(3, 3, 3, 0.27) 0px 1px 3px, rgb(71, 98, 114) 0px 1px 2px;
+
+}
+
+.btn-reserv {
+    box-shadow: rgba(165, 157, 157, 0.34) 0px 1px 3px, rgba(255, 0, 0, 0.51) 0px 1px 2px;
+}
+
+.navbar-links {
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    justify-content: center;
+    padding-left: 180px;
+}
+
+
+.title {
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    color: #3e2319;
+    font-family: 'Forum', sans-serif;
+    font-weight: 400;
+    font-size: 50px;
+}
+
+.categories, .types, .products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.categories img {
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.categories img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(31, 2, 2, 0.85);
+}
+
+.hook-content img {
+    max-height: 300px;
+    width: auto;
+    border-radius: 10%;
+    box-shadow: rgb(58, 1, 1) 0px 20px 30px -10px;
+}
+
+.hook-images, .ps {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 80%;
+}
+
+.hook-content {
+    margin: 40px 0;
+    width: 100%;
+    position: absolute;
+    top: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.hookah-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    position: center;
+}
+
+table {
+    border: none;
+    font-size: 25px;
+    font-family: 'Forum', cursive;
+    width: 550px;
+    position: center;
+    /*margin: 20px 0;*/
+}
+
+th {
+    border-bottom: 1px solid #bcc0c0;
+}
+
+.hook-fon img {
+    width: 100%;
+    position: center;
+}
+
+.about-page {
+    background-color: #321401;
+}
+
+.wrap div {
+    padding: 15px
+}
+
+.wrap-item {
+    display: flex;
+    /*flex-direction: row;*/
+    /*flex-wrap: wrap;*/
+    justify-content: space-between;
+
+}
+
+.wrap-item img {
+    width: 40vw;
+    height: auto;
+}
+
+.about-page h1 {
+    text-shadow: #ffdc40 1px 0 10px;
+}
+
+.delivery-info {
+    display: grid;
+    grid-template: 1fr/1fr 1fr 1fr 1fr;
+    grid-gap: 0 2vw;
+    padding: 0 5px;
+    text-align: center;
+}
+
+@media screen and (max-width: 1024px) {
+    .delivery-info {
+        grid-template: none;
+    }
+}
+
+
+.delivery-info-item {
+    padding: 20px 20px 30px;
+}
+
+.delivery-info-item p {
+    font-size: x-large;
+    padding: 0 8px;
+    text-shadow: none;
+    line-height: 1.6;
+}
+
+.admin-page {
+
 }
