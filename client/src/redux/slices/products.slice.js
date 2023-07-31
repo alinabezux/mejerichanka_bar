@@ -79,15 +79,15 @@ const productsSlice = createSlice({
                 state.error = action.payload
                 state.loading = false
             })
-            // .addCase(createProduct.fulfilled, (state, action) => {
-            //     state.products.push(action.payload)
-            //
-            // })
-            // .addCase(updateProduct.fulfilled, (state, action) => {
-            //     const findProduct = state.products.find(value => value.id === action.payload.id);
-            //     Object.assign(findProduct, action.payload)
-            //     state.selectedProduct = null
-            // })
+            .addCase(createProduct.fulfilled, (state, action) => {
+                state.products.push(action.payload)
+
+            })
+            .addCase(updateProduct.fulfilled, (state, action) => {
+                const findProduct = state.products.find(value => value.id === action.payload.id);
+                Object.assign(findProduct, action.payload)
+                state.selectedProduct = {}
+            })
             .addCase(deleteById.fulfilled, (state) => {
                 state.loading = false
                 state.error = null;

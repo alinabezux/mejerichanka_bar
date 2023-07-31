@@ -1,17 +1,32 @@
-import {Button, Form, Modal} from "react-bootstrap";
-import {useDispatch} from "react-redux";
+import {Button, Dropdown, Form, Modal} from "react-bootstrap";
+import {useDispatch, useSelector} from "react-redux";
 import {useState} from "react";
-import {productsActions} from "../../../redux";
+import {categoriesActions, productsActions, typesActions} from "../../../redux";
+import {useEffect} from "react";
 
 const CreateProduct = ({show, onHide}) => {
 
     const dispatch = useDispatch();
+    const {selectedCategory, categories} = useSelector(state => state.categoriesReducer);
+    const {selectedType, types} = useSelector(state => state.typesReducer);
 
     const [title, setTitle] = useState('')
     const [price, setPrice] = useState(0)
 
+    useEffect(() => {
+        dispatch(categoriesActions.getAll())
+        dispatch(typesActions.getAll())
+    }, [dispatch]);
+
+    const newProduct = {
+        title,
+        selectedCategory,
+        selectedType,
+        price
+    };
+
     const handleCreateProduct = async () => {
-        await dispatch(productsActions.createProduct({product: {title, price}}))
+        await dispatch(productsActions.createProduct({product: newProduct}))
         await dispatch(productsActions.getAll({}))
         setTitle('')
         setPrice(0)
@@ -33,6 +48,35 @@ const CreateProduct = ({show, onHide}) => {
                                   value={title}
                                   onChange={(e) => setTitle(e.target.value)}
                     />
+
+                    <Dropdown className="mt-2 mb-2">
+                        <Dropdown.Toggle>{selectedCategory.category || "Виберіть категорію"}</Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            {categories.map(category =>
+                                <Dropdown.Item
+                                    onClick={() => dispatch(categoriesActions.setSelectedCategory(category))}
+                                    key={category.id}
+                                >
+                                    {category.category}
+                                </Dropdown.Item>
+                            )}
+                        </Dropdown.Menu>
+                    </Dropdown>
+
+                    <Dropdown className="mt-2 mb-2">
+                        <Dropdown.Toggle>{selectedType.type || "Виберіть тип"}</Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            {types.map(type =>
+                                <Dropdown.Item
+                                    onClick={() => dispatch(typesActions.setSelectedType(type))}
+                                    key={type.id}
+                                >
+                                    {type.type}
+                                </Dropdown.Item>
+                            )}
+                        </Dropdown.Menu>
+                    </Dropdown>
+
                     <Form.Control className="mb-3"
                                   type="number"
                                   placeholder="Введіть ціну продукту"

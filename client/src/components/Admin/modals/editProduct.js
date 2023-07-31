@@ -48,7 +48,7 @@ const EditProduct = ({show, onHide}) => {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="outline-success" onClick={onHide}>Закрити</Button>
+                <Button variant="outline-danger" onClick={onHide}>Закрити</Button>
             </Modal.Footer>
         </Modal>
     );
