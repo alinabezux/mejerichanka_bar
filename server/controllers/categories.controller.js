@@ -1,4 +1,6 @@
 const Category = require('../dataBase/models/Category');
+const uuid = require("uuid");
+const path = require("path");
 
 module.exports = {
     getAllCategories: async (req, res, next) => {
@@ -22,13 +24,14 @@ module.exports = {
     },
     createCategory: async (req, res, next) => {
         try {
-            await Category.create(req.body);
+            const category = await Category.create(req.body);
 
-            res.status(201).json('Created.');
+            res.json(category)
         } catch (e) {
             next(e)
         }
     },
+
     deleteCategory: async (req, res, next) => {
         try {
             const {categoryId} = req.params;

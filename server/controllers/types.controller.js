@@ -6,7 +6,7 @@ module.exports = {
         try {
             const types = await Type.find({});
 
-            res.json(types);
+            return res.json(types);
         } catch (e) {
             next(e);
         }
@@ -22,7 +22,9 @@ module.exports = {
     },
     deleteType: async (req, res, next) => {
         try {
-            await Type.deleteOne({_id: req.params.typeId});
+            const {typeId} = req.params;
+
+            await Type.deleteOne({_id: typeId});
 
             res.status(204).json('Deleted.');
         } catch (e) {

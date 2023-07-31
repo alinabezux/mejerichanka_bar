@@ -20,7 +20,7 @@ module.exports = {
                 products = await Product.find({category, type});
 
             }
-             return res.json(products);
+            return res.json(products);
         } catch (e) {
             next(e);
         }
@@ -38,7 +38,7 @@ module.exports = {
         try {
             const product = await Product.create(req.body);
 
-            return res.status(201).json(product);
+            return res.json(product);
 
         } catch (e) {
             next(e)

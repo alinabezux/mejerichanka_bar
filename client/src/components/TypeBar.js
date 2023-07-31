@@ -5,7 +5,7 @@ import {Button} from "react-bootstrap";
 
 const TypeBar = () => {
     const dispatch = useDispatch();
-    const {types, selectedType} = useSelector(state => state.typesReducer);
+    const {types, selectedType, loading, error} = useSelector(state => state.typesReducer);
 
     useEffect(() => {
         dispatch(typesActions.getAll())
@@ -25,6 +25,8 @@ const TypeBar = () => {
                     </Button>
                 )
             }
+            {loading && <h1>Loading...........</h1>}
+            {error && <h1>Error:(</h1>}
         </div>
     );
 }

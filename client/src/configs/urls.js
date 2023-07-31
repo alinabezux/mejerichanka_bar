@@ -1,7 +1,7 @@
 const baseURL = 'http://localhost:5000/'
 
 const urls = {
-    products: 'api/products',
+    products: '/api/products',
     categories: '/api/categories',
     types: '/api/types',
     users: '/api/users',

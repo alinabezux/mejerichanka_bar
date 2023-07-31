@@ -5,7 +5,7 @@ import {TypeBar} from "./TypeBar";
 
 const CategoryBar = () => {
     const dispatch = useDispatch();
-    const {categories, selectedCategory} = useSelector(state => state.categoriesReducer);
+    const {categories, loading, error} = useSelector(state => state.categoriesReducer);
     const [showTypeBar, setShowTypeBar] = useState(false);
 
     useEffect(() => {
@@ -29,6 +29,8 @@ const CategoryBar = () => {
                          onClick={() => handleCategoryClick(category)}/>
                 ))}
             </div>
+                {loading && <h1>Loading...........</h1>}
+                {error && <h1>Error:(</h1>}
             <div>
                 {showTypeBar && <TypeBar/>}
             </div>

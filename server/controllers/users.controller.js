@@ -8,7 +8,7 @@ module.exports = {
         try {
             const users = await User.find({});
 
-            res.json(users);
+            return res.json(users);
         } catch (e) {
             next(e);
         }
@@ -16,7 +16,7 @@ module.exports = {
 
     getUserById: (req, res, next) => {
         try {
-            res.json(req.user);
+            return res.json(req.user);
         } catch (e) {
             next(e)
         }

@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const fileUpload = require('express-fileupload');
@@ -11,9 +12,12 @@ const router = require('../server/routes/index');
 const accountRouter = require("../server/routes/account.router");
 
 const app = express();
+app.use(bodyParser.json({limit: "30mb", extended: true}));
+app.use(bodyParser.urlencoded({limit: "30mb", extended: true}));
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+// app.use(express.json());
+// app.use(express.urlencoded({extended: true}));
+app.use(bodyParser.json());
 app.use(express.static(path.resolve(__dirname, 'static')))
 app.use(fileUpload({}));
 

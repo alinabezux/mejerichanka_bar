@@ -1,18 +1,19 @@
 const typesRouter = require('express').Router();
 
 const typesController = require("../controllers/types.controller");
-const checkRoleMiddleware = require('../middlewares/checkRole.middleware');
+const typesMiddleware = require("../middlewares/type.middleware")
+// const checkRoleMiddleware = require('../middlewares/checkRole.middleware');
 
 typesRouter.get('/',
-    // checkRoleMiddleware.checkRole,
     typesController.getAllTypes);
 
-typesRouter.post('/new',
-    checkRoleMiddleware.checkRole,
+typesRouter.post('/',
+    // checkRoleMiddleware.checkRole,
+    typesMiddleware.checkIfTypeExistsForTypes,
     typesController.createType);
 
-typesRouter.delete('/delete/:typeId',
-    checkRoleMiddleware.checkRole,
+typesRouter.delete('/:typeId',
+    // checkRoleMiddleware.checkRole,
     typesController.deleteType);
 
 module.exports = typesRouter;

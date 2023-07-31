@@ -17,5 +17,21 @@ module.exports = {
         } catch (e) {
             next(e);
         }
+    },
+    checkIfCategoryExistsForCategories: async (req, res, next) => {
+        try {
+            const categoryOfProduct = req.body.category;
+
+            const category = await Category.findOne({category: `${categoryOfProduct}`});
+
+            if (category) {
+                throw new NotFoundError(`Category ${categoryOfProduct}  exists in database.`)
+            }
+
+            next();
+
+        } catch (e) {
+            next(e);
+        }
     }
 }

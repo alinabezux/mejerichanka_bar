@@ -1,7 +1,6 @@
 import corporativ from '../components/pictures/корпоратив.jpg'
 import zadniydvir from '../components/pictures/zadniy dvir.jpg'
 import money from '../components/pictures/гроші.png'
-import inst from '../components/pictures/inst.jpg'
 import basket from '../components/pictures/кошик.png'
 import dostavka from '../components/pictures/доставка.png'
 import strava from '../components/pictures/страва.png'

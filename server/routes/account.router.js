@@ -23,9 +23,7 @@ accountRouter.post('/auth/refresh',
     authMiddleware.checkRefreshToken,
     authController.refresh)
 
-// accountRouter.post('/auth/logOut',
-//     authController.logOut);
-
+//корзина певного юзера
 accountRouter.get('/basket/:userId',
     authMiddleware.checkAccessToken,
     usersMiddleware.checkIfUserExists,

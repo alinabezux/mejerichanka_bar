@@ -20,11 +20,34 @@ const getAll = createAsyncThunk(
     }
 );
 
-const getProductById = createAsyncThunk(
-    'productsSlice/getProductById',
-    async (productId, {rejectWithValue}) => {
+const createProduct = createAsyncThunk(
+    'productsSlice/createProduct',
+    async ({product}, {rejectWithValue}) => {
         try {
-            const {data} = await productsService.getProductById(productId);
+            const {data} = await productsService.createProduct(product);
+            return data;
+        } catch (e) {
+            return rejectWithValue(e.response.data)
+        }
+    }
+);
+
+const deleteById = createAsyncThunk(
+    'productsSlice/deleteById',
+    async ({productId}, {rejectWithValue}) => {
+        try {
+            await productsService.deleteById(productId);
+        } catch (e) {
+            return rejectWithValue(e.response.data)
+        }
+    }
+);
+
+const updateProduct = createAsyncThunk(
+    'productsSlice/updateProduct',
+    async ({productId, product}, {rejectWithValue}) => {
+        try {
+            const {data} = await productsService.updateProduct(productId, product);
             return data
         } catch (e) {
             return rejectWithValue(e.response.data)
@@ -32,42 +55,50 @@ const getProductById = createAsyncThunk(
     }
 );
 
+
 const productsSlice = createSlice({
     name: 'productsSlice',
     initialState,
-    reducers: {},
+    reducers: {
+        setSelectedProduct: (state, action) => {
+            state.selectedProduct = action.payload
+            console.log(action.payload);
+        }
+    },
     extraReducers: builder =>
         builder
             .addCase(getAll.fulfilled, (state, action) => {
                 state.products = action.payload
-                state.loadiing = false
+                state.loading = false
+                state.error = null
             })
             .addCase(getAll.pending, (state) => {
-                state.loadiing = true
+                state.loading = true
             })
             .addCase(getAll.rejected, (state, action) => {
                 state.error = action.payload
-                state.loadiing = false
+                state.loading = false
             })
-
-            .addCase(getProductById.fulfilled, (state, action) => {
-                state.selectedProduct = action.payload
-                state.loadiing = false
-            })
-            .addCase(getProductById.pending, (state) => {
-                state.loadiing = true
-            })
-            .addCase(getProductById.rejected, (state, action) => {
-                state.error = action.payload
-                state.loadiing = false
+            // .addCase(createProduct.fulfilled, (state, action) => {
+            //     state.products.push(action.payload)
+            //
+            // })
+            // .addCase(updateProduct.fulfilled, (state, action) => {
+            //     const findProduct = state.products.find(value => value.id === action.payload.id);
+            //     Object.assign(findProduct, action.payload)
+            //     state.selectedProduct = null
+            // })
+            .addCase(deleteById.fulfilled, (state) => {
+                state.loading = false
+                state.error = null;
             })
 
 });
 
-const {reducer: productsReducer} = productsSlice;
+const {reducer: productsReducer, actions: {setSelectedProduct}} = productsSlice;
 
 const productsActions = {
-    getAll, getProductById
+    getAll, createProduct, updateProduct, setSelectedProduct, deleteById
 }
 
 export {
