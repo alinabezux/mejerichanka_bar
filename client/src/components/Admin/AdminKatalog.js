@@ -17,6 +17,26 @@ const AdminKatalog = () => {
     const [typeVisible, setTypeVisible] = useState(false);
 
 
+    const handleEditProduct = (product) => {
+        dispatch(productsActions.setSelectedProduct(product))
+        setEditProductVisible(true)
+    }
+
+    const handleDeleteProduct = async (product) => {
+        await dispatch(productsActions.deleteById({productId: product._id}))
+        dispatch(productsActions.getAll({}))
+    }
+
+    const handleDeleteCategory = async (category) => {
+        await dispatch(categoriesActions.deleteById({categoryId: category._id}));
+        dispatch(categoriesActions.getAll())
+    }
+
+    const handleDeleteType = async (type) => {
+        await dispatch(typesActions.deleteById({typeId: type._id}))
+        dispatch(typesActions.getAll())
+    }
+
     useEffect(() => {
         dispatch(productsActions.getAll({}))
         dispatch(categoriesActions.getAll())
@@ -84,20 +104,14 @@ const AdminKatalog = () => {
                                                     margin: '5px'
                                                 }}>
                                                     <Button style={{marginBottom: '10px'}}
-                                                            onClick={() => {
-                                                                dispatch(productsActions.setSelectedProduct(product))
-                                                                setEditProductVisible(true)
-                                                            }}
+                                                            onClick={() => handleEditProduct(product)}
                                                     >Редагувати</Button>
 
                                                     <EditProduct show={editProductVisible}
                                                                  onHide={() => setEditProductVisible(false)}
                                                     />
-
-                                                    <Button onClick={async () => {
-                                                        await dispatch(productsActions.deleteById({productId: product._id}))
-                                                        dispatch(productsActions.getAll({}))
-                                                    }} variant={'outline-danger'}>Видалити</Button>
+                                                    <Button onClick={() => handleDeleteProduct(product)}
+                                                            variant={'outline-danger'}>Видалити</Button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -139,10 +153,7 @@ const AdminKatalog = () => {
                                             }}>
                                                 {category.category}
                                                 <Button
-                                                    onClick={async () => {
-                                                        await dispatch(categoriesActions.deleteById({categoryId: category._id}));
-                                                        dispatch(categoriesActions.getAll());
-                                                    }}
+                                                    onClick={() => handleDeleteCategory(category)}
                                                     variant={'outline-danger'}>Видалити</Button>
                                             </div>
                                         </td>
@@ -156,9 +167,11 @@ const AdminKatalog = () => {
                         {/*//типи*/}
                         <Tab.Pane eventKey="types">
 
-                            <Button onClick={() => setTypeVisible(true)} variant={'success'}>+ Cтворити</Button>
+                            <Button onClick={() => setTypeVisible(true)}
+                                    variant={'success'}>+ Cтворити</Button>
 
-                            <CreateType show={typeVisible} onHide={() => setTypeVisible(false)}/>
+                            <CreateType show={typeVisible}
+                                        onHide={() => setTypeVisible(false)}/>
 
                             <Table style={{fontFamily: '\'Nunito\', sans-serif'}}>
                                 <thead>
@@ -177,10 +190,8 @@ const AdminKatalog = () => {
                                                 margin: '5px'
                                             }}>
                                                 {type.type}
-                                                <Button onClick={async () => {
-                                                    await dispatch(typesActions.deleteById({typeId: type._id}))
-                                                    dispatch(typesActions.getAll())
-                                                }} variant={'outline-danger'}>Видалити</Button>
+                                                <Button onClick={() => handleDeleteType(type)}
+                                                        variant={'outline-danger'}>Видалити</Button>
                                             </div>
                                         </td>
                                     </tr>

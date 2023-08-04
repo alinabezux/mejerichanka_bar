@@ -25,13 +25,13 @@ module.exports = {
     },
     isNewProductValid: async (req, res, next) => {
         try {
-            let validate = productValidator.newProductValidator.validate(req.body);
+            let validate = productValidator.newProductValidator.validate(req.body.product);
 
             if (validate.error) {
                 throw new ApiError(validate.error.message);
             }
 
-            req.body = validate.value;
+            req.body.product = validate.value;
 
             next()
         } catch (e) {
@@ -40,13 +40,13 @@ module.exports = {
     },
     isEditProductValid: async (req, res, next) => {
         try {
-            let validate = productValidator.editProductValidator.validate(req.body);
+            let validate = productValidator.editProductValidator.validate(req.body.product);
 
             if (validate.error) {
                 throw new ApiError(validate.error.message);
             }
 
-            req.body = validate.value;
+            req.body.product = validate.value;
 
             next()
         } catch (e) {

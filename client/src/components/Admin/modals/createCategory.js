@@ -12,11 +12,13 @@ const CreateCategory = ({show, onHide}) => {
     // const selectFile = e => {
     //     setFile(e.target.files[0])
     // }
+
     const handleCreateCategory = async () => {
         await dispatch(categoriesActions.createCategory({category: category}))
+        onHide()
         dispatch(categoriesActions.getAll())
         setCategory('')
-        onHide()
+        // setFile(null)
     };
 
 
@@ -35,7 +37,10 @@ const CreateCategory = ({show, onHide}) => {
                                   value={category}
                                   onChange={(e) => setCategory(e.target.value)}
                     />
-                    {/*<Form.Control type="file" onChange={selectFile}/>*/}
+                    {/*<Form.Control className="mt-3"*/}
+                    {/*              type="file"*/}
+                    {/*              onChange={selectFile}*/}
+                    {/*/>*/}
                 </Form>
             </Modal.Body>
             <Modal.Footer>

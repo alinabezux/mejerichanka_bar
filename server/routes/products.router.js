@@ -18,7 +18,7 @@ productsRouter.post('/',
     // checkRoleMiddleware.checkRole,
     // categoriesMiddleware.checkIfCategoryExists,
     // typesMiddleware.checkIfTypeExists,
-    // productsMiddleware.isNewProductValid,
+    productsMiddleware.isNewProductValid,
     productsController.createProduct);
 
 productsRouter.delete('/:productId',
@@ -32,10 +32,10 @@ productsRouter.put('/:productId',
     productsMiddleware.isEditProductValid,
     productsController.updateProduct);
 
-productsRouter.patch('/:productId',
-    // checkRoleMiddleware.checkRole,
-    productsMiddleware.checkIfProductExists,
-    productsMiddleware.checkImage,
-    productsController.uploadImage);
+// productsRouter.patch('/:productId',
+//     checkRoleMiddleware.checkRole,
+//     productsMiddleware.checkIfProductExists,
+//     productsMiddleware.checkImage,
+//     productsController.uploadImage);
 
 module.exports = productsRouter;

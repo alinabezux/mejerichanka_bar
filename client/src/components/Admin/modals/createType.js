@@ -11,9 +11,9 @@ const CreateType = ({show, onHide}) => {
 
     const handleCreateType = async () => {
         await dispatch(typesActions.createType({type: value}))
+        onHide()
         dispatch(typesActions.getAll())
         setValue('')
-        onHide()
     }
 
     return (
