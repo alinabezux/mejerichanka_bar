@@ -1,7 +1,5 @@
-const uuid = require('uuid');
-const path = require('path');
-
 const Product = require('../dataBase/models/Product');
+const S3Service = require('../services/s3.service')
 
 module.exports = {
 
@@ -49,9 +47,6 @@ module.exports = {
         try {
             const newInfo = req.body.product;
             const productId = req.params.productId;
-            // const {image} = req.files;
-            // const fileName = uuid.v4() + ".jpg";
-            // image.mv(path.resolve(__dirname, '..', 'static', fileName));
 
             const updatedProduct = await Product.findByIdAndUpdate(productId, newInfo, {new: true});
             res.status(201).json(updatedProduct);
@@ -60,19 +55,16 @@ module.exports = {
             next(e)
         }
     },
-    // uploadImage: async (req, res, next) => {
-    //     try {
-    //         const {image} = req.files;
-    //         const fileName = uuid.v4() + ".jpg";
-    //         image.mv(path.resolve(__dirname, '..', 'static', fileName));
-    //
-    //         const uploadedImage = await Product.findByIdAndUpdate(req.product._id, {image: fileName}, {new: true});
-    //
-    //         res.status(201).json(uploadedImage);
-    //     } catch (e) {
-    //         next(e);
-    //     }
-    // },
+    uploadImage: async (req, res, next) => {
+        try {
+            const sendData = await S3Service.uploadPublicFile(req.files.image, 'products', req.params.productId);
+            const newProduct = await Product.findByIdAndUpdate(req.params.productId, {image: sendData.Location}, {new: true});
+
+            res.json(newProduct);
+        } catch (e) {
+            next(e);
+        }
+    },
 
     deleteProduct: async (req, res, next) => {
         try {

@@ -2,7 +2,7 @@ import {Button, Col, Nav, Row, Tab, Table} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {categoriesActions, productsActions, typesActions} from "../../redux";
-import {CreateCategory, CreateProduct, CreateType, EditProduct} from "./modals";
+import {CreateCategory, CreateProduct, CreateType, EditProduct, UploadPhotoProduct} from "./modals";
 
 const AdminKatalog = () => {
     const dispatch = useDispatch();
@@ -13,6 +13,8 @@ const AdminKatalog = () => {
 
     const [productVisible, setProductVisible] = useState(false);
     const [editProductVisible, setEditProductVisible] = useState(false);
+    const [uploadPhotoProductVisible, setUploadPhotoProductVisible] = useState(false);
+
     const [categoryVisible, setCategoryVisible] = useState(false);
     const [typeVisible, setTypeVisible] = useState(false);
 
@@ -20,6 +22,11 @@ const AdminKatalog = () => {
     const handleEditProduct = (product) => {
         dispatch(productsActions.setSelectedProduct(product))
         setEditProductVisible(true)
+    }
+
+    const handleUploadPhotoProduct = (product) => {
+        dispatch(productsActions.setSelectedProduct(product))
+        setUploadPhotoProductVisible(true)
     }
 
     const handleDeleteProduct = async (product) => {
@@ -110,6 +117,16 @@ const AdminKatalog = () => {
                                                     <EditProduct show={editProductVisible}
                                                                  onHide={() => setEditProductVisible(false)}
                                                     />
+
+                                                    <Button style={{marginBottom: '10px'}}
+                                                            variant={'secondary'}
+                                                            onClick={() => handleUploadPhotoProduct(product)}
+                                                    >+ Фото</Button>
+
+                                                    <UploadPhotoProduct show={uploadPhotoProductVisible}
+                                                                        onHide={() => setUploadPhotoProductVisible(false)}
+                                                    />
+
                                                     <Button onClick={() => handleDeleteProduct(product)}
                                                             variant={'outline-danger'}>Видалити</Button>
                                                 </div>

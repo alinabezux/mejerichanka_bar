@@ -54,7 +54,7 @@ const EditProduct = ({show, onHide}) => {
                                   {...register('price', {required: true})}
                     />
 
-                    <Button variant="outline-success" disabled={!isValid} type='submit'>Зберегти</Button>
+                    <Button variant="outline-success" disabled={!isValid} type='submit' onClick={onHide}>Зберегти</Button>
                 </Form>
             </Modal.Body>
             <Modal.Footer>

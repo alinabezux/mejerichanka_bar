@@ -59,18 +59,14 @@ module.exports = {
                 throw new ApiError(404, 'There is no file to upload.');
             }
 
-            const filesToUpload = Object.values(req.files);
+            const {name, size, mimetype} = req.files.image;
 
-            for (const file of filesToUpload) {
-                const {name, size, mimetype} = file;
+            if (size > IMAGE_MAX_SIZE) {
+                throw new ApiError(400, `File ${name} is too big.`,);
+            }
 
-                if (size > IMAGE_MAX_SIZE) {
-                    throw new ApiError(400, `File ${name} is too big.`,);
-                }
-
-                if (!IMAGE_MIMETYPES.includes(mimetype)) {
-                    throw new ApiError(400, `File ${name} has invalid format.`);
-                }
+            if (!IMAGE_MIMETYPES.includes(mimetype)) {
+                throw new ApiError(400, `File ${name} has invalid format.`);
             }
 
             next();

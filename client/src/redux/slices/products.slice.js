@@ -55,6 +55,17 @@ const updateProduct = createAsyncThunk(
     }
 );
 
+const uploadPhoto = createAsyncThunk(
+    'productsSlice/uploadPhoto',
+    async ({productId, image}, {rejectWithValue}) => {
+        try {
+            const {data} = await productsService.uploadPhoto(productId, image);
+            return data
+        } catch (e) {
+            return rejectWithValue(e.response.data)
+        }
+    }
+);
 
 const productsSlice = createSlice({
     name: 'productsSlice',
@@ -79,15 +90,25 @@ const productsSlice = createSlice({
                 state.error = action.payload
                 state.loading = false
             })
+
+
             .addCase(createProduct.fulfilled, (state, action) => {
                 state.products.push(action.payload)
 
             })
+
             .addCase(updateProduct.fulfilled, (state, action) => {
                 const findProduct = state.products.find(value => value.id === action.payload.id);
                 Object.assign(findProduct, action.payload)
                 state.selectedProduct = null
             })
+
+            .addCase(uploadPhoto.fulfilled, (state, action) => {
+                const findProduct = state.products.find(value => value.id === action.payload.id);
+                Object.assign(findProduct, action.payload)
+                state.selectedProduct = null
+            })
+
             .addCase(deleteById.fulfilled, (state) => {
                 state.loading = false
                 state.error = null;
@@ -98,7 +119,7 @@ const productsSlice = createSlice({
 const {reducer: productsReducer, actions: {setSelectedProduct}} = productsSlice;
 
 const productsActions = {
-    getAll, createProduct, updateProduct, setSelectedProduct, deleteById
+    getAll, createProduct, updateProduct, setSelectedProduct, deleteById, uploadPhoto
 }
 
 export {
