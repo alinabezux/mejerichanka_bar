@@ -97,17 +97,20 @@ const productsSlice = createSlice({
 
             })
 
+
             .addCase(updateProduct.fulfilled, (state, action) => {
                 const findProduct = state.products.find(value => value.id === action.payload.id);
                 Object.assign(findProduct, action.payload)
                 state.selectedProduct = null
             })
 
+
             .addCase(uploadPhoto.fulfilled, (state, action) => {
                 const findProduct = state.products.find(value => value.id === action.payload.id);
                 Object.assign(findProduct, action.payload)
                 state.selectedProduct = null
             })
+
 
             .addCase(deleteById.fulfilled, (state) => {
                 state.loading = false

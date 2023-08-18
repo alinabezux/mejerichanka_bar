@@ -19,14 +19,19 @@ const CategoryBar = () => {
         } else {
             setShowTypeBar(false);
         }
+
     };
 
     return (
         <div className="categories">
             <div>
                 {categories.map(category => (
-                    <img className="m-3" src={category.image} alt={category.category}
-                         onClick={() => handleCategoryClick(category)}/>
+                    <img
+                        className="m-3"
+                        key={category._id}
+                        src={category.image}
+                        alt={category.category}
+                        onClick={() => handleCategoryClick(category)}/>
                 ))}
             </div>
                 {loading && <h1>Loading...........</h1>}

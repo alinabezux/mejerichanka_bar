@@ -5,8 +5,12 @@ const urls = {
     categories: '/api/categories',
     types: '/api/types',
     users: '/api/users',
-
-    account: '/account'
+    auth: {
+        registration: '/account/registration',
+        logIn: '/account/logIn',
+        refresh: '/account/refresh',
+        basket: '/account/basket'
+    }
 
 }
 

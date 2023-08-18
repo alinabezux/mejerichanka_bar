@@ -1,10 +1,10 @@
-import corporativ from '../components/pictures/корпоратив.jpg'
-import zadniydvir from '../components/pictures/zadniy dvir.jpg'
-import money from '../components/pictures/гроші.png'
-import basket from '../components/pictures/кошик.png'
-import dostavka from '../components/pictures/доставка.png'
-import strava from '../components/pictures/страва.png'
-import mjrch from '../components/pictures/MEJERICHANKA (2).png'
+import corporativ from '../assets/korporatuv.jpg'
+import zadniydvir from '../assets/zadniydvir.jpg'
+import money from '../assets/money.png'
+import basket from '../assets/backet.png'
+import dostavka from '../assets/delivery.png'
+import strava from '../assets/strava.png'
+import mjrch from '../assets/MEJERICHANKA(2).png'
 
 const AboutUsPage = () => {
     return (
@@ -30,10 +30,11 @@ const AboutUsPage = () => {
                 <div id="reserve">
                     <h1 style={{textAlign: 'center', color: 'white', fontFamily: 'Forum'}}>Резервація</h1>
                     <div className="wrap-item">
-                        <iframe
+                        <iframe title="location"
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2546.611076776012!2d24.20277057632659!3d50.33650687157065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4724d8443a8246e1%3A0x8aeca3e461e1f833!2z0JzQtdC20LjRgNGW0YfQsNC90LrQsA!5e0!3m2!1suk!2sua!4v1690191306814!5m2!1suk!2sua"
                             width="600" height="450" allowFullScreen="" loading="lazy"
-                            referrerPolicy="no-referrer-when-downgrade"></iframe>
+                            referrerPolicy="no-referrer-when-downgrade">
+                        </iframe>
                         <p>Зарезервувати столик чи подію можна за телефоном:
                             <br/> <b>+380 96 097 00 68</b> <br/>
                             Ми знаходимось за адресою:

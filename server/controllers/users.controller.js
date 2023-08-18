@@ -24,13 +24,13 @@ module.exports = {
 
     createUser: async (req, res, next) => {
         try {
-            const hashPassword = await OAuthService.hashPassword(req.body.password);
+            const hashPassword = await OAuthService.hashPassword(req.body.user.password);
 
-            const user = await User.create({...req.body, password: hashPassword});
+            const user = await User.create({...req.body.user, password: hashPassword});
 
             await Basket.create({_user: user._id});
 
-            res.status(201).json('The user is registered.')
+            res.status(201).json('User is registered.')
         } catch (e) {
             next(e);
         }

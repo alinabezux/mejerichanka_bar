@@ -52,7 +52,7 @@ const typesSlice = createSlice({
     reducers: {
         setSelectedType: (state, action) => {
             state.selectedType = action.payload
-            console.log(action.payload);
+
         },
     },
     extraReducers: builder =>
@@ -60,6 +60,7 @@ const typesSlice = createSlice({
             .addCase(getAll.fulfilled, (state, action) => {
                 state.types = action.payload
                 state.loading = false
+
             })
             .addCase(getAll.pending, (state) => {
                 state.loading = true

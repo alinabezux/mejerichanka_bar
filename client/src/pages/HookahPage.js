@@ -1,9 +1,9 @@
-import fon from "../components/pictures/кальян фон менший.png";
-import hookah1 from '../components/pictures/кальян червоний фото.jpg'
-import hookah2 from '../components/pictures/кальян + коктейль.jpg'
-import hookah3 from '../components/pictures/кальяни.jpg'
-import ps from '../components/pictures/ps.jpg'
-import fifa from '../components/pictures/fifa.jpg'
+import fon from "../assets/fonlittle.png";
+import hookah1 from '../assets/redhookah.jpg'
+import hookah2 from '../assets/hookanandcoctail.jpg'
+import hookah3 from '../assets/hookahs.jpg'
+import ps from '../assets/ps.jpg'
+import fifa from '../assets/fifa.jpg'
 
 const HookahPage = () => {
     return (

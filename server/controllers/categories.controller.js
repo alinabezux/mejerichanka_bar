@@ -1,6 +1,5 @@
 const Category = require('../dataBase/models/Category');
-const uuid = require("uuid");
-const path = require("path");
+const S3Service = require("../services/s3.service");
 
 module.exports = {
     getAllCategories: async (req, res, next) => {
@@ -29,6 +28,17 @@ module.exports = {
             res.json(category)
         } catch (e) {
             next(e)
+        }
+    },
+
+    uploadImage: async (req, res, next) => {
+        try {
+            const sendData = await S3Service.uploadPublicFile(req.files.image, 'categories', req.params.categoryId);
+            const updatedCategory = await Category.findByIdAndUpdate(req.params.categoryId, {image: sendData.Location}, {new: true});
+
+            res.json(updatedCategory);
+        } catch (e) {
+            next(e);
         }
     },
 

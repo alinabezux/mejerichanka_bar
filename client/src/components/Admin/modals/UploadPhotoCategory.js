@@ -1,15 +1,15 @@
 import {useDispatch, useSelector} from "react-redux";
-import {productsActions} from "../../../redux";
 import {Button, Form, Modal} from "react-bootstrap";
 import {useState} from "react";
+import {categoriesActions} from "../../../redux";
 
 
-const UploadPhotoProduct = ({show, onHide}) => {
+const UploadPhotoCategory = ({show, onHide}) => {
 
     const [file, setFile] = useState(null)
 
     const dispatch = useDispatch();
-    const {selectedProduct} = useSelector(state => state.productsReducer);
+    const {selectedCategory} = useSelector(state => state.categoriesReducer);
 
     const selectFile = e => {
         setFile(e.target.files[0])
@@ -22,10 +22,10 @@ const UploadPhotoProduct = ({show, onHide}) => {
                 const formData = new FormData();
                 formData.append('image', file);
 
-                await dispatch(productsActions.uploadPhoto({productId: selectedProduct._id, image: formData}))
+                await dispatch(categoriesActions.uploadPhoto({categoryId: selectedCategory._id, image: formData}))
             }
             onHide();
-            await dispatch(productsActions.getAll({}))
+            await dispatch(categoriesActions.getAll())
         } catch (error) {
             console.error('Помилка під час завантаження файлу ', error);
         }
@@ -56,4 +56,4 @@ const UploadPhotoProduct = ({show, onHide}) => {
     );
 }
 
-export {UploadPhotoProduct}
+export {UploadPhotoCategory}

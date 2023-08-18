@@ -37,7 +37,7 @@ p {
 .btn {
     font-family: 'Nunito', sans-serif;
     font-weight: 400;
-    border-radius: 5rem;
+    border-radius: 2rem;
     border: transparent;
     box-shadow: rgba(3, 3, 3, 0.27) 0px 1px 3px, rgb(71, 98, 114) 0px 1px 2px;
 
@@ -186,6 +186,3 @@ th {
     line-height: 1.6;
 }
 
-.admin-page {
-
-}

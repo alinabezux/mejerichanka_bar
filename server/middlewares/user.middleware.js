@@ -27,7 +27,7 @@ module.exports = {
     getUserByEmail: async (req, res, next) => {
         try {
 
-            const {email} = req.body;
+            const {email} = req.body.user;
 
             const user = await User.findOne({email});
 
@@ -45,13 +45,13 @@ module.exports = {
 
     isNewUserValid: async (req, res, next) => {
         try {
-            let validate = userValidator.newUserValidator.validate(req.body);
+            let validate = userValidator.newUserValidator.validate(req.body.user);
 
             if (validate.error) {
                 throw new ApiError(validate.error.message);
             }
 
-            req.body = validate.value;
+            req.body.user = validate.value;
 
             next()
         } catch (e) {
@@ -60,7 +60,7 @@ module.exports = {
     },
     checkIsEmailUnique: async (req, res, next) => {
         try {
-            const {email} = req.body;
+            const {email} = req.body.user;
 
             if (!email) {
                 throw new ApiError(400, 'Email not present');

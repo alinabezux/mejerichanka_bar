@@ -56,7 +56,7 @@ module.exports = {
     checkImage: async (req, res, next) => {
         try {
             if (!req.files) {
-                throw new ApiError(404, 'There is no file to upload.');
+                throw new ApiError(403, 'There file to upload.');
             }
 
             const {name, size, mimetype} = req.files.image;

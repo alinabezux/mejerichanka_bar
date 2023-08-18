@@ -2,7 +2,14 @@ import {Button, Col, Nav, Row, Tab, Table} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {categoriesActions, productsActions, typesActions} from "../../redux";
-import {CreateCategory, CreateProduct, CreateType, EditProduct, UploadPhotoProduct} from "./modals";
+import {
+    CreateCategory,
+    CreateProduct,
+    CreateType,
+    EditProduct,
+    UploadPhotoCategory,
+    UploadPhotoProduct,
+} from "./modals";
 
 const AdminKatalog = () => {
     const dispatch = useDispatch();
@@ -14,35 +21,42 @@ const AdminKatalog = () => {
     const [productVisible, setProductVisible] = useState(false);
     const [editProductVisible, setEditProductVisible] = useState(false);
     const [uploadPhotoProductVisible, setUploadPhotoProductVisible] = useState(false);
-
+    const [uploadPhotoCategoryVisible, setUploadPhotoCategoryVisible] = useState(false);
     const [categoryVisible, setCategoryVisible] = useState(false);
     const [typeVisible, setTypeVisible] = useState(false);
 
-
+    //edit
     const handleEditProduct = (product) => {
         dispatch(productsActions.setSelectedProduct(product))
         setEditProductVisible(true)
-    }
+    };
 
+    //uploadPhoto
     const handleUploadPhotoProduct = (product) => {
         dispatch(productsActions.setSelectedProduct(product))
         setUploadPhotoProductVisible(true)
-    }
+    };
 
+    const handleUploadPhotoCategory = (category) => {
+        dispatch(categoriesActions.setSelectedCategory(category))
+        setUploadPhotoCategoryVisible(true)
+    };
+
+    //delete
     const handleDeleteProduct = async (product) => {
         await dispatch(productsActions.deleteById({productId: product._id}))
         dispatch(productsActions.getAll({}))
-    }
+    };
 
     const handleDeleteCategory = async (category) => {
         await dispatch(categoriesActions.deleteById({categoryId: category._id}));
         dispatch(categoriesActions.getAll())
-    }
+    };
 
     const handleDeleteType = async (type) => {
         await dispatch(typesActions.deleteById({typeId: type._id}))
         dispatch(typesActions.getAll())
-    }
+    };
 
     useEffect(() => {
         dispatch(productsActions.getAll({}))
@@ -97,7 +111,7 @@ const AdminKatalog = () => {
                                 <tbody>
                                 {
                                     products.map(product =>
-                                        <tr>
+                                        <tr key={product._id}>
                                             <td><img style={{width: '100px'}} src={product.image}
                                                      alt={product.title}/></td>
                                             <td>{product.title}</td>
@@ -152,23 +166,34 @@ const AdminKatalog = () => {
                                 <tr>
                                     <th>Фото</th>
                                     <th>Категорія</th>
+                                    <th> </th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 {categories.map(category =>
-                                    <tr>
+                                    <tr key={category._id}>
                                         <td>
                                             <img style={{width: '100px'}} src={category.image}
                                                  alt={category.category}/>
                                         </td>
+                                        <td>{category.category}</td>
                                         <td>
                                             <div style={{
                                                 display: 'flex',
+                                                flexDirection: 'column',
                                                 alignItems: 'center',
-                                                justifyContent: 'space-between',
+                                                justifyContent: 'center',
                                                 margin: '5px'
                                             }}>
-                                                {category.category}
+                                                <Button style={{marginBottom: '10px'}}
+                                                        variant={'secondary'}
+                                                        onClick={() => handleUploadPhotoCategory(category)}
+                                                >+ Фото</Button>
+
+                                                <UploadPhotoCategory show={uploadPhotoCategoryVisible}
+                                                                     onHide={() => setUploadPhotoCategoryVisible(false)}
+                                                />
+
                                                 <Button
                                                     onClick={() => handleDeleteCategory(category)}
                                                     variant={'outline-danger'}>Видалити</Button>
@@ -198,7 +223,7 @@ const AdminKatalog = () => {
                                 </thead>
                                 <tbody>
                                 {types.map(type =>
-                                    <tr>
+                                    <tr key={type._id}>
                                         <td>
                                             <div style={{
                                                 display: 'flex',

@@ -9,7 +9,7 @@ const OAuth = require('../dataBase/models/OAuth');
 module.exports = {
     checkLogInBody: async (req, res, next) => {
         try {
-            const validate = authValidator.logInValidator.validate(req.body);
+            const validate = authValidator.logInValidator.validate(req.body.user);
 
             if (validate.error) {
                 throw new ApiError(400,'Неправильний email або пароль.')

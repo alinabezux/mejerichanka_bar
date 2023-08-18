@@ -69,7 +69,7 @@ const CreateProduct = ({show, onHide}) => {
                             {categories.map(category =>
                                 <Dropdown.Item
                                     onClick={() => dispatch(categoriesActions.setSelectedCategory(category))}
-                                    key={category.id}
+                                    key={category._id}
                                 >
                                     {category.category}
                                 </Dropdown.Item>
@@ -84,7 +84,7 @@ const CreateProduct = ({show, onHide}) => {
                             {types.map(type =>
                                 <Dropdown.Item
                                     onClick={() => dispatch(typesActions.setSelectedType(type))}
-                                    key={type.id}
+                                    key={type._id}
                                 >
                                     {type.type}
                                 </Dropdown.Item>
@@ -98,7 +98,7 @@ const CreateProduct = ({show, onHide}) => {
                                   placeholder="Введіть ціну продукту"
                                   {...register('price', {required: true})}
                     />
-                    <Button variant="outline-success" type='submit' onClick={onHide}>Зберегти</Button>
+                    <Button variant="outline-success" type='submit' onClick={onHide} >Зберегти</Button>
                 </Form>
             </Modal.Body>
             <Modal.Footer>

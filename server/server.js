@@ -1,14 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require("path");
 const cors = require('cors');
 const fileUpload = require('express-fileupload');
 mongoose.set('strictQuery', false);
 require('dotenv').config();
 
-const configs = require("../server/configs/configs");
 const router = require('../server/routes/index');
 const accountRouter = require("../server/routes/account.router");
-const path = require("path");
+const configs = require("./configs/configs");
 
 const app = express();
 
@@ -21,6 +21,12 @@ app.use(fileUpload());
 
 app.use('/api', router);
 app.use('/account', accountRouter)
+
+
+app.get('/', (req, res) => {
+    res.json({message: "WELCOME"});
+    console.log('Welcome page.');
+});
 
 app.use((err, req, res, next) => {
     res.status(err.status || 500).json({
@@ -37,8 +43,5 @@ app.listen(configs.PORT, async () => {
     console.log(`Backend server is running on port ${configs.PORT} !`);
 });
 
-app.get('/', (req, res) => {
-    res.json({message: "WELCOME"});
-    console.log('Welcome page.');
-});
+
 

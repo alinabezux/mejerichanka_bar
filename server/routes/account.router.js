@@ -8,18 +8,18 @@ const authController = require("../controllers/auth.controller");
 const userController = require("../controllers/users.controller");
 const basketController = require('../controllers/basket.controller');
 
-accountRouter.post('/signIn',
+accountRouter.post('/registration',
     userMiddleware.isNewUserValid,
     userMiddleware.checkIsEmailUnique,
     userController.createUser);
 
-accountRouter.post('/auth/logIn',
+accountRouter.post('/logIn',
     authMiddleware.checkLogInBody,
     userMiddleware.getUserByEmail,
     authController.logIn,
 );
 
-accountRouter.post('/auth/refresh',
+accountRouter.post('/refresh',
     authMiddleware.checkRefreshToken,
     authController.refresh)
 

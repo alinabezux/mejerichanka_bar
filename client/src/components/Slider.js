@@ -1,11 +1,11 @@
 import {Carousel} from "react-bootstrap";
-import music from './pictures/жива музика.png' ;
-import hookah from './pictures/кальян.png'
-import bbq from './pictures/мангал-меню.png'
-import banket from './pictures/банкети.png'
-import bar from './pictures/MEJERICHANKA.png'
-import lunches from './pictures/комплексні обіди.png'
-import outside from './pictures/задній двір.png'
+import music from '../assets/muzukanty.png' ;
+import hookah from '../assets/hookah.png'
+import bbq from '../assets/bbqmenu.png'
+import banket from '../assets/bankets.png'
+import bar from '../assets/MEJERICHANKA.png'
+import lunches from '../assets/complex.png'
+import outside from '../assets/zadniydvir2.png'
 
 const Slider = () => {
     return (

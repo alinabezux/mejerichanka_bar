@@ -1,7 +1,7 @@
-import {useEffect} from "react";
+import {useEffect, useMemo} from "react";
 import {Product} from "./Product";
 import {useDispatch, useSelector} from "react-redux";
-import {productsActions} from "../../redux";
+import {productsActions, typesActions} from "../../redux";
 
 
 const Products = () => {
@@ -15,13 +15,26 @@ const Products = () => {
         dispatch(productsActions.getAll(selectedCategory.category, selectedType.type))
     }, [dispatch, selectedCategory.category, selectedType.type]);
 
-    const filteredProducts = products.filter(product => selectedCategory.category === product.category && selectedType.type === product.type)
 
+    const filteredProducts = useMemo(() => {
+        if (selectedCategory.category === "Головне меню") {
+            return products.filter(product => selectedCategory.category === product.category && selectedType.type === product.type)
+        } else {
+            // dispatch(typesActions.setSelectedType({}))
+            return products.filter(product => selectedCategory.category === product.category)
+        }
+    }, [ products, selectedCategory, selectedType])
+
+
+    console.log("filteredProducts: ", filteredProducts)
+    console.log("selectedCategory: ", selectedCategory)
+    console.log("selectedType: ", selectedType)
+    console.log("---")
     return (
         <div className="products m-3">
             {
                 filteredProducts.map(product =>
-                    <Product key={product.id} product={product}/>)
+                    <Product key={product._id} product={product}/>)
             }
             {loading && <h1>Loading...........</h1>}
             {error && <h1>Error:(</h1>}

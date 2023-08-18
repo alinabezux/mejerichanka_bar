@@ -1,7 +1,12 @@
 import {Button, Nav, Navbar} from "react-bootstrap";
-import basket from '../components/pictures/кошик.png'
+import basket from '../assets/backet.png'
+import {useState} from "react";
+import {Basket} from "./Basket";
 
 const NaviBar = () => {
+
+    const [show, setShow] = useState(false);
+
     return (
         <Navbar className="p-2" collapseOnSelect expand="lg" variant="dark" sticky="top">
 
@@ -17,12 +22,18 @@ const NaviBar = () => {
                 </Nav>
 
                 <Button className="btn-reserv m-1" href="/about#reserve" variant="outline-danger">Забронювати</Button>
-                <Button className='m-1' variant="dark"><img style={{width:'28px'}} src={basket} alt="basket"/></Button>
+                <Button className='m-1'
+                        variant="dark">
+                    <img style={{width: '28px'}} src={basket} alt="basket"
+                         onClick={() => setShow(true)}/>
+                </Button>
+
+                <Basket show={show}
+                        onHide={() => setShow(false)}/>
 
             </Navbar.Collapse>
-
+            <Basket/>
         </Navbar>
-
     );
 }
 
