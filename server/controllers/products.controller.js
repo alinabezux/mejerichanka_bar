@@ -36,7 +36,7 @@ module.exports = {
         try {
             const product = await Product.create(req.body.product);
 
-            return res.json(product);
+            res.json(product);
 
         } catch (e) {
             return next(e)
@@ -69,7 +69,8 @@ module.exports = {
     deleteProduct: async (req, res, next) => {
         try {
             await Product.deleteOne({_id: req.params.productId})
-            res.status(204).json('Deleted.');
+
+            res.sendStatus(204);
         } catch (e) {
             next(e)
         }

@@ -26,9 +26,7 @@ module.exports = {
         try {
             const hashPassword = await OAuthService.hashPassword(req.body.user.password);
 
-            const user = await User.create({...req.body.user, password: hashPassword});
-
-            await Basket.create({_user: user._id});
+            await User.create({...req.body.user, password: hashPassword});
 
             res.status(201).json('User is registered.')
         } catch (e) {

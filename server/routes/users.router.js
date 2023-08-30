@@ -6,11 +6,11 @@ const checkRoleMiddleware = require("../middlewares/checkRole.middleware");
 const usersController = require('../controllers/users.controller');
 
 usersRouter.get('/',
-    // checkRoleMiddleware.checkRole,
+    checkRoleMiddleware.checkRole,
     usersController.getAllUsers);
 
 usersRouter.get('/:userId',
-    // checkRoleMiddleware.checkRole,
+    checkRoleMiddleware.checkRole,
     usersMiddleware.checkIfUserExists,
     usersController.getUserById);
 

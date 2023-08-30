@@ -94,7 +94,6 @@ const productsSlice = createSlice({
 
             .addCase(createProduct.fulfilled, (state, action) => {
                 state.products.push(action.payload)
-
             })
 
 

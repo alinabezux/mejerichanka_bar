@@ -3,7 +3,7 @@ const categoriesRouter = require('express').Router();
 const categoriesController = require("../controllers/categories.controller");
 const categoriesMiddleware = require("../middlewares/category.middleware");
 const productsMiddleware = require("../middlewares/product.middleware");
-// const checkRoleMiddleware = require("../middlewares/checkRole.middleware");
+const checkRoleMiddleware = require("../middlewares/checkRole.middleware");
 
 
 categoriesRouter.get('/',
@@ -13,16 +13,16 @@ categoriesRouter.get('/:categoryId',
     categoriesController.getCategoryById);
 
 categoriesRouter.post('/',
-    // checkRoleMiddleware.checkRole,
-    // categoriesMiddleware.checkIfCategoryExistsForCreateCategory,
+    checkRoleMiddleware.checkRole,
+    categoriesMiddleware.checkIfCategoryExistsForCreateCategory,
     categoriesController.createCategory);
 
 categoriesRouter.delete('/:categoryId',
-    // checkRoleMiddleware.checkRole,
+    checkRoleMiddleware.checkRole,
     categoriesController.deleteCategory);
 
 categoriesRouter.patch('/:categoryId',
-    // checkRoleMiddleware.checkRole,
+    checkRoleMiddleware.checkRole,
     productsMiddleware.checkImage,
     categoriesController.uploadImage
 )

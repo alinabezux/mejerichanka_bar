@@ -26,7 +26,7 @@ module.exports = {
 
             await Type.deleteOne({_id: typeId});
 
-            res.status(204).json('Deleted.');
+            res.sendStatus(204);
         } catch (e) {
             next(e)
         }

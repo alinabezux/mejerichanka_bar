@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {typesActions} from "../redux";
-import {Button} from "react-bootstrap";
+import {Button, Spinner} from "react-bootstrap";
 
 const TypeBar = () => {
     const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const TypeBar = () => {
                     </Button>
                 )
             }
-            {loading && <h1>Loading...........</h1>}
+            {loading && <Spinner/>}
             {error && <h1>Error:(</h1>}
         </div>
     );

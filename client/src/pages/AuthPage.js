@@ -1,8 +1,9 @@
-import {Button, Card, Col, Container, Form, Row} from "react-bootstrap";
-import {NavLink, useLocation, useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {Alert, Button, Card, Col, Container, Form, Row, Spinner} from "react-bootstrap";
+import {NavLink, useLocation, useNavigate, useSearchParams} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 import {useForm} from "react-hook-form";
-import {usersActions} from "../redux";
+import {authActions, usersActions} from "../redux";
+import {useCallback} from "react";
 
 const AuthPage = () => {
 
@@ -10,28 +11,46 @@ const AuthPage = () => {
     const {handleSubmit, register} = useForm();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [query] = useSearchParams();
+    // debugger
 
+    const {loading, error} = useSelector(state => state.authReducer);
+    const {registerError} = useSelector(state => state.usersReducer);
     const LogIn = location.pathname.includes('/logIn');
+    const isAdmin = location.pathname.includes('/admin');
+    const isRegister = location.pathname.includes('/registration');
 
 
-    const click = async (data) => {
+    const submit = useCallback(async (data) => {
+        // debugger
         try {
-            if (LogIn) {
-                document.write('привыт')
+            if (LogIn || isAdmin) {
+                const res = await dispatch(authActions.logIn({
+                    user: {
+                        email: data.email,
+                        password: data.password
+                    }
+                }))
+                console.log("submit error: ", error)
+                console.log("submit res: ", res)
+                if (res.meta.requestStatus === 'fulfilled' && LogIn) {
+                    navigate('/')
+                } else navigate('/admin')
             } else {
-                await dispatch(usersActions.registerUser({
+                const res = await dispatch(usersActions.registerUser({
                     user: {
                         name: data.name,
                         email: data.email,
                         password: data.password
                     }
                 }))
-                navigate('/logIn');
+                console.log("submit res: ", res)
+                if (res.meta.requestStatus === 'fulfilled') navigate('/logIn')
             }
         } catch (e) {
-            console.log(e);
+            console.log("catch e: ", e);
         }
-    }
+    }, [dispatch, error, authActions, usersActions, LogIn, navigate])
 
 
     return (
@@ -43,14 +62,22 @@ const AuthPage = () => {
             }}
         >
             <Card style={{width: 600}} className="m-5 p-5">
-                <h2 className="m-auto">{LogIn ? 'Увійти' : 'Зареєструватися'}</h2>
-                <Form onSubmit={handleSubmit(click)}
+                <h2 className="m-auto">{(LogIn || isAdmin) ? 'Увійти' : 'Зареєструватися'}</h2>
+                {query.has('expSession') && <Alert className="mt-3" variant={"danger"}>Сесія закінчилась!</Alert>}
+
+                {(LogIn || isAdmin) ?
+                    (error && <Alert style={{marginTop: "15px"}} variant={"danger"}>{error.message}</Alert>) :
+                    (registerError &&
+                        <Alert style={{marginTop: "15px"}} variant={"danger"}>{registerError.message}</Alert>)
+                }
+
+                <Form onSubmit={handleSubmit(submit)}
                       style={{
                           display: "flex",
                           flexDirection: "column"
                       }}
                 >
-                    {!LogIn ?
+                    {isRegister ?
                         <Form.Control
                             className="mt-3"
                             type="text"
@@ -80,19 +107,21 @@ const AuthPage = () => {
                     {/*}*/}
                     <Row className="mt-3" style={{alignItems: "center"}}>
                         <Col>
-                            <Button variant={"outline-success"} type='submit'>
-                                {LogIn ? 'Увійти' : 'Зареєструватися'}
-                            </Button>
+                            {loading ? <Spinner/> : <Button variant={"outline-success"} type='submit'>
+                                {isRegister ? 'Зареєструватися' : 'Увійти'}
+                            </Button>}
                         </Col>
                         <Col>
-                            {LogIn ?
-                                <div>
-                                    Немає акаунту? <NavLink to={'/registration'}>Зареєструватися</NavLink>
-                                </div>
-                                :
-                                <div>
-                                    Є акаунт? <NavLink to={'/logIn'}>Увійти</NavLink>
-                                </div>
+                            {!isAdmin ?
+                                (LogIn ?
+                                        <div>
+                                            Немає акаунту? <NavLink to={'/registration'}>Зареєструватися</NavLink>
+                                        </div>
+                                        :
+                                        <div>
+                                            Є акаунт? <NavLink to={'/logIn'}>Увійти</NavLink>
+                                        </div>
+                                ) : null
                             }
                         </Col>
                     </Row>

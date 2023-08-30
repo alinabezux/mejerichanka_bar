@@ -1,41 +1,105 @@
 import {Button, Container, Offcanvas} from "react-bootstrap";
-import basket from "../assets/backet.png";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect, useState} from "react";
+import {authActions, basketActions} from "../redux";
+import {authService} from "../services";
+import basketph from '../assets/backet.png'
+import {ProductInBasket} from "./ProductInBasket";
 
 const Basket = ({show, onHide}) => {
+    const dispatch = useDispatch();
+    const {basket} = useSelector(state => state.basketReducer);
+
+    const [userId, setUserId] = useState(null);
+
+    useEffect(() => {
+        const user = authService.getUser();
+        if (user) {
+            setUserId(user);
+        }
+    }, []);
+
+
+    useEffect(() => {
+        if (userId) {
+            dispatch(basketActions.getBasket(userId));
+        }
+    }, [dispatch, userId]);
+
+
+    const handleLogOut = async () => {
+        const accessToken = authService.getAccessToken();
+        await dispatch(authActions.logOut({access: accessToken}))
+        setUserId(null)
+    };
+
+    const totalPrice = basket.reduce((total, productInBasket) => {
+        return total + productInBasket.price;
+    }, 0);
+
     return (
         <Offcanvas show={show} onHide={onHide} placement="end" data-bs-theme="dark">
-            <Offcanvas.Header closeButton>
-                <Offcanvas.Title>Корзина
-                </Offcanvas.Title>
-
+            <Offcanvas.Header style={{display: "flex", flexDirection: "row"}} closeButton>
+                <Offcanvas.Title><h3>Корзина</h3></Offcanvas.Title>
+                {userId ? <Button variant={"light"} onClick={() => handleLogOut()}>Вийти</Button> : null}
             </Offcanvas.Header>
-            <hr/>
             <Offcanvas.Body>
-                {/*<Container style={{*/}
-                {/*    height: "100%",*/}
-                {/*    display: "flex",*/}
-                {/*    flexDirection: "column",*/}
-                {/*    alignItems: "center",*/}
-                {/*    justifyContent: "center"*/}
-                {/*}}>*/}
-                {/*    Ваша корзина порожня.*/}
-                {/*    <img style={{margin: "20px"}} src={basket} alt="basket"/>*/}
-                {/*</Container>*/}
-
-                <Container style={{
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    textAlign: "center"
-                }}>
-                    Увійдіть у систему, щоб зберігати та переглядати товари у своїй корзині.
-                    <img style={{margin: "20px"}} src={basket} alt="basket"/>
-                    <Button style={{margin: "20px"}} variant="light" href={'/logIn'}>Увійти / Зареєструватись</Button>
-                </Container>
-
-
+                {/*якщо зареєстрований*/}
+                {userId !== null ?
+                    <Container>
+                        {basket.length !== 0 ?
+                            //якщо є продукти
+                            <Container style={{
+                                display: "flex",
+                                flexDirection: "column",
+                            }}>
+                                {
+                                    basket.map(productInBasket =>
+                                        <ProductInBasket key={productInBasket._id}
+                                                         productInBasket={productInBasket}/>)
+                                }
+                                <div style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    justifyContent: "space-between"
+                                }}>
+                                    <h5>Разом до сплати:</h5>
+                                    <h5><b>{totalPrice} грн.</b></h5>
+                                </div>
+                                <Button variant="light" style={{marginTop: "10px"}} href="/order">Оформити
+                                    замовлення</Button>
+                            </Container>
+                            :
+                            <Container
+                                style={{
+                                    paddingTop: "150px",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    alignItems: "center"
+                                }}>
+                                <h5>
+                                    Ваша корзина порожня.
+                                </h5>
+                                <img style={{margin: "20px"}} src={basketph} alt="basket"/>
+                            </Container>
+                        }
+                    </Container>
+                    :
+                    <Container style={{
+                        height: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        textAlign: "center"
+                    }}>
+                        Увійдіть у систему, щоб зберігати та переглядати товари у своїй корзині.
+                        <img style={{margin: "20px"}} src={basketph} alt="basket"/>
+                        <Button style={{margin: "20px"}} variant="light" href={'/logIn'}>
+                            Увійти / Зареєструватись
+                        </Button>
+                    </Container>
+                }
             </Offcanvas.Body>
         </Offcanvas>
     );

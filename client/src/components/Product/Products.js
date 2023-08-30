@@ -1,12 +1,12 @@
 import {useEffect, useMemo} from "react";
 import {Product} from "./Product";
 import {useDispatch, useSelector} from "react-redux";
-import {productsActions, typesActions} from "../../redux";
+import {productsActions} from "../../redux";
 
 
 const Products = () => {
     const dispatch = useDispatch();
-    const {products, loading, error} = useSelector(state => state.productsReducer);
+    const {products, error} = useSelector(state => state.productsReducer);
     const {selectedCategory} = useSelector(state => state.categoriesReducer);
     const {selectedType} = useSelector(state => state.typesReducer);
 
@@ -20,10 +20,9 @@ const Products = () => {
         if (selectedCategory.category === "Головне меню") {
             return products.filter(product => selectedCategory.category === product.category && selectedType.type === product.type)
         } else {
-            // dispatch(typesActions.setSelectedType({}))
             return products.filter(product => selectedCategory.category === product.category)
         }
-    }, [ products, selectedCategory, selectedType])
+    }, [products, selectedCategory, selectedType])
 
 
     console.log("filteredProducts: ", filteredProducts)
@@ -36,7 +35,7 @@ const Products = () => {
                 filteredProducts.map(product =>
                     <Product key={product._id} product={product}/>)
             }
-            {loading && <h1>Loading...........</h1>}
+
             {error && <h1>Error:(</h1>}
         </div>
     );

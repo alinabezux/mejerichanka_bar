@@ -1,4 +1,4 @@
-import {Button, Dropdown, Form, Modal} from "react-bootstrap";
+import {Alert, Button, Dropdown, Form, Modal} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {categoriesActions, productsActions, typesActions} from "../../../redux";
 import {useEffect} from "react";
@@ -55,14 +55,14 @@ const CreateProduct = ({show, onHide}) => {
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={handleSubmit(handleCreateProduct)}>
-                    {errors.title && <span style={{color: "red"}}>{errors.title.message}</span>}
+                    {errors.title && <Alert variant={"danger"}>{errors.title.message}</Alert>}
                     <Form.Control className="mb-3"
                                   type="text"
                                   placeholder="Введіть назву продукту"
                                   {...register('title', {required: true})}
                     />
 
-                    {errors.category && <span style={{color: "red"}}>{errors.category.message}</span>}
+                    {errors.category && <Alert variant={"danger"}>{errors.category.message}</Alert>}
                     <Dropdown className="mt-2 mb-2">
                         <Dropdown.Toggle>{selectedCategory.category || "Виберіть категорію"}</Dropdown.Toggle>
                         <Dropdown.Menu>
@@ -77,7 +77,7 @@ const CreateProduct = ({show, onHide}) => {
                         </Dropdown.Menu>
                     </Dropdown>
 
-                    {errors.type && <span style={{color: "red"}}>{errors.type.message}</span>}
+                    {errors.type && <Alert variant={"danger"}>{errors.type.message}</Alert>}
                     <Dropdown className="mt-2 mb-2">
                         <Dropdown.Toggle>{selectedType.type || "Виберіть тип"}</Dropdown.Toggle>
                         <Dropdown.Menu>
@@ -92,7 +92,7 @@ const CreateProduct = ({show, onHide}) => {
                         </Dropdown.Menu>
                     </Dropdown>
 
-                    {errors.price && <span style={{color: "red"}}>{errors.price.message}</span>}
+                    {errors.price && <Alert variant={"danger"}>{errors.price.message}</Alert>}
                     <Form.Control className="mb-3"
                                   type="number"
                                   placeholder="Введіть ціну продукту"

@@ -13,9 +13,9 @@ const AdminClients = () => {
     }, [dispatch])
 
     return (
-        <Table style={{fontFamily: '\'Nunito\', sans-serif'}}>
+        <Table style={{fontFamily: '\'Nunito\', sans-serif', fontSize: "20px"}}  bordered hover>
             <thead>
-            <tr>
+            <tr  style={{ backgroundColor: 'darkgray' }}>
                 <th>ID</th>
                 <th>Ім'я</th>
                 <th>Email</th>

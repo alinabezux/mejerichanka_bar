@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {categoriesActions} from "../redux";
 import {TypeBar} from "./TypeBar";
+import {Spinner} from "react-bootstrap";
 
 const CategoryBar = () => {
     const dispatch = useDispatch();
@@ -34,8 +35,8 @@ const CategoryBar = () => {
                         onClick={() => handleCategoryClick(category)}/>
                 ))}
             </div>
-                {loading && <h1>Loading...........</h1>}
-                {error && <h1>Error:(</h1>}
+            {loading && <Spinner/>}
+            {error && <h1>Error:(</h1>}
             <div>
                 {showTypeBar && <TypeBar/>}
             </div>

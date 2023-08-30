@@ -4,7 +4,7 @@ import {usersService} from "../../services";
 const initialState = {
     users: [],
     loading: false,
-    error: null
+    registerError: null
 }
 
 const getAll = createAsyncThunk(
@@ -40,19 +40,28 @@ const usersSlice = createSlice({
             .addCase(getAll.fulfilled, (state, action) => {
                 state.users = action.payload
                 state.loading = false
+                state.registerError = null
             })
             .addCase(getAll.pending, (state) => {
                 state.loading = true
+                state.registerError = null
             })
             .addCase(getAll.rejected, (state, action) => {
-                state.error = action.payload
+                state.registerError = action.payload
                 state.loading = false
             })
 
             .addCase(registerUser.fulfilled, (state, action) => {
                 state.users.push(action.payload)
-
+                state.loading = false
+                state.registerError = null
             })
+            .addCase(registerUser.rejected, (state, action) => {
+                state.registerError = action.payload
+                state.loading = false
+            })
+
+
 });
 
 const {reducer: usersReducer} = usersSlice;

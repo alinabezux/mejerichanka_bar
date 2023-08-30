@@ -48,7 +48,7 @@ module.exports = {
 
             await Category.deleteOne({_id: categoryId});
 
-            res.status(204).json('Deleted.');
+            res.sendStatus(204);
         } catch (e) {
             next(e)
         }

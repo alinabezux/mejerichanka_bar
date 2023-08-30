@@ -9,9 +9,9 @@ const urls = {
         registration: '/account/registration',
         logIn: '/account/logIn',
         refresh: '/account/refresh',
-        basket: '/account/basket'
-    }
-
+        logOut: '/account/logOut'
+    },
+    basket: '/basket'
 }
 
 export {

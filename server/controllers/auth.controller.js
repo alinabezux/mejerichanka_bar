@@ -20,30 +20,33 @@ module.exports = {
     refresh: async (req, res, next) => {
         try {
             const {refreshToken, _user} = req.tokenInfo;
+            console.log(`refreshToken, _user  refresh: ${refreshToken} ${_user}`);
 
             await OAuth.deleteOne({refreshToken});
 
             const tokenPair = OAuthService.generateTokenPair({id: _user});
 
             await OAuth.create({_user, ...tokenPair})
+            console.log(`нова пара refresh: ${tokenPair.accessToken}`);
 
-            res.status(201).json({_user, ...tokenPair});
+            res.status(201).json({...tokenPair});
         } catch (e) {
             next(e);
         }
     },
 
-    // logOut: async (req, res, next) => {
-    //     try {
-    //         const {accessToken} = req.tokenInfo;
-    //
-    //         await OAuth.deleteOne({accessToken});
-    //
-    //         res.sendStatus(204);
-    //     } catch (e) {
-    //         next(e);
-    //     }
-    // },
+    logOut: async (req, res, next) => {
+        try {
+            const {accessToken} = req.tokenInfo;
+            console.log(`accessToken logOut: ${accessToken}`);
+
+            await OAuth.deleteOne({accessToken});
+
+            res.sendStatus(204);
+        } catch (e) {
+            next(e);
+        }
+    }
 }
 
 

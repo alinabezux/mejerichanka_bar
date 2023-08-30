@@ -1,4 +1,4 @@
-import {Button, Form, Modal} from "react-bootstrap";
+import {Alert, Button, Form, Modal} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {productsActions} from "../../../redux";
 import {useForm} from "react-hook-form";
@@ -40,21 +40,21 @@ const EditProduct = ({show, onHide}) => {
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={handleSubmit(submit)}>
-                    {errors.title && <span style={{color: "red"}}>{errors.title.message}</span>}
+                    {errors.title && <Alert variant={"danger"}>{errors.title.message}</Alert>}
                     <Form.Control className="mb-3"
                                   type="text"
                                   placeholder={'title'}
                                   {...register('title', {required: true})}
                     />
 
-                    {errors.price && <span style={{color: "red"}}>{errors.price.message}</span>}
+                    {errors.price && <Alert variant={"danger"}>{errors.price.message}</Alert>}
                     <Form.Control className="mb-3"
                                   type="number"
                                   placeholder={'price'}
                                   {...register('price', {required: true})}
                     />
 
-                    <Button variant="outline-success" disabled={!isValid} type='submit' onClick={onHide}>Зберегти</Button>
+                    <Button variant="outline-success" type='submit' onClick={onHide}>Зберегти</Button>
                 </Form>
             </Modal.Body>
             <Modal.Footer>

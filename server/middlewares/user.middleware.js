@@ -27,7 +27,7 @@ module.exports = {
     getUserByEmail: async (req, res, next) => {
         try {
 
-            const {email} = req.body.user;
+            const {email} = req.body;
 
             const user = await User.findOne({email});
 
