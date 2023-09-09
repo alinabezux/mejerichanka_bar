@@ -12,13 +12,13 @@ module.exports = {
         const isPasswordsSame = await bcrypt.compare(password, hashPassword);
 
         if (!isPasswordsSame) {
-            throw new ApiError(409,'Wrong email or password');
+            throw new ApiError(409, 'Wrong email or password');
         }
     },
 
     generateTokenPair: (dataToSign = {}) => {
-        const accessToken = jwt.sign(dataToSign, ACCESS_SECRET, {expiresIn: '1h'});
-        const refreshToken = jwt.sign(dataToSign, REFRESH_SECRET, {expiresIn: '2h'});
+        const accessToken = jwt.sign(dataToSign, ACCESS_SECRET, {expiresIn: '1d'});
+        const refreshToken = jwt.sign(dataToSign, REFRESH_SECRET, {expiresIn: '30d'});
 
         return {
             accessToken,

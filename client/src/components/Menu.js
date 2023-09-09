@@ -4,7 +4,7 @@ import {CategoryBar} from "./CategoryBar";
 const Menu = () => {
     return (
         <div className="menu">
-            <div className="title" id="menu">Меню</div>
+            <h1 className="title" id="menu">Меню</h1>
             <CategoryBar/>
             <Products/>
         </div>

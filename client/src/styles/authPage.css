@@ -1,0 +1,41 @@
+@media only screen and (max-width: 767px) {
+
+    .authPage.card {
+        width: 90%;
+    }
+
+    .authPage.container {
+        margin-top: 30%;
+    }
+
+    .loginOrRegister {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+
+    .loginOrRegister button {
+        margin-bottom: 15px;
+    }
+
+}
+
+@media only screen and (min-width: 768px) {
+    .authPage.card {
+        width: 500px;
+    }
+
+    .authPage.container {
+        margin-top: 7%;
+    }
+
+    .loginOrRegister {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+.authPage {
+    padding: 25px;
+}

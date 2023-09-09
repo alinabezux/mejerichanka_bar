@@ -1,11 +1,42 @@
 import {Table} from "react-bootstrap";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
+
+import {orderActions} from "../../redux";
+import AdminOrderItem from "./AdminOrderItem";
 
 const AdminOrders = () => {
+    const dispatch = useDispatch();
+    const {orders, selectedOrder} = useSelector(state => state.orderReducer);
+
+    const handleSetUpdateOrder = (order) => {
+        dispatch(orderActions.setSelectedOrder(order));
+    };
+
+    useEffect(() => {
+        dispatch(orderActions.getAllOrders());
+    }, [dispatch]);
+
+    const submit = async (status) => {
+        if (status) {
+            await dispatch(orderActions.updateOrderStatus({
+                    orderId: selectedOrder._id,
+                    status,
+                })
+            );
+
+            await dispatch(orderActions.getAllOrders());
+        }
+    };
+
     return (
-        <Table style={{fontFamily: '\'Nunito\', sans-serif', fontSize: "20px"}} striped bordered hover>
+        <Table
+            style={{fontFamily: "'Nunito', sans-serif", fontSize: "20px"}}
+            bordered
+            hover
+        >
             <thead>
-            <tr style={{ backgroundColor: 'darkgray' }}>
-                <th>Дата</th>
+            <tr style={{backgroundColor: "darkgray"}}>
                 <th>Клієнт</th>
                 <th>Замовлення</th>
                 <th>Сума</th>
@@ -14,17 +45,17 @@ const AdminOrders = () => {
             </tr>
             </thead>
             <tbody>
-            {/*{orders.map(order =>*/}
-            {/*<tr key={order._id}>*/}
-            {/*    <td>{order._id}</td>*/}
-            {/*    <td>{order.name}</td>*/}
-            {/*    <td>{order.email}</td>*/}
-            {/*</tr>*/}
-            {/*)*/}
-            {/*}*/}
+            {orders.map((order, index) => (
+                <AdminOrderItem
+                    key={`${order._id}-${index}`}
+                    order={order}
+                    submit={submit}
+                    setUpdateOrder={handleSetUpdateOrder}
+                />
+            ))}
             </tbody>
         </Table>
     );
-}
+};
 
-export {AdminOrders}
+export {AdminOrders};

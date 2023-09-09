@@ -11,7 +11,8 @@ const urls = {
         refresh: '/account/refresh',
         logOut: '/account/logOut'
     },
-    basket: '/basket'
+    basket: '/basket',
+    order: '/order'
 }
 
 export {

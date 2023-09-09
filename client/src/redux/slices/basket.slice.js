@@ -3,7 +3,6 @@ import {basketService} from "../../services";
 
 const initialState = {
     basket: [],
-    selectedProductInBasket: null,
     loading: false,
     error: null
 }
@@ -47,12 +46,7 @@ const deleteFromBasket = createAsyncThunk(
 const basketSlice = createSlice({
     name: 'basketSlice',
     initialState,
-    reducers: {
-        setSelectedProductInBasket: (state, action) => {
-            state.selectedProductInBasket = action.payload
-            console.log(action.payload);
-        }
-    },
+    reducers: {},
     extraReducers: builder =>
         builder
             .addCase(getBasket.fulfilled, (state, action) => {
@@ -82,9 +76,9 @@ const basketSlice = createSlice({
 });
 
 
-const {reducer: basketReducer, actions: {setSelectedProductInBasket}} = basketSlice;
+const {reducer: basketReducer} = basketSlice;
 
-const basketActions = {getBasket, addToBasket, deleteFromBasket, setSelectedProductInBasket}
+const basketActions = {getBasket, addToBasket, deleteFromBasket}
 
 export {
     basketReducer, basketActions

@@ -9,9 +9,9 @@ import outside from '../assets/zadniydvir2.png'
 
 const Slider = () => {
     return (
-        <Carousel className="carousel" >
+        <Carousel className="carousel slider">
 
-            <Carousel.Item>
+            <Carousel.Item className="carousel-item">
                 <img
                     src={bar}
                     alt="МЕЖИРІЧАНКА"

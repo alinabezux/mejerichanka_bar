@@ -1,4 +1,4 @@
-import fon from "../assets/fonlittle.png";
+import fon from "../assets/fon.png";
 import hookah1 from '../assets/redhookah.jpg'
 import hookah2 from '../assets/hookanandcoctail.jpg'
 import hookah3 from '../assets/hookahs.jpg'
@@ -20,7 +20,7 @@ const HookahPage = () => {
                     <img src={hookah3} alt="кальян"/>
                 </div>
                 <div className="hookah-menu">
-                    <h2 style={{fontFamily: 'Forum', fontSize: '43px', marginTop: '40px'}}>Кальянна карта</h2>
+                    <h2 style={{fontFamily: 'Comfortaa', marginTop: '50px'}}>Кальянна карта</h2>
                     <table>
                         <thead>
                         <tr>

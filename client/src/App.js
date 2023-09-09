@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css'
+import './styles'
 
 import {Route, Routes, useLocation} from "react-router-dom";
 import {unstable_HistoryRouter as BrowserRouter} from "react-router-dom";

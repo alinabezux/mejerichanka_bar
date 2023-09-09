@@ -12,7 +12,7 @@ const TypeBar = () => {
     }, [dispatch]);
 
     return (
-        <div className="types">
+        <div className="types" id="scrollTo">
             {
                 types.map(type =>
                     <Button className=" m-3"

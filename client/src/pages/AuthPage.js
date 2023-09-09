@@ -6,13 +6,11 @@ import {authActions, usersActions} from "../redux";
 import {useCallback} from "react";
 
 const AuthPage = () => {
-
     const location = useLocation();
     const {handleSubmit, register} = useForm();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [query] = useSearchParams();
-    // debugger
 
     const {loading, error} = useSelector(state => state.authReducer);
     const {registerError} = useSelector(state => state.usersReducer);
@@ -22,7 +20,6 @@ const AuthPage = () => {
 
 
     const submit = useCallback(async (data) => {
-        // debugger
         try {
             if (LogIn || isAdmin) {
                 const res = await dispatch(authActions.logIn({
@@ -31,11 +28,10 @@ const AuthPage = () => {
                         password: data.password
                     }
                 }))
-                console.log("submit error: ", error)
-                console.log("submit res: ", res)
                 if (res.meta.requestStatus === 'fulfilled' && LogIn) {
                     navigate('/')
-                } else navigate('/admin')
+                } else if (res.meta.requestStatus === 'fulfilled' && isAdmin) window.location.reload();
+
             } else {
                 const res = await dispatch(usersActions.registerUser({
                     user: {
@@ -44,7 +40,6 @@ const AuthPage = () => {
                         password: data.password
                     }
                 }))
-                console.log("submit res: ", res)
                 if (res.meta.requestStatus === 'fulfilled') navigate('/logIn')
             }
         } catch (e) {
@@ -54,14 +49,9 @@ const AuthPage = () => {
 
 
     return (
-        <Container
-            style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-            }}
-        >
-            <Card style={{width: 600}} className="m-5 p-5">
+        <Container className="authPage container"
+                   style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+            <Card className="authPage card">
                 <h2 className="m-auto">{(LogIn || isAdmin) ? 'Увійти' : 'Зареєструватися'}</h2>
                 {query.has('expSession') && <Alert className="mt-3" variant={"danger"}>Сесія закінчилась!</Alert>}
 
@@ -91,12 +81,28 @@ const AuthPage = () => {
                         placeholder="Введіть ваш email..."
                         {...register('email', {required: true})}
                     />
-                    <Form.Control
-                        className="mt-3"
-                        type="password"
-                        placeholder="Введіть ваш пароль..."
-                        {...register('password', {required: true})}
-                    />
+                    {isRegister ?
+                        <>
+                            <Form.Control
+                                className="mt-3"
+                                type="password"
+                                placeholder="Введіть ваш пароль..."
+                                {...register('password', {required: true})}
+                            />
+                            <Form.Text id="password" muted>
+                                Ваш пароль повинен містити не менше 8-ми символів,літери великого та малого регістру
+                                та цифри.
+                            </Form.Text>
+                        </>
+                        :
+                        <Form.Control
+                            className="mt-3"
+                            type="password"
+                            placeholder="Введіть ваш пароль..."
+                            {...register('password', {required: true})}
+                        />
+
+                    }
                     {/*{!LogIn ?*/}
                     {/*    <Form.Control*/}
                     {/*        className="mt-3"*/}
@@ -105,26 +111,37 @@ const AuthPage = () => {
                     {/*        {...register('password', {required: true})}*/}
                     {/*    /> : null*/}
                     {/*}*/}
-                    <Row className="mt-3" style={{alignItems: "center"}}>
-                        <Col>
+
+                    <div className="mt-3 loginOrRegister" style={{alignItems: "center"}}>
+                        <div>
                             {loading ? <Spinner/> : <Button variant={"outline-success"} type='submit'>
                                 {isRegister ? 'Зареєструватися' : 'Увійти'}
                             </Button>}
-                        </Col>
-                        <Col>
+                        </div>
+                        <div style={{display: "flex", justifyContent: "end"}}>
                             {!isAdmin ?
                                 (LogIn ?
-                                        <div>
+                                        <div style={{
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            marginRight: "5px",
+                                            alignItems: "center"
+                                        }}>
                                             Немає акаунту? <NavLink to={'/registration'}>Зареєструватися</NavLink>
                                         </div>
                                         :
-                                        <div>
+                                        <div style={{
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            marginRight: "15px",
+                                            alignItems: "center"
+                                        }}>
                                             Є акаунт? <NavLink to={'/logIn'}>Увійти</NavLink>
                                         </div>
                                 ) : null
                             }
-                        </Col>
-                    </Row>
+                        </div>
+                    </div>
 
                 </Form>
             </Card>

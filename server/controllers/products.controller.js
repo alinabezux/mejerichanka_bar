@@ -36,7 +36,7 @@ module.exports = {
         try {
             const product = await Product.create(req.body.product);
 
-            res.json(product);
+            return res.json(product);
 
         } catch (e) {
             return next(e)
@@ -46,9 +46,8 @@ module.exports = {
     updateProduct: async (req, res, next) => {
         try {
             const newInfo = req.body.product;
-            const productId = req.params.productId;
 
-            const updatedProduct = await Product.findByIdAndUpdate(productId, newInfo, {new: true});
+            const updatedProduct = await Product.findByIdAndUpdate(req.params.productId, newInfo, {new: true});
             res.status(201).json(updatedProduct);
 
         } catch (e) {

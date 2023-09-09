@@ -1,0 +1,35 @@
+@media only screen and (max-width: 767px) {
+    .shipping {
+        flex-direction: column;
+    }
+
+    .heading {
+        margin-bottom: 15px;
+    }
+
+    h2.order-title {
+        font-size: 29px;
+        font-weight: 600;
+    }
+
+    div.col-8.col {
+        display: flex;
+        align-items: center;
+    }
+}
+
+
+@media only screen and (min-width: 768px) {
+    .receipt {
+        width: 70%
+    }
+}
+
+.receipt {
+    display: flex;
+    flex-direction: column;
+    background-color: #f5f5f1;
+    padding: 30px;
+    margin-bottom: 10px;
+}
+

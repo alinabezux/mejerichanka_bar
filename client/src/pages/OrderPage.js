@@ -3,31 +3,22 @@ import {ProductInBasket} from "../components/ProductInBasket";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {authService} from "../services";
-import {basketActions} from "../redux";
+import {basketActions, orderActions} from "../redux";
 import {useForm} from "react-hook-form";
-import {joiResolver} from "@hookform/resolvers/joi";
-import {productValidator} from "../validators";
+import {useNavigate} from "react-router-dom";
+
 
 const OrderPage = () => {
     const dispatch = useDispatch();
     const {basket} = useSelector(state => state.basketReducer);
 
     const [userId, setUserId] = useState(null);
+    const [shipping, setShipping] = useState('')
+    const [city, setCity] = useState('')
 
-    const {register, handleSubmit, reset, setValue, formState: {errors}} = useForm({
-        defaultValues: {
-            title: '',
-            price: 0,
-        },
-        resolver: joiResolver(productValidator.newProductValidator),
-        mode: 'all'
-    });
+    const navigate = useNavigate();
+    const {register, handleSubmit, reset} = useForm();
 
-    const [deliveryMethod, setDeliveryMethod] = useState('')
-
-    const handleDeliveryChange = (e) => {
-        setDeliveryMethod(e.target.value);
-    };
 
     useEffect(() => {
         const user = authService.getUser();
@@ -44,6 +35,27 @@ const OrderPage = () => {
     }, [dispatch, userId]);
 
 
+    const isCurier = shipping === "Доставка кур'єром";
+
+
+    const handleCreateOrder = async (data) => {
+        await dispatch(orderActions.createOrder({
+            userId: userId, order: {
+                firstName: data.firstName,
+                lastName: data.lastName,
+                number: data.number,
+                email: data.email,
+                shipping: shipping,
+                city: city,
+                address: data.address,
+            }
+        }))
+        reset();
+        setShipping('');
+        setCity('');
+        navigate('/');
+    };
+
     const totalPrice = basket.reduce((total, productInBasket) => {
         return total + productInBasket.price;
     }, 0);
@@ -54,59 +66,67 @@ const OrderPage = () => {
             <Row>
                 <Col style={{marginTop: "50px"}}>
                     <Container style={{paddingBottom: "15px"}}>
-                        <h2>Оформлення замовлення</h2>
+                        <h2 className="order-title">Оформлення замовлення</h2>
                         <hr/>
                     </Container>
-                    <Container style={{paddingBottom: "15px"}}>
-                        <Row>
-                            <Col md="auto">
-                                <div
-                                    style={{
-                                        backgroundColor: "black",
-                                        width: "35px",
-                                        height: "35px",
-                                        borderRadius: "50%",
-                                        color: "white",
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        paddingTop: "8px"
-                                    }}><h5>1</h5>
-                                </div>
-                            </Col>
-                            <Col>
-                                <h2>Ваші дані</h2>
-                            </Col>
-                        </Row>
-                        <Form>
-                            <FloatingLabel
-                                controlId="1"
-                                label="Ваше ім'я"
-                                className="mb-3"
-                            >
-                                <Form.Control className="mb-3"
-                                              type="text"
-                                              placeholder="Ваше ім'я"
-                                              {...register('title', {required: true})}
-                                />
-                            </FloatingLabel>
-                            <FloatingLabel
-                                controlId="2"
-                                label="Ваше прізвище"
-                                className="mb-3"
-                            >
-                                <Form.Control className="mb-3"
-                                              type="text"
-                                              placeholder="Ваше прізвище"
-                                              {...register('title', {required: true})}
-                                />
-                            </FloatingLabel>
+
+                    <Form onSubmit={handleSubmit(handleCreateOrder)}>
+                        <Container style={{paddingBottom: "15px"}}>
+                            <Row>
+                                <Col className="heading  col-2">
+                                    <div
+                                        style={{
+                                            backgroundColor: "black",
+                                            width: "35px",
+                                            height: "35px",
+                                            borderRadius: "50%",
+                                            color: "white",
+                                            display: "flex",
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                            paddingTop: "8px"
+                                        }}
+                                    ><h5>1</h5>
+                                    </div>
+                                </Col>
+                                <Col className="col-8">
+                                    <h2>Ваші дані</h2>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col>
+                                    <FloatingLabel
+                                        controlId="1"
+                                        label="Ваше ім'я"
+                                        className="mb-3"
+                                    >
+                                        <Form.Control className="mb-3"
+                                                      type="text"
+                                                      placeholder="Ваше ім'я"
+                                                      {...register('firstName', {required: true})}
+                                        />
+                                    </FloatingLabel>
+                                </Col>
+                                <Col>
+                                    <FloatingLabel
+                                        controlId="2"
+                                        label="Ваше прізвище"
+                                        className="mb-3"
+                                    >
+                                        <Form.Control className="mb-3"
+                                                      type="text"
+                                                      placeholder="Ваше прізвище"
+                                                      {...register('lastName', {required: true})}
+                                        />
+                                    </FloatingLabel>
+                                </Col>
+                            </Row>
                             <InputGroup>
                                 <InputGroup.Text className="mb-3">+380</InputGroup.Text>
                                 <Form.Control className="mb-3"
                                               type="text"
                                               placeholder="Номер телефону"
-                                              {...register('title', {required: true})}
+                                              {...register('number', {required: true})}
                                 />
                             </InputGroup>
                             <FloatingLabel
@@ -117,77 +137,78 @@ const OrderPage = () => {
                                 <Form.Control className="mb-3"
                                               type="text"
                                               placeholder="Email"
-                                              {...register('title', {required: true})}
+                                              {...register('email', {required: true})}
                                 />
                             </FloatingLabel>
-                        </Form>
-                    </Container>
-                    <Container style={{paddingBottom: "15px"}}>
-                        <Row>
-                            <Col md="auto">
-                                <div
-                                    style={{
-                                        backgroundColor: "black",
-                                        width: "35px",
-                                        height: "35px",
-                                        borderRadius: "50%",
-                                        color: "white",
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        paddingTop: "8px"
-                                    }}><h5>2</h5>
-                                </div>
-                            </Col>
-                            <Col>
-                                <h2>Доставка</h2>
-                            </Col>
-                        </Row>
-                        <Form>
-                            <Form.Select className="mb-3" onChange={handleDeliveryChange}>
+                        </Container>
+                        <Container style={{paddingBottom: "15px"}}>
+                            <Row>
+                                <Col className="heading  col-2">
+                                    <div
+                                        style={{
+                                            backgroundColor: "black",
+                                            width: "35px",
+                                            height: "35px",
+                                            borderRadius: "50%",
+                                            color: "white",
+                                            display: "flex",
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                            paddingTop: "8px"
+                                        }}><h5>2</h5>
+                                    </div>
+                                </Col>
+                                <Col className="col-8">
+                                    <h2>Доставка</h2>
+                                </Col>
+                            </Row>
+                            <Form.Select className="mb-3" value={shipping}
+                                         onChange={(e) => setShipping(e.target.value)}>
                                 <option>Спосіб доставки</option>
-                                <option value="1">Самовивіз</option>
-                                <option value="2">Доставка кур'єром</option>
+                                <option value="Самовивіз">Самовивіз</option>
+                                <option value="Доставка кур'єром">Доставка кур'єром</option>
                             </Form.Select>
 
-                            {deliveryMethod === '2' &&
-                                <div>
-                                    <Form.Select className="mb-3">
-                                        <option>Населений пункт</option>
-                                        <option value="1">с.Межиріччя</option>
-                                        <option value="2">смт Гірник</option>
-                                        <option value="3">с.Сілець</option>
-                                        <option value="4">м.Червоноград</option>
-                                        <option value="5">м.Соснівка</option>
-                                    </Form.Select>
-
-                                    <FloatingLabel
-                                        controlId="4vuk"
-                                        label="Вулиця, номер будинку"
-                                        className="mb-3"
-                                    >
-                                        <Form.Control className="mb-3"
-                                                      type="text"
-                                                      placeholder="Вулиця, номер будинку"
-                                                      {...register('title', {required: true})}
-                                        />
-
-                                    </FloatingLabel>
-                                </div>
+                            {isCurier &&
+                                <Row className="shipping">
+                                    <Col>
+                                        <FloatingLabel label="Населений пункт">
+                                            <Form.Select className="mb-3" value={city}
+                                                         onChange={(e) => setCity(e.target.value)}>
+                                                <option>Населений пункт</option>
+                                                <option value="с.Межиріччя">с.Межиріччя</option>
+                                                <option value="смт Гірник">смт Гірник</option>
+                                                <option value="с.Сілець">с.Сілець</option>
+                                                <option value="м.Червоноград">м.Червоноград</option>
+                                                <option value="м.Соснівка">м.Соснівка</option>
+                                            </Form.Select>
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col>
+                                        <FloatingLabel
+                                            controlId="4vuk"
+                                            label="Вулиця, номер будинку"
+                                            className="mb-3"
+                                        >
+                                            <Form.Control className="mb-3"
+                                                          type="text"
+                                                          placeholder="Вулиця, номер будинку"
+                                                          {...register('address', {required: true})}
+                                            />
+                                        </FloatingLabel>
+                                    </Col>
+                                </Row>
                             }
-                        </Form>
-                    </Container>
+                        </Container>
+                        <Button type='submit' variant="light" style={{marginTop: "10px"}} className="m-md-auto">Оформити
+                            замовлення</Button>
+                    </Form>
                 </Col>
-                <Col style={{marginTop: "50px"}}>
-                    <Container style={{
-                        width: "70%",
-                        display: "flex",
-                        flexDirection: "column",
-                        backgroundColor: "#f5f5f1",
-                        padding: "30px"
-                    }}>
+
+                <Col style={{marginTop: "40px"}}>
+                    <Container className="receipt">
                         <Col style={{paddingBottom: "15px"}}>
-                            <h2>Ваше замовлення</h2>
+                            <h2 className="order-title">Ваше замовлення</h2>
                             <hr/>
                         </Col>
                         <Col style={{
@@ -207,32 +228,41 @@ const OrderPage = () => {
                                 <h5>Товарів на суму:</h5>
                                 <h5><b>{totalPrice} грн.</b></h5>
                             </div>
-                            <div style={{
-                                display: "flex",
-                                flexDirection: "row",
-                                justifyContent: "space-between"
-                            }}>
-                                <h5>Вартість доставки:</h5>
-                                <h5><b>50 грн.</b></h5>
-                            </div>
-                            <hr/>
-                            <div style={{
-                                display: "flex",
-                                flexDirection: "row",
-                                justifyContent: "space-between"
-                            }}>
-                                <h5>Загалом:</h5>
-                                <h5><b>{totalPrice + 50} грн.</b></h5>
-                            </div>
 
-                            <Button variant="light" style={{marginTop: "10px"}} href="/order" className="m-md-auto">Оформити
-                                замовлення</Button>
+                            {isCurier ?
+                                <div style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    justifyContent: "space-between"
+                                }}>
+                                    <h5>Вартість доставки:</h5>
+                                    <h5><b>50 грн.</b></h5>
+                                </div> : null
+                            }
+                            <hr/>
+                            {isCurier ?
+                                <div style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    justifyContent: "space-between"
+                                }}>
+                                    <h5>Загалом:</h5>
+                                    <h5><b>{totalPrice + 50} грн.</b></h5>
+                                </div>
+                                :
+                                <div style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    justifyContent: "space-between"
+                                }}>
+                                    <h5>Загалом:</h5>
+                                    <h5><b>{totalPrice} грн.</b></h5>
+                                </div>
+                            }
                         </Col>
                     </Container>
                 </Col>
             </Row>
-
-
         </Container>
     );
 }

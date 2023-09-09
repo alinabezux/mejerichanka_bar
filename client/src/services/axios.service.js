@@ -21,18 +21,16 @@ $authHost.interceptors.request.use((config) => {
     return config
 })
 
+
 $authHost.interceptors.response.use((config) => {
         return config;
     },
     async (error) => {
         const refreshToken = authService.getRefreshToken();
-        console.log(refreshToken);
         if (error.response?.status === 401 && refreshToken && !isRefreshing) {
-            console.log("401")
             isRefreshing = true;
             try {
                 const {data} = await authService.refresh(refreshToken);
-                console.log("refreshing")
 
                 localStorage.setItem('access', data.accessToken)
                 localStorage.setItem('refresh', data.refreshToken)
@@ -47,5 +45,6 @@ $authHost.interceptors.response.use((config) => {
         return Promise.reject(error)
     }
 )
+
 
 export {$host, $authHost};

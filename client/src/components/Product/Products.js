@@ -2,6 +2,7 @@ import {useEffect, useMemo} from "react";
 import {Product} from "./Product";
 import {useDispatch, useSelector} from "react-redux";
 import {productsActions} from "../../redux";
+import {Container} from "react-bootstrap";
 
 
 const Products = () => {
@@ -24,20 +25,20 @@ const Products = () => {
         }
     }, [products, selectedCategory, selectedType])
 
+    const scroll = document.getElementById("scrollTo");
+    if (scroll) {
+        scroll.scrollIntoView({behavior: 'smooth'});
+    }
 
-    console.log("filteredProducts: ", filteredProducts)
-    console.log("selectedCategory: ", selectedCategory)
-    console.log("selectedType: ", selectedType)
-    console.log("---")
     return (
-        <div className="products m-3">
+        <Container className="products m-3">
             {
                 filteredProducts.map(product =>
                     <Product key={product._id} product={product}/>)
             }
 
             {error && <h1>Error:(</h1>}
-        </div>
+        </Container>
     );
 };
 

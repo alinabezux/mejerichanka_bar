@@ -8,12 +8,13 @@ import {joiResolver} from "@hookform/resolvers/joi";
 
 
 const EditProduct = ({show, onHide}) => {
-
     const dispatch = useDispatch();
-    const {register, handleSubmit, formState: {errors, isValid}, setValue} = useForm({
-        resolver: joiResolver(productValidator.editProductValidator),
-        mode: 'all'
-    });
+    const {register, handleSubmit, formState: {errors}, setValue} = useForm(
+        {
+            resolver: joiResolver(productValidator.editProductValidator),
+            mode: 'all'
+        }
+    );
 
     const {selectedProduct} = useSelector(state => state.productsReducer);
 
@@ -44,14 +45,14 @@ const EditProduct = ({show, onHide}) => {
                     <Form.Control className="mb-3"
                                   type="text"
                                   placeholder={'title'}
-                                  {...register('title', {required: true})}
+                                  {...register('title')}
                     />
 
                     {errors.price && <Alert variant={"danger"}>{errors.price.message}</Alert>}
                     <Form.Control className="mb-3"
                                   type="number"
                                   placeholder={'price'}
-                                  {...register('price', {required: true})}
+                                  {...register('price')}
                     />
 
                     <Button variant="outline-success" type='submit' onClick={onHide}>Зберегти</Button>

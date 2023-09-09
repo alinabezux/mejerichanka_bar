@@ -5,10 +5,7 @@ import {authService} from "../services";
 import {AuthPage} from "./AuthPage";
 
 const AdminPage = () => {
-
     const [userId, setUserId] = useState(null);
-
-
     useEffect(() => {
         const user = authService.getUser();
         if (user) {

@@ -11,7 +11,7 @@ module.exports = {
                 throw new ApiError(401, 'Користувач не авторизований.')
             }
             const accessToken = authorizationString.split(" ")[1]
-            const decoded = OAuthService.checkToken(accessToken, 'accessToken');
+            const decoded = OAuthService.checkToken(accessToken);
             const user = await User.findById(decoded.id);
 
             if (user.isAdmin !== true) {

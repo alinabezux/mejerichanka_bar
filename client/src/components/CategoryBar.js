@@ -24,8 +24,8 @@ const CategoryBar = () => {
     };
 
     return (
-        <div className="categories">
-            <div>
+        <>
+            <div className="categories">
                 {categories.map(category => (
                     <img
                         className="m-3"
@@ -40,7 +40,7 @@ const CategoryBar = () => {
             <div>
                 {showTypeBar && <TypeBar/>}
             </div>
-        </div>
+        </>
 
     );
 

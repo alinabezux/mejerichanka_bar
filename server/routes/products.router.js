@@ -12,7 +12,7 @@ productsRouter.get('/:productId',
     productsController.getProductById)
 
 productsRouter.post('/',
-    checkRoleMiddleware.checkRole,
+    // checkRoleMiddleware.checkRole,
     productsMiddleware.isNewProductValid,
     productsController.createProduct);
 

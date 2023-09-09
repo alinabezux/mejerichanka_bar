@@ -1,14 +1,20 @@
 import {Button, Image} from "react-bootstrap";
 import bin from '../assets/bin.png'
+import binBlack from '../assets/bin_black.png'
 import {basketActions} from "../redux";
 import {useDispatch} from "react-redux";
 import {useEffect, useState} from "react";
 import {authService} from "../services";
+import {useLocation} from "react-router-dom";
 
 
 const ProductInBasket = ({productInBasket}) => {
     const [userId, setUserId] = useState(null);
     const dispatch = useDispatch();
+    const location = useLocation();
+
+    const isOrder = location.pathname.includes('/order');
+
 
     useEffect(() => {
         const user = authService.getUser();
@@ -31,7 +37,6 @@ const ProductInBasket = ({productInBasket}) => {
                 flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "space-between",
-                margin: "6px 0"
             }}>
 
                 <Image style={{height: '70px'}} variant="top" src={productInBasket.image}/>
@@ -46,8 +51,12 @@ const ProductInBasket = ({productInBasket}) => {
                     width: "70px"
                 }}>
                     <h5>{productInBasket.price} грн.</h5>
-                    <img style={{width: '18px', marginTop: "20px"}} src={bin} alt="bin"
-                         onClick={() => handleDeleteProductInBasket(productInBasket)}/>
+                    {isOrder ?
+                        <img style={{width: '18px', marginTop: "10px"}} src={binBlack} alt="bin"
+                             onClick={() => handleDeleteProductInBasket(productInBasket)}/>
+                        : <img style={{width: '18px', marginTop: "10px"}} src={bin} alt="bin"
+                               onClick={() => handleDeleteProductInBasket(productInBasket)}/>
+                    }
                 </div>
             </div>
             <hr/>

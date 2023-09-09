@@ -1,7 +1,7 @@
-import {Alert, Button, Dropdown, Form, Modal} from "react-bootstrap";
+import {Alert, Button, Container, Form, Modal} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {categoriesActions, productsActions, typesActions} from "../../../redux";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import {joiResolver} from "@hookform/resolvers/joi";
 import {productValidator} from "../../../validators";
@@ -11,37 +11,46 @@ const CreateProduct = ({show, onHide}) => {
 
     const dispatch = useDispatch();
 
-    const {selectedCategory, categories} = useSelector(state => state.categoriesReducer);
-    const {selectedType, types} = useSelector(state => state.typesReducer);
+    const [category, setCategory] = useState('');
+    const [type, setType] = useState('');
+
+    const {categories} = useSelector(state => state.categoriesReducer);
+    const {types} = useSelector(state => state.typesReducer);
 
     useEffect(() => {
         dispatch(categoriesActions.getAll())
         dispatch(typesActions.getAll())
     }, [dispatch]);
 
-    const {register, handleSubmit, reset, setValue, formState: {errors}} = useForm({
-        defaultValues: {
-            title: '',
-            price: 0,
-        },
+    const {register, handleSubmit, reset, formState: {errors}} = useForm({
         resolver: joiResolver(productValidator.newProductValidator),
         mode: 'all'
     });
 
 
     const handleCreateProduct = async (data) => {
-        await dispatch(productsActions.createProduct({
-            product: {
-                title: data.title,
-                category: selectedCategory.category,
-                type: selectedType.type,
-                price: data.price,
-            }
-        }))
-        onHide();
-        setValue('title', "");
-        setValue('price', 0);
+        if (type !== '') {
+            await dispatch(productsActions.createProduct({
+                product: {
+                    title: data.title,
+                    category: category,
+                    type: type,
+                    price: data.price,
+                }
+            }))
+        } else {
+            await dispatch(productsActions.createProduct({
+                product: {
+                    title: data.title,
+                    category: category,
+                    price: data.price,
+                }
+            }))
+        }
         reset();
+        setCategory('');
+        setType('');
+        onHide();
         await dispatch(productsActions.getAll({}))
     }
 
@@ -54,52 +63,50 @@ const CreateProduct = ({show, onHide}) => {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Form onSubmit={handleSubmit(handleCreateProduct)}>
-                    {errors.title && <Alert variant={"danger"}>{errors.title.message}</Alert>}
-                    <Form.Control className="mb-3"
-                                  type="text"
-                                  placeholder="Введіть назву продукту"
-                                  {...register('title', {required: true})}
-                    />
+                <Container>
+                    <Form onSubmit={handleSubmit(handleCreateProduct)}>
+                        {errors.title && <Alert variant={"danger"}>{errors.title.message}</Alert>}
+                        <Form.Control className="mb-3"
+                                      type="text"
+                                      placeholder="Введіть назву продукту"
+                                      {...register('title')}
+                        />
 
-                    {errors.category && <Alert variant={"danger"}>{errors.category.message}</Alert>}
-                    <Dropdown className="mt-2 mb-2">
-                        <Dropdown.Toggle>{selectedCategory.category || "Виберіть категорію"}</Dropdown.Toggle>
-                        <Dropdown.Menu>
+                        {errors.category && <Alert variant={"danger"}>{errors.category.message}</Alert>}
+                        <Form.Select className="mb-3" value={category}
+                                     onChange={(e) => setCategory(e.target.value)}>
+                            <option>Виберіть категорію</option>
                             {categories.map(category =>
-                                <Dropdown.Item
-                                    onClick={() => dispatch(categoriesActions.setSelectedCategory(category))}
-                                    key={category._id}
-                                >
+                                <option value={category.category} key={category._id}>
                                     {category.category}
-                                </Dropdown.Item>
+                                </option>
                             )}
-                        </Dropdown.Menu>
-                    </Dropdown>
+                        </Form.Select>
 
-                    {errors.type && <Alert variant={"danger"}>{errors.type.message}</Alert>}
-                    <Dropdown className="mt-2 mb-2">
-                        <Dropdown.Toggle>{selectedType.type || "Виберіть тип"}</Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            {types.map(type =>
-                                <Dropdown.Item
-                                    onClick={() => dispatch(typesActions.setSelectedType(type))}
-                                    key={type._id}
-                                >
-                                    {type.type}
-                                </Dropdown.Item>
-                            )}
-                        </Dropdown.Menu>
-                    </Dropdown>
+                        {category === 'Головне меню' &&
+                            <div>
+                                {errors.type && <Alert variant={"danger"}>{errors.type.message}</Alert>}
+                                <Form.Select className="mb-3" value={type}
+                                             onChange={(e) => setType(e.target.value)}>
+                                    <option>Виберіть тип</option>
+                                    {types.map(type =>
+                                        <option value={type.type} key={type._id}>
+                                            {type.type}
+                                        </option>
+                                    )}
+                                </Form.Select>
+                            </div>
+                        }
 
-                    {errors.price && <Alert variant={"danger"}>{errors.price.message}</Alert>}
-                    <Form.Control className="mb-3"
-                                  type="number"
-                                  placeholder="Введіть ціну продукту"
-                                  {...register('price', {required: true})}
-                    />
-                    <Button variant="outline-success" type='submit' onClick={onHide} >Зберегти</Button>
-                </Form>
+                        {errors.price && <Alert variant={"danger"}>{errors.price.message}</Alert>}
+                        <Form.Control className="mb-3"
+                                      type="number"
+                                      placeholder="Введіть ціну продукту"
+                                      {...register('price')}
+                        />
+                        <Button variant="outline-success" type='submit' onClick={onHide}>Зберегти</Button>
+                    </Form>
+                </Container>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="outline-danger" onClick={onHide}>Закрити</Button>

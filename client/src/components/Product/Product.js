@@ -3,11 +3,15 @@ import {basketActions} from "../../redux";
 import {useDispatch} from "react-redux";
 import {useEffect, useState} from "react";
 import {authService} from "../../services";
+import {EditProduct} from "../Admin/modals";
+import {Basket} from "../Basket";
 
 const Product = ({product}) => {
     const dispatch = useDispatch();
 
     const [userId, setUserId] = useState(null);
+    const [basketVisible, setBasketVisible] = useState(false);
+
 
     useEffect(() => {
         const user = authService.getUser();
@@ -17,8 +21,8 @@ const Product = ({product}) => {
     }, [])
 
     const handleAddProductToBasket = async (product) => {
-        const res = await dispatch(basketActions.addToBasket({userId: userId, productId: product._id}));
-        console.log(res);
+        await dispatch(basketActions.addToBasket({userId: userId, productId: product._id}));
+        setBasketVisible(true)
         dispatch(basketActions.getBasket(userId))
     };
 
@@ -31,6 +35,10 @@ const Product = ({product}) => {
                 <Button className="btn" variant="dark"
                         onClick={() => handleAddProductToBasket(product)}
                 >Добавити в корзину</Button>
+
+                <Basket show={basketVisible}
+                        onHide={() => setBasketVisible(false)}/>
+
             </Card.Body>
         </Card>
     );

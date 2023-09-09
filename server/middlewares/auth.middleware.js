@@ -23,7 +23,6 @@ module.exports = {
     checkAccessToken: async (req, res, next) => {
         try {
             const authorizationString = req.get('Authorization');
-            console.log(`authorizationString:${authorizationString}`);
 
             if (!authorizationString) {
                 throw new ApiError(401, 'Користувач не авторизований.');
@@ -31,13 +30,9 @@ module.exports = {
 
             const accessToken = authorizationString.split(" ")[1]
 
-            console.log(`checkAccessToken:${accessToken}`);
-
             OAuthService.checkToken(accessToken);
 
             const tokenInfo = await OAuth.findOne({accessToken});
-
-            console.log(`tokenInfo checkAccessToken:${tokenInfo}`);
 
             if (!tokenInfo) {
                 throw new ApiError(401, 'Токен не дійсний.')
@@ -53,13 +48,13 @@ module.exports = {
 
     checkRefreshToken: async (req, res, next) => {
         try {
-            const refreshString = req.get('Authorization');
-
+            const refreshString = req.body.refresh;
+            console.log(refreshString);
             if (!refreshString) {
                 throw new ApiError(401, 'Немає токену.');
             }
-            const refreshToken = refreshString.split(" ")[1]
-            console.log(`----------------- refreshToken: ${refreshToken}`);
+            const refreshToken = refreshString
+            console.log(` refreshToken: ${refreshToken}`);
 
             OAuthService.checkToken(refreshToken, 'refreshToken');
             const tokenInfo = await OAuth.findOne({refreshToken});

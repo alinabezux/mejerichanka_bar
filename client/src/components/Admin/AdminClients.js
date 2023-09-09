@@ -13,7 +13,7 @@ const AdminClients = () => {
     }, [dispatch])
 
     return (
-        <Table style={{fontFamily: '\'Nunito\', sans-serif', fontSize: "20px"}}  bordered hover>
+        <Table style={{fontFamily: '\'Nunito\', sans-serif', fontSize: "20px"}} hover>
             <thead>
             <tr  style={{ backgroundColor: 'darkgray' }}>
                 <th>ID</th>
@@ -28,8 +28,7 @@ const AdminClients = () => {
                     <td>{user.name}</td>
                     <td>{user.email}</td>
                 </tr>
-            )
-            }
+            )}
             </tbody>
         </Table>
     );

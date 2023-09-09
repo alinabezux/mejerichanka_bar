@@ -1,5 +1,4 @@
 const User = require('../dataBase/models/User');
-const Basket = require('../dataBase/models/Basket');
 
 const OAuthService = require("../services/OAuth.service");
 
@@ -11,14 +10,6 @@ module.exports = {
             return res.json(users);
         } catch (e) {
             next(e);
-        }
-    },
-
-    getUserById: (req, res, next) => {
-        try {
-            return res.json(req.user);
-        } catch (e) {
-            next(e)
         }
     },
 

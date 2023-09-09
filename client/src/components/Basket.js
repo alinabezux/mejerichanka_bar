@@ -38,10 +38,12 @@ const Basket = ({show, onHide}) => {
     }, 0);
 
     return (
-        <Offcanvas show={show} onHide={onHide} placement="end" data-bs-theme="dark">
-            <Offcanvas.Header style={{display: "flex", flexDirection: "row"}} closeButton>
-                <Offcanvas.Title><h3>Корзина</h3></Offcanvas.Title>
-                {userId ? <Button variant={"light"} onClick={() => handleLogOut()}>Вийти</Button> : null}
+        <Offcanvas show={show} onHide={onHide} className="basket" placement="end" data-bs-theme="dark">
+            <Offcanvas.Header closeButton>
+                <div style={{display: "flex", alignItems: "center"}}>
+                    <Offcanvas.Title><h3 style={{marginRight: "15px"}}>Корзина</h3></Offcanvas.Title>
+                    {userId ? <Button variant={"light"} onClick={() => handleLogOut()}>Вийти</Button> : null}
+                </div>
             </Offcanvas.Header>
             <Offcanvas.Body>
                 {/*якщо зареєстрований*/}

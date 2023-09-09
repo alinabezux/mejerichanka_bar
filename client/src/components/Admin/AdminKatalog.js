@@ -66,7 +66,7 @@ const AdminKatalog = () => {
 
 
     return (
-        <Tab.Container defaultActiveKey="categories">
+        <Tab.Container defaultActiveKey="products">
             <Row>
                 <Col sm={3}>
                     <Nav variant="pills" style={{
@@ -109,8 +109,7 @@ const AdminKatalog = () => {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {
-                                    products.map(product =>
+                                { products.map(product =>
                                         <tr key={product._id}>
                                             <td><img style={{width: '100px'}} src={product.image}
                                                      alt={product.title}/></td>
