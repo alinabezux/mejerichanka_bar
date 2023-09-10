@@ -1,6 +1,5 @@
 import {Menu, Slider} from "../components";
 
-
 const HomePage = () => {
 
     return (

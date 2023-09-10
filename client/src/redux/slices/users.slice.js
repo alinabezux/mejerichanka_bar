@@ -60,8 +60,6 @@ const usersSlice = createSlice({
                 state.registerError = action.payload
                 state.loading = false
             })
-
-
 });
 
 const {reducer: usersReducer} = usersSlice;

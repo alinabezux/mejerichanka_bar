@@ -14,12 +14,11 @@ accountRouter.post('/registration',
 accountRouter.post('/logIn',
     authMiddleware.checkLogInBody,
     userMiddleware.getUserByEmail,
-    authController.logIn,
-);
+    authController.logIn,);
 
 accountRouter.post('/refresh',
     authMiddleware.checkRefreshToken,
-    authController.refresh)
+    authController.refresh);
 
 accountRouter.post('/logOut',
     authMiddleware.checkAccessToken,

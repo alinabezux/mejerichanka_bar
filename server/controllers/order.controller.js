@@ -1,7 +1,6 @@
 const Order = require('../dataBase/models/Order')
 const ProductInBasket = require("../dataBase/models/ProductInBasket");
 const Product = require("../dataBase/models/Product");
-const {logOut} = require("./auth.controller");
 
 
 module.exports = {
@@ -45,7 +44,7 @@ module.exports = {
             const newStatus = req.body.status;
             console.log(newStatus);
 
-            const updatedOrder = await Order.findByIdAndUpdate(req.params.orderId, { status: newStatus }, {new: true});
+            const updatedOrder = await Order.findByIdAndUpdate(req.params.orderId, {status: newStatus}, {new: true});
 
             res.json(updatedOrder);
         } catch (e) {

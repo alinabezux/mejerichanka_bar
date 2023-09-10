@@ -1,9 +1,9 @@
 import {Button, Card} from 'react-bootstrap';
-import {basketActions} from "../../redux";
-import {useDispatch} from "react-redux";
 import {useEffect, useState} from "react";
+import {useDispatch} from "react-redux";
+
+import {basketActions} from "../../redux";
 import {authService} from "../../services";
-import {EditProduct} from "../Admin/modals";
 import {Basket} from "../Basket";
 
 const Product = ({product}) => {

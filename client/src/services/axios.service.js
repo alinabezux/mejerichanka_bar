@@ -4,15 +4,12 @@ import {createBrowserHistory} from "history";
 import {baseURL} from "../configs/urls";
 import {authService} from "./auth.service";
 
-
 const $host = axios.create({baseURL})
 const $authHost = axios.create({baseURL})
 export const history = createBrowserHistory();
 
 let isRefreshing = false;
 
-
-// debugger
 $authHost.interceptors.request.use((config) => {
     const accessToken = authService.getAccessToken();
     if (accessToken) {
@@ -45,6 +42,5 @@ $authHost.interceptors.response.use((config) => {
         return Promise.reject(error)
     }
 )
-
 
 export {$host, $authHost};

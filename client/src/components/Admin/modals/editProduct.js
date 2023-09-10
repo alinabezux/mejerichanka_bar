@@ -1,10 +1,11 @@
 import {Alert, Button, Form, Modal} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
-import {productsActions} from "../../../redux";
 import {useForm} from "react-hook-form";
 import {useEffect} from "react";
-import {productValidator} from "../../../validators";
 import {joiResolver} from "@hookform/resolvers/joi";
+
+import {productValidator} from "../../../validators";
+import {productsActions} from "../../../redux";
 
 
 const EditProduct = ({show, onHide}) => {

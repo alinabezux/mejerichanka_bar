@@ -1,8 +1,8 @@
 import {useDispatch, useSelector} from "react-redux";
-import {productsActions} from "../../../redux";
-import {Button, Form, Modal} from "react-bootstrap";
 import {useState} from "react";
+import {Button, Form, Modal} from "react-bootstrap";
 
+import {productsActions} from "../../../redux";
 
 const UploadPhotoProduct = ({show, onHide}) => {
 

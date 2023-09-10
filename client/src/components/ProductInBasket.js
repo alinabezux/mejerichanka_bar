@@ -1,12 +1,13 @@
-import {Button, Image} from "react-bootstrap";
-import bin from '../assets/bin.png'
-import binBlack from '../assets/bin_black.png'
-import {basketActions} from "../redux";
+import {Image} from "react-bootstrap";
 import {useDispatch} from "react-redux";
 import {useEffect, useState} from "react";
-import {authService} from "../services";
 import {useLocation} from "react-router-dom";
 
+import bin from '../assets/bin.png'
+import binBlack from '../assets/bin_black.png'
+import {authService} from "../services";
+
+import {basketActions} from "../redux";
 
 const ProductInBasket = ({productInBasket}) => {
     const [userId, setUserId] = useState(null);

@@ -1,5 +1,4 @@
 const User = require('../dataBase/models/User');
-
 const OAuthService = require("../services/OAuth.service");
 
 module.exports = {

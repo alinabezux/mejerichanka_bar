@@ -1,9 +1,10 @@
 import {Alert, Button, Container, Form, Modal} from "react-bootstrap";
-import {useDispatch, useSelector} from "react-redux";
-import {categoriesActions, productsActions, typesActions} from "../../../redux";
 import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {useForm} from "react-hook-form";
 import {joiResolver} from "@hookform/resolvers/joi";
+
+import {categoriesActions, productsActions, typesActions} from "../../../redux";
 import {productValidator} from "../../../validators";
 
 

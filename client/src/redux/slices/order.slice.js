@@ -25,7 +25,6 @@ const getAllOrders = createAsyncThunk(
     async (_, {rejectWithValue}) => {
         try {
             const {data} = await orderService.getAllOrders();
-
             return data;
         } catch (e) {
             return rejectWithValue(e.response.data)
@@ -38,8 +37,6 @@ const updateOrderStatus = createAsyncThunk(
     async ({orderId, status}, {rejectWithValue}) => {
         try {
             const {data} = await orderService.updateOrderStatus(orderId, status);
-            console.log("updateOrderStatus --------- ");
-            console.log(JSON.stringify(data));
             return data
         } catch (e) {
             return rejectWithValue(e.response.data)

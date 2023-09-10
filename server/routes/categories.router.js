@@ -1,10 +1,10 @@
 const categoriesRouter = require('express').Router();
 
-const categoriesController = require("../controllers/categories.controller");
 const categoriesMiddleware = require("../middlewares/category.middleware");
 const productsMiddleware = require("../middlewares/product.middleware");
 const checkRoleMiddleware = require("../middlewares/checkRole.middleware");
 
+const categoriesController = require("../controllers/categories.controller");
 
 categoriesRouter.get('/',
     categoriesController.getAllCategories);
@@ -24,8 +24,6 @@ categoriesRouter.delete('/:categoryId',
 categoriesRouter.patch('/:categoryId',
     checkRoleMiddleware.checkRole,
     productsMiddleware.checkImage,
-    categoriesController.uploadImage
-)
-
+    categoriesController.uploadImage);
 
 module.exports = categoriesRouter;

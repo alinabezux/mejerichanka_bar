@@ -1,6 +1,7 @@
-import {useDispatch, useSelector} from "react-redux";
 import {Button, Form, Modal} from "react-bootstrap";
+import {useDispatch, useSelector} from "react-redux";
 import {useState} from "react";
+
 import {categoriesActions} from "../../../redux";
 
 

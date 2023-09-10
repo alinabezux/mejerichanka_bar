@@ -4,7 +4,6 @@ const User = require('../dataBase/models/User');
 
 
 module.exports = {
-
     checkIfUserExists: async (req, res, next) => {
         try {
             const {userId} = req.params;

@@ -1,6 +1,7 @@
 import {Button, Col, Nav, Row, Tab, Table} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
+
 import {categoriesActions, productsActions, typesActions} from "../../redux";
 import {
     CreateCategory,
@@ -109,43 +110,43 @@ const AdminKatalog = () => {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                { products.map(product =>
-                                        <tr key={product._id}>
-                                            <td><img style={{width: '100px'}} src={product.image}
-                                                     alt={product.title}/></td>
-                                            <td>{product.title}</td>
-                                            <td>{product.price} грн.</td>
-                                            <td>
-                                                <div style={{
-                                                    display: 'flex',
-                                                    flexDirection: 'column',
-                                                    alignItems: 'center',
-                                                    justifyContent: 'center',
-                                                    margin: '5px'
-                                                }}>
-                                                    <Button style={{marginBottom: '10px'}}
-                                                            onClick={() => handleEditProduct(product)}
-                                                    >Редагувати</Button>
+                                {products.map(product =>
+                                    <tr key={product._id}>
+                                        <td><img style={{width: '100px'}} src={product.image}
+                                                 alt={product.title}/></td>
+                                        <td>{product.title}</td>
+                                        <td>{product.price} грн.</td>
+                                        <td>
+                                            <div style={{
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                margin: '5px'
+                                            }}>
+                                                <Button style={{marginBottom: '10px'}}
+                                                        onClick={() => handleEditProduct(product)}
+                                                >Редагувати</Button>
 
-                                                    <EditProduct show={editProductVisible}
-                                                                 onHide={() => setEditProductVisible(false)}
-                                                    />
+                                                <EditProduct show={editProductVisible}
+                                                             onHide={() => setEditProductVisible(false)}
+                                                />
 
-                                                    <Button style={{marginBottom: '10px'}}
-                                                            variant={'secondary'}
-                                                            onClick={() => handleUploadPhotoProduct(product)}
-                                                    >+ Фото</Button>
+                                                <Button style={{marginBottom: '10px'}}
+                                                        variant={'secondary'}
+                                                        onClick={() => handleUploadPhotoProduct(product)}
+                                                >+ Фото</Button>
 
-                                                    <UploadPhotoProduct show={uploadPhotoProductVisible}
-                                                                        onHide={() => setUploadPhotoProductVisible(false)}
-                                                    />
+                                                <UploadPhotoProduct show={uploadPhotoProductVisible}
+                                                                    onHide={() => setUploadPhotoProductVisible(false)}
+                                                />
 
-                                                    <Button onClick={() => handleDeleteProduct(product)}
-                                                            variant={'outline-danger'}>Видалити</Button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    )
+                                                <Button onClick={() => handleDeleteProduct(product)}
+                                                        variant={'outline-danger'}>Видалити</Button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                )
                                 }
                                 </tbody>
                             </Table>
@@ -165,7 +166,7 @@ const AdminKatalog = () => {
                                 <tr>
                                     <th>Фото</th>
                                     <th>Категорія</th>
-                                    <th> </th>
+                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>

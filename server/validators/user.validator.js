@@ -1,4 +1,5 @@
 const Joi = require('joi');
+
 const regexp = require('../configs/regexp.enum');
 
 module.exports = {

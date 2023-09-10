@@ -1,7 +1,8 @@
+import {Table} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
+
 import {usersActions} from "../../redux";
-import {Table} from "react-bootstrap";
 
 const AdminClients = () => {
     const dispatch = useDispatch();

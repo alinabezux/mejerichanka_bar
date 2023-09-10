@@ -7,7 +7,6 @@ const initialState = {
     accessToken: null,
     refreshToken: null,
     error: null,
-    // success: false,
 }
 
 const logIn = createAsyncThunk(
@@ -18,8 +17,6 @@ const logIn = createAsyncThunk(
             localStorage.setItem('access', data.accessToken)
             localStorage.setItem('refresh', data.refreshToken)
             localStorage.setItem('userId', data.user._id)
-
-            console.log(data)
 
             return data;
         } catch (e) {
@@ -36,8 +33,6 @@ const refresh = createAsyncThunk(
             localStorage.setItem('access', data.accessToken)
             localStorage.setItem('refresh', data.refreshToken)
 
-            console.log(data)
-
             return data;
         } catch (e) {
             return rejectWithValue(e.response.data)
@@ -49,7 +44,6 @@ const logOut = createAsyncThunk(
     async ({access}, {rejectWithValue}) => {
         try {
             await authService.logOut(access);
-            // console.log(data)
             authService.deleteInfo()
         } catch (e) {
             return rejectWithValue(e.response.data)

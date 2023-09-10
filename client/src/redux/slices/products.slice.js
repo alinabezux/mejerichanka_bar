@@ -48,8 +48,6 @@ const updateProduct = createAsyncThunk(
     async ({productId, product}, {rejectWithValue}) => {
         try {
             const {data} = await productsService.updateProduct(productId, product);
-            console.log(JSON.stringify(data));
-
             return data
         } catch (e) {
             return rejectWithValue(e.response.data)
@@ -75,7 +73,6 @@ const productsSlice = createSlice({
     reducers: {
         setSelectedProduct: (state, action) => {
             state.selectedProduct = action.payload
-            console.log(action.payload);
         }
     },
     extraReducers: builder =>
@@ -101,7 +98,6 @@ const productsSlice = createSlice({
 
             .addCase(updateProduct.fulfilled, (state, action) => {
                 const findProduct = state.products.find(value => value.id === action.payload.id);
-                console.log(action.payload);
                 Object.assign(findProduct, action.payload)
                 state.selectedProduct = null
             })

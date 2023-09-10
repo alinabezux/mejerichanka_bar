@@ -102,7 +102,4 @@ const HookahPage = () => {
     )
 }
 
-export
-{
-    HookahPage
-}
+export {HookahPage}

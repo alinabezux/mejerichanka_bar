@@ -5,7 +5,6 @@ import basket from '../assets/backet.png'
 import dostavka from '../assets/delivery.png'
 import strava from '../assets/strava.png'
 import aboutUsPageTop2 from '../assets/aboutUsPageTop2.png'
-import {Container} from "react-bootstrap";
 
 const AboutUsPage = () => {
     return (
@@ -41,7 +40,6 @@ const AboutUsPage = () => {
                             Ми знаходимось за адресою:
                             <br/>Україна, Львівська обл., Червоноградський р-он,<br/> смт Межиріччя, <br/>
                             вул. Шахтарська, 17</p>
-
                     </div>
                 </div>
 
@@ -90,11 +88,8 @@ const AboutUsPage = () => {
                             <img src={strava} alt="money"/>
                             <p>Насолоджуйтесь смаком! Бажаємо приємного апетиту!</p>
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
         </div>
     );

@@ -2,8 +2,9 @@ const orderRouter = require('express').Router();
 
 const authMiddleware = require("../middlewares/auth.middleware");
 const usersMiddleware = require("../middlewares/user.middleware");
-const orderController = require("../controllers/order.controller");
 const checkRoleMiddleware = require("../middlewares/checkRole.middleware");
+
+const orderController = require("../controllers/order.controller");
 
 //створити замовлення
 orderRouter.post('/:userId',

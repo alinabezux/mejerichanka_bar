@@ -1,8 +1,9 @@
 const typesRouter = require('express').Router();
 
-const typesController = require("../controllers/types.controller");
 const typesMiddleware = require("../middlewares/type.middleware")
 const checkRoleMiddleware = require('../middlewares/checkRole.middleware');
+
+const typesController = require("../controllers/types.controller");
 
 typesRouter.get('/',
     typesController.getAllTypes);

@@ -1,4 +1,5 @@
 const usersRouter = require('express').Router();
+
 const checkRoleMiddleware = require("../middlewares/checkRole.middleware");
 
 const usersController = require('../controllers/users.controller');

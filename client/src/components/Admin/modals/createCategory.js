@@ -1,24 +1,19 @@
 import {Button, Form, Modal} from "react-bootstrap";
 import {useDispatch} from "react-redux";
 import {useState} from "react";
+
 import {categoriesActions} from "../../../redux";
 
 const CreateCategory = ({show, onHide}) => {
     const dispatch = useDispatch();
 
     const [category, setCategory] = useState('');
-    // const [file, setFile] = useState(null)
-
-    // const selectFile = e => {
-    //     setFile(e.target.files[0])
-    // }
 
     const handleCreateCategory = async () => {
         await dispatch(categoriesActions.createCategory({category: category}))
         onHide()
         dispatch(categoriesActions.getAll())
         setCategory('')
-        // setFile(null)
     };
 
 
@@ -37,10 +32,6 @@ const CreateCategory = ({show, onHide}) => {
                                   value={category}
                                   onChange={(e) => setCategory(e.target.value)}
                     />
-                    {/*<Form.Control className="mt-3"*/}
-                    {/*              type="file"*/}
-                    {/*              onChange={selectFile}*/}
-                    {/*/>*/}
                 </Form>
             </Modal.Body>
             <Modal.Footer>

@@ -1,9 +1,10 @@
-import {Alert, Button, Card, Col, Container, Form, Row, Spinner} from "react-bootstrap";
+import {Alert, Button, Card, Container, Form, Spinner} from "react-bootstrap";
 import {NavLink, useLocation, useNavigate, useSearchParams} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {useForm} from "react-hook-form";
-import {authActions, usersActions} from "../redux";
 import {useCallback} from "react";
+import {useForm} from "react-hook-form";
+import {useDispatch, useSelector} from "react-redux";
+
+import {authActions, usersActions} from "../redux";
 
 const AuthPage = () => {
     const location = useLocation();
@@ -103,15 +104,6 @@ const AuthPage = () => {
                         />
 
                     }
-                    {/*{!LogIn ?*/}
-                    {/*    <Form.Control*/}
-                    {/*        className="mt-3"*/}
-                    {/*        placeholder="Підтвердіть пароль..."*/}
-                    {/*        type="password"*/}
-                    {/*        {...register('password', {required: true})}*/}
-                    {/*    /> : null*/}
-                    {/*}*/}
-
                     <div className="mt-3 loginOrRegister" style={{alignItems: "center"}}>
                         <div>
                             {loading ? <Spinner/> : <Button variant={"outline-success"} type='submit'>
@@ -142,7 +134,6 @@ const AuthPage = () => {
                             }
                         </div>
                     </div>
-
                 </Form>
             </Card>
         </Container>

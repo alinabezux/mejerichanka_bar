@@ -17,6 +17,7 @@ module.exports = {
             next(e);
         }
     },
+
     refresh: async (req, res, next) => {
         try {
             const {refreshToken, _user} = req.tokenInfo;

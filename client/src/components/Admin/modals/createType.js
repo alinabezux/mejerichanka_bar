@@ -1,7 +1,8 @@
 import {Button, Form, Modal} from "react-bootstrap";
 import {useDispatch} from "react-redux";
-import {typesActions} from "../../../redux";
 import {useState} from "react";
+
+import {typesActions} from "../../../redux";
 
 
 const CreateType = ({show, onHide}) => {

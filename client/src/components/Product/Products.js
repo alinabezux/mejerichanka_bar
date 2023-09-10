@@ -1,8 +1,9 @@
 import {useEffect, useMemo} from "react";
-import {Product} from "./Product";
 import {useDispatch, useSelector} from "react-redux";
-import {productsActions} from "../../redux";
 import {Container} from "react-bootstrap";
+
+import {Product} from "./Product";
+import {productsActions} from "../../redux";
 
 
 const Products = () => {
@@ -36,7 +37,6 @@ const Products = () => {
                 filteredProducts.map(product =>
                     <Product key={product._id} product={product}/>)
             }
-
             {error && <h1>Error:(</h1>}
         </Container>
     );

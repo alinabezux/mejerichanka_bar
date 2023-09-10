@@ -1,7 +1,8 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {typesActions} from "../redux";
 import {Button, Spinner} from "react-bootstrap";
+
+import {typesActions} from "../redux";
 
 const TypeBar = () => {
     const dispatch = useDispatch();

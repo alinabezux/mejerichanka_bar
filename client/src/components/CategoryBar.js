@@ -1,8 +1,9 @@
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import {Spinner} from "react-bootstrap";
+
 import {categoriesActions} from "../redux";
 import {TypeBar} from "./TypeBar";
-import {Spinner} from "react-bootstrap";
 
 const CategoryBar = () => {
     const dispatch = useDispatch();
@@ -20,7 +21,6 @@ const CategoryBar = () => {
         } else {
             setShowTypeBar(false);
         }
-
     };
 
     return (

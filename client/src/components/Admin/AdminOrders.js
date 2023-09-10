@@ -1,6 +1,6 @@
 import {Table} from "react-bootstrap";
-import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
 
 import {orderActions} from "../../redux";
 import AdminOrderItem from "./AdminOrderItem";

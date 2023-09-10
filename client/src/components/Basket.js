@@ -1,9 +1,10 @@
 import {Button, Container, Offcanvas} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
+
+import basketph from '../assets/backet.png'
 import {authActions, basketActions} from "../redux";
 import {authService} from "../services";
-import basketph from '../assets/backet.png'
 import {ProductInBasket} from "./ProductInBasket";
 
 const Basket = ({show, onHide}) => {

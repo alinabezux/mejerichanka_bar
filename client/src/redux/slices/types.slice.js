@@ -45,14 +45,12 @@ const deleteById = createAsyncThunk(
 );
 
 
-
 const typesSlice = createSlice({
     name: 'typesSlice',
     initialState,
     reducers: {
         setSelectedType: (state, action) => {
             state.selectedType = action.payload
-
         },
     },
     extraReducers: builder =>

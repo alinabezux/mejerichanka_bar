@@ -5,7 +5,6 @@ const typesService = {
     getAll: () => $host.get(urls.types),
     createType: (type) => $authHost.post(urls.types, {type}),
     deleteById: (typeId) => $authHost.delete(`${urls.types}/${typeId}`)
-
 }
 
 export {typesService}

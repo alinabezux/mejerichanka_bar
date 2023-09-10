@@ -1,8 +1,9 @@
 import {Alert, Container, Tab, Tabs} from "react-bootstrap";
-import {AdminClients, AdminKatalog, AdminOrders} from "../components";
 import {useEffect, useState} from "react";
-import {authService} from "../services";
+
+import {AdminClients, AdminKatalog, AdminOrders} from "../components";
 import {AuthPage} from "./AuthPage";
+import {authService} from "../services";
 
 const AdminPage = () => {
     const [userId, setUserId] = useState(null);

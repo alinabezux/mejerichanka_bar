@@ -1,8 +1,9 @@
-import {Button, Container, Nav, Navbar} from "react-bootstrap";
+import {Button, Nav, Navbar} from "react-bootstrap";
+import {useState, useEffect} from "react";
+
 import basket from '../assets/backet.png'
-import {useState} from "react";
+
 import {Basket} from "./Basket";
-import {useEffect} from "react";
 import {authService} from "../services";
 
 const NaviBar = () => {

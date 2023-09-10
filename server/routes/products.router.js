@@ -2,6 +2,7 @@ const productsRouter = require('express').Router();
 
 const productsMiddleware = require('../middlewares/product.middleware');
 const checkRoleMiddleware = require("../middlewares/checkRole.middleware");
+
 const productsController = require("../controllers/products.controller");
 
 productsRouter.get('/',
@@ -29,7 +30,6 @@ productsRouter.put('/:productId',
 productsRouter.patch('/:productId',
     checkRoleMiddleware.checkRole,
     productsMiddleware.checkImage,
-    productsController.uploadImage
-);
+    productsController.uploadImage);
 
 module.exports = productsRouter;

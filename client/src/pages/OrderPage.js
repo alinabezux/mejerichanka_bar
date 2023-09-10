@@ -1,11 +1,13 @@
 import {Button, Col, Container, FloatingLabel, Form, InputGroup, Row} from "react-bootstrap";
-import {ProductInBasket} from "../components/ProductInBasket";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {useForm} from "react-hook-form";
+
+import {ProductInBasket} from "../components/ProductInBasket";
+
 import {authService} from "../services";
 import {basketActions, orderActions} from "../redux";
-import {useForm} from "react-hook-form";
-import {useNavigate} from "react-router-dom";
 
 
 const OrderPage = () => {
@@ -36,7 +38,6 @@ const OrderPage = () => {
 
 
     const isCurier = shipping === "Доставка кур'єром";
-
 
     const handleCreateOrder = async (data) => {
         await dispatch(orderActions.createOrder({
