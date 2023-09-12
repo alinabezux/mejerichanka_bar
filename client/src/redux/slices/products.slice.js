@@ -93,6 +93,15 @@ const productsSlice = createSlice({
 
             .addCase(createProduct.fulfilled, (state, action) => {
                 state.products.push(action.payload)
+                state.loading = false
+                state.error = null
+            })
+            .addCase(createProduct.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(createProduct.rejected, (state, action) => {
+                state.error = action.payload
+                state.loading = false
             })
 
 
@@ -101,12 +110,26 @@ const productsSlice = createSlice({
                 Object.assign(findProduct, action.payload)
                 state.selectedProduct = null
             })
+            .addCase(updateProduct.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(updateProduct.rejected, (state, action) => {
+                state.error = action.payload
+                state.loading = false
+            })
 
 
             .addCase(uploadPhoto.fulfilled, (state, action) => {
                 const findProduct = state.products.find(value => value.id === action.payload.id);
                 Object.assign(findProduct, action.payload)
                 state.selectedProduct = null
+            })
+            .addCase(uploadPhoto.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(uploadPhoto.rejected, (state, action) => {
+                state.error = action.payload
+                state.loading = false
             })
 
 

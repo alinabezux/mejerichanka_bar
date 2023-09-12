@@ -31,7 +31,7 @@ const AdminOrders = () => {
 
     return (
         <Table
-            style={{fontFamily: "'Nunito', sans-serif", fontSize: "20px"}}
+            style={{fontFamily: "'Nunito', sans-serif", fontWeight: "normal"}}
             bordered
             hover
         >

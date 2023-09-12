@@ -21,7 +21,7 @@ const HookahPage = () => {
                 </div>
                 <div className="hookah-menu">
                     <h2 style={{fontFamily: 'Comfortaa', marginTop: '50px'}}>Кальянна карта</h2>
-                    <table>
+                    <table className="table-hookah">
                         <thead>
                         <tr>
                             <th style={{width: "75%"}}><strong>Табак</strong></th>

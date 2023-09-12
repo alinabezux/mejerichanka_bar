@@ -2,9 +2,9 @@ FROM node:18-alpine
 
 MAINTAINER mejerichanka
 
-RUN mkdir /server
-WORKDIR /server
+RUN mkdir /app
+WORKDIR /app
 
-COPY ./server/package.json /server
+COPY ./server/package.json /app
 
-RUN npm i --production
+RUN npm i --prodaction

@@ -46,7 +46,7 @@ const AuthPage = () => {
         } catch (e) {
             console.log("catch e: ", e);
         }
-    }, [dispatch, error, authActions, usersActions, LogIn, navigate])
+    }, [dispatch, error, authActions, usersActions, LogIn, isAdmin, navigate])
 
 
     return (

@@ -18,7 +18,7 @@ module.exports = {
 
             await User.create({...req.body.user, password: hashPassword});
 
-            res.status(201).json('User is registered.')
+            res.status(201).json('Користувач зареєстрований.')
         } catch (e) {
             next(e);
         }

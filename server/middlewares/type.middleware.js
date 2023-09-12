@@ -9,7 +9,7 @@ module.exports = {
                 const type = await Type.findOne({type: `${typeOfProduct}`});
 
                 if (type) {
-                    throw new ApiError(404, `Type ${typeOfProduct}  exists in database.`)
+                    throw new ApiError(404, `Тип ${typeOfProduct}  не існує в базі даних.`)
                 }
             }
 

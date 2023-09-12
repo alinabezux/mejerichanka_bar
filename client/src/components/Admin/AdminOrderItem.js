@@ -17,7 +17,7 @@ export default function AdminOrderItem({order, submit, setUpdateOrder}) {
     }, [submit, status])
 
     return (
-        <tr className="rejected">
+        <tr>
             <td>{order.firstName} {order.lastName} <br/>+380{order.number}</td>
             <td>
                 <ul>

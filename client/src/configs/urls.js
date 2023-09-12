@@ -1,10 +1,11 @@
-const baseURL = 'http://localhost:5000/'
+// const baseURL = 'http://localhost/api/api'
+const baseURL = 'http://localhost:5000/api'
 
 const urls = {
-    products: '/api/products',
-    categories: '/api/categories',
-    types: '/api/types',
-    users: '/api/users',
+    products: '/products',
+    categories: '/categories',
+    types: '/types',
+    users: '/users',
     auth: {
         registration: '/account/registration',
         logIn: '/account/logIn',

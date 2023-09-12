@@ -2,7 +2,7 @@ import {Table} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 
-import {usersActions} from "../../redux";
+import {usersActions} from "../../redux"
 
 const AdminClients = () => {
     const dispatch = useDispatch();
@@ -14,9 +14,9 @@ const AdminClients = () => {
     }, [dispatch])
 
     return (
-        <Table style={{fontFamily: '\'Nunito\', sans-serif', fontSize: "20px"}} hover>
+        <Table style={{fontFamily: '\'Nunito\', sans-serif', fontWeight: "normal"}} hover>
             <thead>
-            <tr  style={{ backgroundColor: 'darkgray' }}>
+            <tr style={{backgroundColor: 'darkgray'}}>
                 <th>ID</th>
                 <th>Ім'я</th>
                 <th>Email</th>

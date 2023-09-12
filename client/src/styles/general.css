@@ -61,6 +61,8 @@ p {
 
 }
 
+
+
 /*для планшетів ,ноутів та пк*/
 @media only screen and (min-width: 768px) {
     .navbar-links {

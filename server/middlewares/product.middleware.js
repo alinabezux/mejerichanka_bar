@@ -12,7 +12,7 @@ module.exports = {
             const product = await Product.findById(productId);
 
             if (!product) {
-                throw new ApiError(404, `Product with Id ${productId} doesn't exists.`)
+                throw new ApiError(404, `Продукт з Id ${productId} не існує.`)
             }
 
             req.product = product;
@@ -26,9 +26,17 @@ module.exports = {
     isNewProductValid: async (req, res, next) => {
         try {
             let validate = productValidator.newProductValidator.validate(req.body.product);
-
             if (validate.error) {
-                throw new ApiError(validate.error.message);
+                const errorDetails = validate.error.details[0] || null;
+                console.log(errorDetails);
+
+                if (errorDetails) {
+                    const isErrorMessage = errorDetails.message || null;
+                    const isCustomErrorMessage = errorDetails.context.label || null;
+                    const errorMessage = isErrorMessage || isCustomErrorMessage;
+
+                    throw new ApiError(409, errorMessage);
+                }
             }
 
             req.body.product = validate.value;
@@ -43,8 +51,18 @@ module.exports = {
             let validate = productValidator.editProductValidator.validate(req.body.product);
 
             if (validate.error) {
-                throw new ApiError(validate.error.message);
+                const errorDetails = validate.error.details[0] || null;
+                console.log(errorDetails);
+
+                if (errorDetails) {
+                    const isErrorMessage = errorDetails.message || null;
+                    const isCustomErrorMessage = errorDetails.context.label || null;
+                    const errorMessage = isErrorMessage || isCustomErrorMessage;
+
+                    throw new ApiError(409, errorMessage);
+                }
             }
+
 
             req.body.product = validate.value;
 

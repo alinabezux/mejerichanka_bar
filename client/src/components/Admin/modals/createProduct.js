@@ -2,10 +2,8 @@ import {Alert, Button, Container, Form, Modal} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useForm} from "react-hook-form";
-import {joiResolver} from "@hookform/resolvers/joi";
 
 import {categoriesActions, productsActions, typesActions} from "../../../redux";
-import {productValidator} from "../../../validators";
 
 
 const CreateProduct = ({show, onHide}) => {
@@ -15,23 +13,22 @@ const CreateProduct = ({show, onHide}) => {
     const [category, setCategory] = useState('');
     const [type, setType] = useState('');
 
+    const {error} = useSelector(state => state.productsReducer);
     const {categories} = useSelector(state => state.categoriesReducer);
     const {types} = useSelector(state => state.typesReducer);
+
 
     useEffect(() => {
         dispatch(categoriesActions.getAll())
         dispatch(typesActions.getAll())
     }, [dispatch]);
 
-    const {register, handleSubmit, reset, formState: {errors}} = useForm({
-        resolver: joiResolver(productValidator.newProductValidator),
-        mode: 'all'
-    });
+    const {register, handleSubmit, reset} = useForm();
 
 
     const handleCreateProduct = async (data) => {
         if (type !== '') {
-            await dispatch(productsActions.createProduct({
+            const res = await dispatch(productsActions.createProduct({
                 product: {
                     title: data.title,
                     category: category,
@@ -39,20 +36,29 @@ const CreateProduct = ({show, onHide}) => {
                     price: data.price,
                 }
             }))
+            if (res.meta.requestStatus === 'fulfilled') {
+                onHide();
+                reset();
+                setCategory('');
+                setType('');
+                await dispatch(productsActions.getAll({}))
+            }
         } else {
-            await dispatch(productsActions.createProduct({
+            const res = await dispatch(productsActions.createProduct({
                 product: {
                     title: data.title,
                     category: category,
                     price: data.price,
                 }
             }))
+            if (res.meta.requestStatus === 'fulfilled') {
+                onHide();
+                reset();
+                setCategory('');
+                setType('');
+                await dispatch(productsActions.getAll({}))
+            }
         }
-        reset();
-        setCategory('');
-        setType('');
-        onHide();
-        await dispatch(productsActions.getAll({}))
     }
 
 
@@ -66,14 +72,13 @@ const CreateProduct = ({show, onHide}) => {
             <Modal.Body>
                 <Container>
                     <Form onSubmit={handleSubmit(handleCreateProduct)}>
-                        {errors.title && <Alert variant={"danger"}>{errors.title.message}</Alert>}
+                        {(error && <Alert style={{marginTop: "15px"}} variant={"danger"}>{error.message}</Alert>)}
                         <Form.Control className="mb-3"
                                       type="text"
                                       placeholder="Введіть назву продукту"
                                       {...register('title')}
                         />
 
-                        {errors.category && <Alert variant={"danger"}>{errors.category.message}</Alert>}
                         <Form.Select className="mb-3" value={category}
                                      onChange={(e) => setCategory(e.target.value)}>
                             <option>Виберіть категорію</option>
@@ -86,7 +91,6 @@ const CreateProduct = ({show, onHide}) => {
 
                         {category === 'Головне меню' &&
                             <div>
-                                {errors.type && <Alert variant={"danger"}>{errors.type.message}</Alert>}
                                 <Form.Select className="mb-3" value={type}
                                              onChange={(e) => setType(e.target.value)}>
                                     <option>Виберіть тип</option>
@@ -99,13 +103,12 @@ const CreateProduct = ({show, onHide}) => {
                             </div>
                         }
 
-                        {errors.price && <Alert variant={"danger"}>{errors.price.message}</Alert>}
                         <Form.Control className="mb-3"
                                       type="number"
                                       placeholder="Введіть ціну продукту"
                                       {...register('price')}
                         />
-                        <Button variant="outline-success" type='submit' onClick={onHide}>Зберегти</Button>
+                        <Button variant="outline-success" type='submit'>Зберегти</Button>
                     </Form>
                 </Container>
             </Modal.Body>

@@ -1,9 +1,10 @@
 {
-  "name": "mejerichanka_bar",
+  "name": "mejerichanka_bar_backend",
   "version": "1.0.0",
   "description": "MERN stack",
   "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "dev": " nodemon server.js "
   },
   "author": "bezuh alina",

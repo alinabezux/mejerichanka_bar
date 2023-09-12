@@ -100,7 +100,7 @@ const AdminKatalog = () => {
                             <CreateProduct show={productVisible}
                                            onHide={() => setProductVisible(false)}/>
 
-                            <Table style={{fontFamily: '\'Nunito\', sans-serif'}}>
+                            <Table style={{fontFamily: '\'Nunito\', sans-serif', fontWeight: "normal",fontSize:"25px"}}>
                                 <thead>
                                 <tr>
                                     <th>Фото</th>

@@ -20,7 +20,6 @@ const logIn = createAsyncThunk(
 
             return data;
         } catch (e) {
-            console.log(e)
             return rejectWithValue(e.response.data)
         }
     }

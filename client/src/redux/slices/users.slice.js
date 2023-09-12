@@ -4,6 +4,7 @@ import {usersService} from "../../services";
 const initialState = {
     users: [],
     loading: false,
+    error: null,
     registerError: null
 }
 
@@ -40,11 +41,11 @@ const usersSlice = createSlice({
             .addCase(getAll.fulfilled, (state, action) => {
                 state.users = action.payload
                 state.loading = false
-                state.registerError = null
+                state.error = null
             })
             .addCase(getAll.pending, (state) => {
                 state.loading = true
-                state.registerError = null
+                state.error = null
             })
             .addCase(getAll.rejected, (state, action) => {
                 state.registerError = action.payload
@@ -55,6 +56,9 @@ const usersSlice = createSlice({
                 state.users.push(action.payload)
                 state.loading = false
                 state.registerError = null
+            })
+            .addCase(registerUser.pending, (state) => {
+                state.loading = true
             })
             .addCase(registerUser.rejected, (state, action) => {
                 state.registerError = action.payload

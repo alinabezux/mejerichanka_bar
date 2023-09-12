@@ -9,7 +9,7 @@ module.exports = {
             const category = await Category.findOne({category: `${categoryOfProduct}`});
 
             if (category) {
-                throw new ApiError(`Category ${categoryOfProduct}  exists in database.`)
+                throw new ApiError(`Категорія ${categoryOfProduct} не існує в базі даних.`)
             }
 
             next();
