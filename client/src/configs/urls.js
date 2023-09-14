@@ -1,5 +1,5 @@
-// const baseURL = 'http://localhost/api/api'
-const baseURL = 'http://localhost:5000/api'
+const devURL = 'http://localhost/api/api'
+const prodURL = 'http://mejerichankabar-env.eba-qzjjjrmf.us-east-1.elasticbeanstalk.com/api/api'
 
 const urls = {
     products: '/products',
@@ -17,5 +17,5 @@ const urls = {
 }
 
 export {
-    baseURL, urls
+    devURL, prodURL, urls
 }
