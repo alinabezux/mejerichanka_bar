@@ -11,7 +11,7 @@ module.exports = {
             const user = await User.findById(userId);
 
             if (!user) {
-                throw new ApiError(404, `Користувача  ${userId} не знайдено.`)
+                throw new ApiError(400, 'Неправильний email або пароль.')
             }
 
             req.user = user;
@@ -31,7 +31,7 @@ module.exports = {
             const user = await User.findOne({email});
 
             if (!user) {
-                throw new ApiError(404, `Користувача  ${email} не знайдено.`)
+                throw new ApiError(404, 'Неправильний email або пароль.')
             }
 
             req.user = user;

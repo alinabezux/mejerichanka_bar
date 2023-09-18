@@ -33,8 +33,7 @@ const NaviBar = () => {
             </Navbar.Collapse>
             <div className="buttons-navibar" style={{marginRight: "10px"}}>
                 {(userId === "64ebcc062df84346e2bbadbb") ?
-                    <Button href="/admin" variant="outline-light"
-                            style={{margin: "5px"}}>Admin</Button> :
+                    <Button href="/admin" variant="outline-light">Admin</Button> :
                     <Button className="btn-reserv" href="/about#reserve"
                             variant="outline-danger">Забронювати</Button>
                 }

@@ -14,6 +14,7 @@ const logIn = createAsyncThunk(
     async ({user}, {rejectWithValue}) => {
         try {
             const {data} = await authService.login(user);
+            console.log(data);
             localStorage.setItem('access', data.accessToken)
             localStorage.setItem('refresh', data.refreshToken)
             localStorage.setItem('userId', data.user._id)

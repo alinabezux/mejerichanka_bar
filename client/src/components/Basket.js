@@ -32,6 +32,7 @@ const Basket = ({show, onHide}) => {
         const accessToken = authService.getAccessToken();
         await dispatch(authActions.logOut({access: accessToken}))
         setUserId(null)
+        window.location.reload()
     };
 
     const totalPrice = basket.reduce((total, productInBasket) => {

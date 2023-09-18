@@ -13,7 +13,7 @@ module.exports = {
         const isPasswordsSame = await bcrypt.compare(password, hashPassword);
 
         if (!isPasswordsSame) {
-            throw new ApiError(409, 'Неправильний пароль.');
+            throw new ApiError(409  , 'Неправильний email або пароль.');
         }
     },
 

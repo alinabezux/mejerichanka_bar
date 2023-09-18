@@ -12,7 +12,7 @@ module.exports = {
 
             await OAuth.create({_user: user._id, ...tokenPair})
 
-            res.json({user, ...tokenPair});
+            res.json({_user: user._id, ...tokenPair});
         } catch (e) {
             next(e);
         }
@@ -28,7 +28,6 @@ module.exports = {
             const tokenPair = OAuthService.generateTokenPair({id: _user});
 
             await OAuth.create({_user, ...tokenPair})
-            console.log(`нова пара refresh: ${tokenPair.accessToken}`);
 
             res.status(201).json({...tokenPair});
         } catch (e) {

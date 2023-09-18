@@ -19,7 +19,6 @@ const AuthPage = () => {
     const isAdmin = location.pathname.includes('/admin');
     const isRegister = location.pathname.includes('/registration');
 
-
     const submit = useCallback(async (data) => {
         try {
             if (LogIn || isAdmin) {

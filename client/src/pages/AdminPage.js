@@ -1,4 +1,4 @@
-import {Alert, Container, Tab, Tabs} from "react-bootstrap";
+import {Alert, Button, Container, Tab, Tabs} from "react-bootstrap";
 import {useEffect, useState} from "react";
 
 import {AdminClients, AdminKatalog, AdminOrders} from "../components";
@@ -17,11 +17,11 @@ const AdminPage = () => {
 
     return ((userId === "64ebcc062df84346e2bbadbb") ?
             <Container style={{margin: '15px', fontFamily: '\'Nunito\', sans-serif'}}>
+                <Button href="/" style={{margin: "5px"}}> ⬅️На головну</Button>
                 <Tabs defaultActiveKey="catalogue" className="mb-4">
                     <Tab eventKey="orders" title="Замовлення">
                         <AdminOrders/>
                     </Tab>
-
                     <Tab eventKey="clients" title="Клієнти">
                         <AdminClients/>
                     </Tab>
