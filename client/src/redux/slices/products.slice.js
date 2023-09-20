@@ -84,6 +84,7 @@ const productsSlice = createSlice({
             })
             .addCase(getAll.pending, (state) => {
                 state.loading = true
+                state.error = null
             })
             .addCase(getAll.rejected, (state, action) => {
                 state.error = action.payload
@@ -98,6 +99,7 @@ const productsSlice = createSlice({
             })
             .addCase(createProduct.pending, (state) => {
                 state.loading = true
+                state.error = null
             })
             .addCase(createProduct.rejected, (state, action) => {
                 state.error = action.payload
@@ -109,9 +111,12 @@ const productsSlice = createSlice({
                 const findProduct = state.products.find(value => value.id === action.payload.id);
                 Object.assign(findProduct, action.payload)
                 state.selectedProduct = null
+                state.error = null
+                state.loading = false
             })
             .addCase(updateProduct.pending, (state) => {
                 state.loading = true
+                state.error = null
             })
             .addCase(updateProduct.rejected, (state, action) => {
                 state.error = action.payload
@@ -123,9 +128,12 @@ const productsSlice = createSlice({
                 const findProduct = state.products.find(value => value.id === action.payload.id);
                 Object.assign(findProduct, action.payload)
                 state.selectedProduct = null
+                state.error = null
+                state.loading = false
             })
             .addCase(uploadPhoto.pending, (state) => {
                 state.loading = true
+                state.error = null
             })
             .addCase(uploadPhoto.rejected, (state, action) => {
                 state.error = action.payload
@@ -136,6 +144,14 @@ const productsSlice = createSlice({
             .addCase(deleteById.fulfilled, (state) => {
                 state.loading = false
                 state.error = null;
+            })
+            .addCase(deleteById.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(deleteById.rejected, (state, action) => {
+                state.error = action.payload
+                state.loading = false
             })
 
 });

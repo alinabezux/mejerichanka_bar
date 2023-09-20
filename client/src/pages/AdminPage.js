@@ -2,7 +2,7 @@ import {Alert, Button, Container, Tab, Tabs} from "react-bootstrap";
 import {useEffect, useState} from "react";
 
 import {AdminClients, AdminKatalog, AdminOrders} from "../components";
-import {AuthPage} from "./AuthPage";
+import {RegisterPage} from "./RegisterPage";
 import {authService} from "../services";
 
 const AdminPage = () => {
@@ -35,7 +35,7 @@ const AdminPage = () => {
                 <Alert variant={"danger"}>
                     Підтвердіть,що ви адміністратор
                 </Alert>
-                <AuthPage/>
+                <RegisterPage/>
             </Container>
     );
 }

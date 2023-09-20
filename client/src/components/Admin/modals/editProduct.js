@@ -4,11 +4,16 @@ import {useForm} from "react-hook-form";
 import {useEffect} from "react";
 
 import {productsActions} from "../../../redux";
+import {joiResolver} from "@hookform/resolvers/joi";
+import {productValidator} from "../../../validators";
 
 
 const EditProduct = ({show, onHide}) => {
     const dispatch = useDispatch();
-    const {register, handleSubmit, setValue} = useForm();
+    const {register, handleSubmit, setValue, formState: {errors}} = useForm({
+        resolver: joiResolver(productValidator.editProductValidator),
+        mode: 'all'
+    });
 
     const {selectedProduct, error} = useSelector(state => state.productsReducer);
     useEffect(() => {
@@ -42,12 +47,17 @@ const EditProduct = ({show, onHide}) => {
                 <Container>
                     <Form onSubmit={handleSubmit(submit)}>
                         {(error && <Alert style={{marginTop: "15px"}} variant={"danger"}>{error.message}</Alert>)}
+
+                        {errors.title &&
+                            <Alert style={{marginTop: "15px"}} variant={"danger"}>{errors.title.message}</Alert>}
                         <Form.Control className="mb-3"
                                       type="text"
                                       placeholder={'title'}
                                       {...register('title')}
                         />
 
+                        {errors.price &&
+                            <Alert style={{marginTop: "15px"}} variant={"danger"}>{errors.price.message}</Alert>}
                         <Form.Control className="mb-3"
                                       type="number"
                                       placeholder={'price'}

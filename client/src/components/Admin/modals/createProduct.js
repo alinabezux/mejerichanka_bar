@@ -4,6 +4,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {useForm} from "react-hook-form";
 
 import {categoriesActions, productsActions, typesActions} from "../../../redux";
+import {joiResolver} from "@hookform/resolvers/joi";
+import {productValidator} from "../../../validators";
 
 
 const CreateProduct = ({show, onHide}) => {
@@ -23,7 +25,10 @@ const CreateProduct = ({show, onHide}) => {
         dispatch(typesActions.getAll())
     }, [dispatch]);
 
-    const {register, handleSubmit, reset} = useForm();
+    const {register, handleSubmit, reset, formState: {errors}} = useForm({
+        resolver: joiResolver(productValidator.newProductValidator),
+        mode: 'all'
+    });
 
 
     const handleCreateProduct = async (data) => {
@@ -73,12 +78,17 @@ const CreateProduct = ({show, onHide}) => {
                 <Container>
                     <Form onSubmit={handleSubmit(handleCreateProduct)}>
                         {(error && <Alert style={{marginTop: "15px"}} variant={"danger"}>{error.message}</Alert>)}
+
+                        {errors.title &&
+                            <Alert style={{marginTop: "15px"}} variant={"danger"}>{errors.title.message}</Alert>}
                         <Form.Control className="mb-3"
                                       type="text"
                                       placeholder="Введіть назву продукту"
                                       {...register('title')}
                         />
 
+                        {errors.category &&
+                            <Alert style={{marginTop: "15px"}} variant={"danger"}>{errors.category.message}</Alert>}
                         <Form.Select className="mb-3" value={category}
                                      onChange={(e) => setCategory(e.target.value)}>
                             <option>Виберіть категорію</option>
@@ -90,7 +100,7 @@ const CreateProduct = ({show, onHide}) => {
                         </Form.Select>
 
                         {category === 'Головне меню' &&
-                            <div>
+                            <>
                                 <Form.Select className="mb-3" value={type}
                                              onChange={(e) => setType(e.target.value)}>
                                     <option>Виберіть тип</option>
@@ -100,9 +110,11 @@ const CreateProduct = ({show, onHide}) => {
                                         </option>
                                     )}
                                 </Form.Select>
-                            </div>
+                            </>
                         }
 
+                        {errors.price &&
+                            <Alert style={{marginTop: "15px"}} variant={"danger"}>{errors.price.message}</Alert>}
                         <Form.Control className="mb-3"
                                       type="number"
                                       placeholder="Введіть ціну продукту"

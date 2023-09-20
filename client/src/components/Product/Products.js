@@ -32,7 +32,7 @@ const Products = () => {
     }
 
     return (
-        <Container className="products m-3">
+        <Container className="products m-3 " id="scrollTo">
             {
                 filteredProducts.map(product =>
                     <Product key={product._id} product={product}/>)

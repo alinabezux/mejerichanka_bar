@@ -23,6 +23,8 @@ module.exports = {
                 orderItems: products, totalPrice: total + 50
             });
 
+            await ProductInBasket.deleteMany({_userId: userId})
+
             res.json(order);
         } catch (e) {
             next(e);

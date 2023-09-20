@@ -1,4 +1,4 @@
-const devURL = 'http://localhost/api/api'
+const devURL = 'http://localhost:5000/api'
 const prodURL = 'http://mejerichankabar-env.eba-qzjjjrmf.us-east-1.elasticbeanstalk.com/api/api'
 
 const urls = {

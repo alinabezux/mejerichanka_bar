@@ -3,7 +3,7 @@ import './styles'
 
 import {Route, Routes, useLocation} from "react-router-dom";
 import {unstable_HistoryRouter as BrowserRouter} from "react-router-dom";
-import {AboutUsPage, AdminPage, HomePage, HookahPage, AuthPage, OrderPage} from "./pages";
+import {AboutUsPage, AdminPage, HomePage, HookahPage, RegisterPage, OrderPage, LogInPage} from "./pages";
 import {NaviBar} from "./components";
 import {history} from "./services";
 
@@ -26,8 +26,8 @@ function App() {
                 <Route path={'/'} element={<HomePage/>}/>
                 <Route path={'/about'} element={<AboutUsPage/>}/>
                 <Route path={'/hookah'} element={<HookahPage/>}/>
-                <Route path={'/logIn'} element={<AuthPage/>}/>
-                <Route path={'/registration'} element={<AuthPage/>}/>
+                <Route path={'/logIn'} element={<LogInPage/>}/>
+                <Route path={'/registration'} element={<RegisterPage/>}/>
                 <Route path={'/admin'} element={<AdminPage/>}/>
                 <Route path={'/order'} element={<OrderPage/>}/>
             </Routes>
