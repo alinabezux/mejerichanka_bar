@@ -9,7 +9,7 @@ const TypeBar = () => {
     const {types, selectedType, loading, error} = useSelector(state => state.typesReducer);
 
     useEffect(() => {
-        dispatch(typesActions.getAll())
+        dispatch(typesActions.getAll({isGettingAll: true}))
     }, [dispatch]);
 
     return (

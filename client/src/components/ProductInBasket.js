@@ -1,4 +1,4 @@
-import {Image} from "react-bootstrap";
+import {Button, Col, Container, Image, Row} from "react-bootstrap";
 import {useDispatch} from "react-redux";
 import {useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
@@ -41,8 +41,21 @@ const ProductInBasket = ({productInBasket}) => {
             }}>
 
                 <Image style={{height: '70px'}} variant="top" src={productInBasket.image}/>
-
-                <h5 className="m-2">{productInBasket.title}</h5>
+                <Container className="col-5">
+                    <Col>
+                        <Row><h5 className="m-2">{productInBasket.title}</h5></Row>
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "space-around",
+                            alignItems: "center"
+                        }}>
+                            <Button style={{backgroundColor: "dimgrey"}}>+</Button>
+                            <h5>{productInBasket.quantity}</h5>
+                            <Button style={{backgroundColor: "dimgrey"}}>-</Button>
+                        </div>
+                    </Col>
+                </Container>
 
                 <div style={{
                     display: "flex",
@@ -58,6 +71,7 @@ const ProductInBasket = ({productInBasket}) => {
                         : <img style={{width: '18px', marginTop: "10px"}} src={bin} alt="bin"
                                onClick={() => handleDeleteProductInBasket(productInBasket)}/>
                     }
+
                 </div>
             </div>
             <hr/>
@@ -65,4 +79,7 @@ const ProductInBasket = ({productInBasket}) => {
     );
 }
 
-export {ProductInBasket}
+export
+{
+    ProductInBasket
+}

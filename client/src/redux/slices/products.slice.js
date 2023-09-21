@@ -3,16 +3,17 @@ import {productsService} from "../../services";
 
 const initialState = {
     products: [],
-    selectedProduct: null,
+    currentPageProducts: 1,
+    totalPagesProducts: null,
     loading: false,
     error: null
 }
 
 const getAll = createAsyncThunk(
     'productsSlice/getAll',
-    async ({category, type}, {rejectWithValue}) => {
+    async ({category, type, page, isGettingAll}, {rejectWithValue}) => {
         try {
-            const {data} = await productsService.getAll(category, type);
+            const {data} = await productsService.getAll(category, type, page, isGettingAll);
             return data;
         } catch (e) {
             return rejectWithValue(e.response.data)
@@ -73,12 +74,16 @@ const productsSlice = createSlice({
     reducers: {
         setSelectedProduct: (state, action) => {
             state.selectedProduct = action.payload
+        },
+        setCurrentPageProducts: (state, action) => {
+            state.currentPageProducts = action.payload
         }
     },
     extraReducers: builder =>
         builder
             .addCase(getAll.fulfilled, (state, action) => {
-                state.products = action.payload
+                state.products = action.payload.products
+                state.totalPagesProducts = action.payload.totalPages
                 state.loading = false
                 state.error = null
             })
@@ -156,10 +161,10 @@ const productsSlice = createSlice({
 
 });
 
-const {reducer: productsReducer, actions: {setSelectedProduct}} = productsSlice;
+const {reducer: productsReducer, actions: {setSelectedProduct, setCurrentPageProducts}} = productsSlice;
 
 const productsActions = {
-    getAll, createProduct, updateProduct, setSelectedProduct, deleteById, uploadPhoto
+    getAll, createProduct, updateProduct, setSelectedProduct, setCurrentPageProducts, deleteById, uploadPhoto
 }
 
 export {

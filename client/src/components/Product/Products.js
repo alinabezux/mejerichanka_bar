@@ -5,16 +5,20 @@ import {Container} from "react-bootstrap";
 import {Product} from "./Product";
 import {productsActions} from "../../redux";
 
-
 const Products = () => {
     const dispatch = useDispatch();
+
     const {products, error} = useSelector(state => state.productsReducer);
     const {selectedCategory} = useSelector(state => state.categoriesReducer);
     const {selectedType} = useSelector(state => state.typesReducer);
 
 
     useEffect(() => {
-        dispatch(productsActions.getAll(selectedCategory.category, selectedType.type))
+        dispatch(productsActions.getAll({
+            category: selectedCategory.category,
+            type: selectedType.type,
+            isGettingAll: true
+        }))
     }, [dispatch, selectedCategory.category, selectedType.type]);
 
 

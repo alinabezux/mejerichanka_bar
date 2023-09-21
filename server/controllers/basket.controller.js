@@ -11,7 +11,10 @@ module.exports = {
 
             for (const productInBasket of productsInBasket) {
                 const product = await Product.findById(productInBasket._product)
-                productsData.push(product)
+                productsData.push({
+                    ...product._doc,
+                    quantity: productInBasket.quantity,
+                })
             }
             res.json(productsData);
         } catch (e) {

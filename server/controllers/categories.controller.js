@@ -4,9 +4,26 @@ const S3Service = require("../services/s3.service");
 module.exports = {
     getAllCategories: async (req, res, next) => {
         try {
-            const categories = await Category.find({});
+            let {page = 1, isGettingAll} = req.query;
+            const limit = 5;
+            let count;
 
-            res.json(categories);
+            if (JSON.parse(isGettingAll)) {
+                const categories = await Category.find({})
+
+                return res.json({categories});
+            }
+
+            const categories = await Category.find({}).limit(limit).skip((page - 1) * limit);
+            count = await Category.countDocuments();
+
+            return res.json({
+                categories,
+                count: count,
+                totalPages: Math.ceil(count / limit),
+                currentPage: page
+            });
+
         } catch (e) {
             next(e);
         }

@@ -3,8 +3,8 @@ import {useState, useEffect} from "react";
 
 import basket from '../assets/backet.png'
 
-import {Basket} from "./Basket";
 import {authService} from "../services";
+import {Basket} from "./Basket";
 
 const NaviBar = () => {
     const [userId, setUserId] = useState(null);

@@ -4,9 +4,20 @@ const OAuthService = require("../services/OAuth.service");
 module.exports = {
     getAllUsers: async (req, res, next) => {
         try {
-            const users = await User.find({});
+            let {page} = req.query;
+            page = page || 1;
+            const limit = 5;
+            let count;
 
-            return res.json(users);
+            const users = await User.find({}).limit(limit).skip((page - 1) * limit);
+            count = await User.countDocuments();
+
+            return res.json({
+                users,
+                count: count,
+                totalPages: Math.ceil(count / limit),
+                currentPage: page
+            });
         } catch (e) {
             next(e);
         }

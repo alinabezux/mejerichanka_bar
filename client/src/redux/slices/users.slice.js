@@ -4,15 +4,17 @@ import {usersService} from "../../services";
 const initialState = {
     users: [],
     loading: false,
+    currentPageUsers: 1,
+    totalPagesUsers: null,
     error: null,
     registerError: null
 }
 
 const getAll = createAsyncThunk(
     'usersSlice/getUsers',
-    async (_, {rejectWithValue}) => {
+    async ({page}, {rejectWithValue}) => {
         try {
-            const {data} = await usersService.getAll();
+            const {data} = await usersService.getAll(page);
             return data;
         } catch (e) {
             return rejectWithValue(e.response.data)
@@ -35,11 +37,16 @@ const registerUser = createAsyncThunk(
 const usersSlice = createSlice({
     name: 'usersSlice',
     initialState,
-    reducers: {},
+    reducers: {
+        setCurrentPageUsers: (state, action) => {
+            state.currentPageUsers = action.payload
+        }
+    },
     extraReducers: builder =>
         builder
             .addCase(getAll.fulfilled, (state, action) => {
-                state.users = action.payload
+                state.users = action.payload.users
+                state.totalPagesUsers = action.payload.totalPages
                 state.loading = false
                 state.error = null
             })
@@ -66,10 +73,10 @@ const usersSlice = createSlice({
             })
 });
 
-const {reducer: usersReducer} = usersSlice;
+const {reducer: usersReducer, actions: {setCurrentPageUsers}} = usersSlice;
 
 const usersActions = {
-    getAll, registerUser
+    getAll, registerUser, setCurrentPageUsers
 }
 
 export {

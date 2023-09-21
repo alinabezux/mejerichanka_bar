@@ -33,9 +33,20 @@ module.exports = {
 
     getAllOrders: async (req, res, next) => {
         try {
-            const orders = await Order.find({});
+            let {page} = req.query;
+            page = page || 1;
+            const limit = 5;
+            let count;
 
-            res.json(orders);
+            const orders = await Order.find({}).limit(limit).skip((page - 1) * limit);
+            count = await Order.countDocuments();
+
+            res.json({
+                orders,
+                count: count,
+                totalPages: Math.ceil(count / limit),
+                currentPage: page
+            });
         } catch (e) {
             next(e);
         }

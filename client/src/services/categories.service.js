@@ -2,7 +2,7 @@ import {$authHost, $host} from "./axios.service";
 import {urls} from "../configs/urls";
 
 const categoriesService = {
-    getAll: () => $host.get(urls.categories),
+    getAll: (page, isGettingAll) => $host.get(urls.categories, {params: {page, isGettingAll}}),
     createCategory: (category) => $authHost.post(urls.categories, {category}),
     uploadPhoto: (categoryId, image) => $authHost.patch(`${urls.categories}/${categoryId}`, image),
     deleteById: (categoryId) => $authHost.delete(`${urls.categories}/${categoryId}`)

@@ -5,15 +5,17 @@ import {typesService} from "../../services";
 const initialState = {
     types: [],
     selectedType: {},
+    totalPagesTypes: null,
+    currentPageTypes: 1,
     loading: false,
     error: null
 }
 
 const getAll = createAsyncThunk(
     'typesSlice/getTypes',
-    async (_, {rejectWithValue}) => {
+    async ({page, isGettingAll}, {rejectWithValue}) => {
         try {
-            const {data} = await typesService.getAll();
+            const {data} = await typesService.getAll(page, isGettingAll);
             return data;
         } catch (e) {
             return rejectWithValue(e.response.data)
@@ -52,12 +54,17 @@ const typesSlice = createSlice({
         setSelectedType: (state, action) => {
             state.selectedType = action.payload
         },
+        setCurrentPageTypes: (state, action) => {
+            state.currentPageTypes = action.payload
+        },
     },
     extraReducers: builder =>
         builder
             .addCase(getAll.fulfilled, (state, action) => {
-                state.types = action.payload
+                state.types = action.payload.types
+                state.totalPagesTypes = action.payload.totalPages
                 state.loading = false
+                state.error = null
 
             })
             .addCase(getAll.pending, (state) => {
@@ -78,10 +85,10 @@ const typesSlice = createSlice({
             })
 });
 
-const {reducer: typesReducer, actions: {setSelectedType}} = typesSlice;
+const {reducer: typesReducer, actions: {setSelectedType, setCurrentPageTypes}} = typesSlice;
 
 const typesActions = {
-    getAll, deleteById, createType, setSelectedType
+    getAll, deleteById, createType, setSelectedType, setCurrentPageTypes
 }
 
 export {

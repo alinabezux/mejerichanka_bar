@@ -32,6 +32,7 @@ p {
 }
 
 
+
 /*на телефони*/
 @media only screen and (max-width: 767px) {
     .basket.offcanvas {
@@ -62,7 +63,6 @@ p {
 }
 
 
-
 /*для планшетів ,ноутів та пк*/
 @media only screen and (min-width: 768px) {
     .navbar-links {
@@ -72,20 +72,3 @@ p {
 
 }
 
-
-/* Стилі для рядків з різними статусами */
-.accepted {
-    background-color: #8be58b;
-}
-
-.rejected {
-    background-color: #ff4747;
-}
-
-.inProgress {
-    background-color: #ffff7b;
-}
-
-.completed {
-    background-color: #9595ff;
-}

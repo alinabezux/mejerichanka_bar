@@ -4,6 +4,8 @@ import {orderService} from "../../services";
 const initialState = {
     orders: [],
     selectedOrder: null,
+    currentPageOrders: 1,
+    totalPagesOrders: null,
     loading: false,
     error: null
 }
@@ -22,9 +24,9 @@ const createOrder = createAsyncThunk(
 
 const getAllOrders = createAsyncThunk(
     'orderSlice/getAllOrders',
-    async (_, {rejectWithValue}) => {
+    async ({page}, {rejectWithValue}) => {
         try {
-            const {data} = await orderService.getAllOrders();
+            const {data} = await orderService.getAllOrders(page);
             return data;
         } catch (e) {
             return rejectWithValue(e.response.data)
@@ -51,6 +53,9 @@ const orderSlice = createSlice({
     reducers: {
         setSelectedOrder: (state, action) => {
             state.selectedOrder = action.payload
+        },
+        setCurrentPageOrders: (state, action) => {
+            state.currentPageOrders = action.payload
         }
     },
     extraReducers: builder =>
@@ -60,7 +65,8 @@ const orderSlice = createSlice({
             })
 
             .addCase(getAllOrders.fulfilled, (state, action) => {
-                state.orders = action.payload
+                state.orders = action.payload.orders
+                state.totalPagesOrders = action.payload.totalPages
                 state.loading = false
                 state.error = null
             })
@@ -88,10 +94,10 @@ const orderSlice = createSlice({
             })
 });
 
-const {reducer: orderReducer, actions: {setSelectedOrder}} = orderSlice;
+const {reducer: orderReducer, actions: {setSelectedOrder, setCurrentPageOrders}} = orderSlice;
 
 const orderActions = {
-    createOrder, getAllOrders, setSelectedOrder, updateOrderStatus
+    createOrder, getAllOrders, setSelectedOrder, updateOrderStatus, setCurrentPageOrders
 }
 
 export {orderReducer, orderActions}

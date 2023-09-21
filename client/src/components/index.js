@@ -6,6 +6,8 @@ export * from './Menu'
 export * from './NaviBar'
 export * from './TypeBar'
 export * from './CategoryBar'
+export * from './Pagination'
+export * from './Basket'
 
 export * from './Admin/AdminKatalog'
 export * from './Admin/AdminClients'

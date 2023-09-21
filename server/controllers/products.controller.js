@@ -1,24 +1,41 @@
 const Product = require('../dataBase/models/Product');
 const S3Service = require('../services/s3.service')
+const Category = require("../dataBase/models/Category");
 
 module.exports = {
 
     getAllProducts: async (req, res, next) => {
         try {
-            let {category, type} = req.query;
+            let {category, type, page = 1, isGettingAll} = req.query;
+            const limit = 10;
             let products;
+            let count;
+
+            if (JSON.parse(isGettingAll)) {
+                products = await Product.find({})
+
+                return res.json({products});
+            }
 
             if (!category && !type) {
-                products = await Product.find({});
+                products = await Product.find({}).limit(limit).skip((page - 1) * limit);
+                count = await Product.countDocuments();
             }
             if (category && !type) {
-                products = await Product.find({category});
+                products = await Product.find({category}).limit(limit).skip((page - 1) * limit);
+                count = await Product.countDocuments({category});
             }
             if (category && type) {
-                products = await Product.find({category, type});
-
+                products = await Product.find({category, type}).limit(limit).skip((page - 1) * limit);
+                count = await Product.countDocuments({category, type});
             }
-            return res.json(products);
+
+            return res.json({
+                products,
+                count: count,
+                totalPages: Math.ceil(count / limit),
+                currentPage: page
+            });
         } catch (e) {
             next(e);
         }

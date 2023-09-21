@@ -11,7 +11,7 @@ const CategoryBar = () => {
     const [showTypeBar, setShowTypeBar] = useState(false);
 
     useEffect(() => {
-        dispatch(categoriesActions.getAll())
+        dispatch(categoriesActions.getAll({ isGettingAll: true }))
     }, [dispatch])
 
     const handleCategoryClick = (category) => {
