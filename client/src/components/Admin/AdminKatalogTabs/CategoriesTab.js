@@ -17,7 +17,6 @@ const CategoriesTab = () => {
 
     const handleSetCurrentPageCategories = async (pageNumber) => {
         dispatch(categoriesActions.setCurrentPageCategories(pageNumber));
-        await dispatch(categoriesActions.getAll({page: pageNumber, isGettingAll: false}))
     }
 
     const paginationItemsCategories = generatePagination(totalPagesCategories, currentPageCategories, handleSetCurrentPageCategories);

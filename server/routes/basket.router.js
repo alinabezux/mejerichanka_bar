@@ -20,4 +20,10 @@ basketRouter.delete('/:userId/:productId',
     usersMiddleware.checkIfUserExists,
     basketController.deleteFromBasket);
 
+basketRouter.patch('/:userId/:productId',
+    authMiddleware.checkAccessToken,
+    usersMiddleware.checkIfUserExists,
+    basketController.changeProductQuantity);
+
+
 module.exports = basketRouter;

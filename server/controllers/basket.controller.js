@@ -45,5 +45,15 @@ module.exports = {
         } catch (e) {
             next(e)
         }
+    },
+
+    changeProductQuantity: async (req, res, next) => {
+        try {
+            const updatedProductInBasket = await ProductInBasket.findOneAndUpdate({_product: req.params.productId}, {quantity: req.body.quantity}, {new: true});
+
+            res.json(updatedProductInBasket)
+        } catch (e) {
+            next(e)
+        }
     }
 }

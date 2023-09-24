@@ -5,7 +5,7 @@ module.exports = {
     getAllCategories: async (req, res, next) => {
         try {
             let {page = 1, isGettingAll} = req.query;
-            const limit = 5;
+            const limit = 10;
             let count;
 
             if (JSON.parse(isGettingAll)) {

@@ -14,7 +14,6 @@ const AdminClients = () => {
 
     const handleSetCurrentPageUsers = async (pageNumber) => {
         dispatch(usersActions.setCurrentPageUsers(pageNumber));
-        await dispatch(usersActions.getAll({page: pageNumber}))
     }
 
     const paginationItemsUsers = generatePagination(totalPagesUsers, currentPageUsers, handleSetCurrentPageUsers);

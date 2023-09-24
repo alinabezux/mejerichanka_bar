@@ -16,6 +16,7 @@ const EditProduct = ({show, onHide}) => {
     });
 
     const {selectedProduct, error} = useSelector(state => state.productsReducer);
+
     useEffect(() => {
         if (selectedProduct) {
             setValue('title', selectedProduct.title)
@@ -32,7 +33,6 @@ const EditProduct = ({show, onHide}) => {
             }))
         if (res.meta.requestStatus === 'fulfilled') {
             onHide()
-            await dispatch(productsActions.getAll({}))
         }
     }
 

@@ -18,7 +18,6 @@ const ProductsTab = () => {
 
     const handleSetCurrentPageProducts = async (pageNumber) => {
         dispatch(productsActions.setCurrentPageProducts(pageNumber));
-        await dispatch(productsActions.getAll({page: pageNumber, isGettingAll: false}))
     }
 
     const paginationItemsProducts = generatePagination(totalPagesProducts, currentPageProducts, handleSetCurrentPageProducts);

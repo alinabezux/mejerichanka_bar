@@ -3,9 +3,6 @@ import {authService} from "../../services";
 
 const initialState = {
     loading: false,
-    userInfo: {},
-    accessToken: null,
-    refreshToken: null,
     error: null,
 }
 
@@ -57,9 +54,6 @@ const authSlice = createSlice({
     extraReducers: builder =>
         builder
             .addCase(logIn.fulfilled, (state, action) => {
-                state.userInfo = action.payload.user
-                state.accessToken = action.payload.accessToken
-                state.refreshToken = action.payload.refreshToken
                 state.loading = false
                 state.error = null
             })
@@ -75,8 +69,6 @@ const authSlice = createSlice({
 
             .addCase(refresh.fulfilled, (state, action) => {
                 state.loading = false;
-                state.accessToken = action.payload.accessToken
-                state.refreshToken = action.payload.refreshToken
                 state.error = null;
             })
 
@@ -91,9 +83,6 @@ const authSlice = createSlice({
             .addCase(logOut.fulfilled, (state) => {
                 state.loading = false
                 state.error = null;
-                state.userInfo = {}
-                state.accessToken = null
-                state.refreshToken = null
             })
 })
 

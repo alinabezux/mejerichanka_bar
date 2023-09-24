@@ -46,7 +46,6 @@ const CreateProduct = ({show, onHide}) => {
                 reset();
                 setCategory('');
                 setType('');
-                await dispatch(productsActions.getAll({}))
             }
         } else {
             const res = await dispatch(productsActions.createProduct({
@@ -61,7 +60,6 @@ const CreateProduct = ({show, onHide}) => {
                 reset();
                 setCategory('');
                 setType('');
-                await dispatch(productsActions.getAll({}))
             }
         }
     }

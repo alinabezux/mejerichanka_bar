@@ -13,7 +13,6 @@ const authService = {
         localStorage.removeItem('access')
         localStorage.removeItem('refresh')
         localStorage.removeItem('userId')
-
     },
 
 }

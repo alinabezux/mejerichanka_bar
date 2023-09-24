@@ -17,7 +17,6 @@ const TypesTab = () => {
 
     const handleSetCurrentPageTypes = async (pageNumber) => {
         dispatch(typesActions.setCurrentPageTypes(pageNumber));
-        await dispatch(typesActions.getAll({page: pageNumber, isGettingAll: false}))
     }
 
     const paginationItemsTypes = generatePagination(totalPagesTypes, currentPageTypes, handleSetCurrentPageTypes);

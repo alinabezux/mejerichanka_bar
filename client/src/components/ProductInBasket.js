@@ -11,11 +11,12 @@ import {basketActions} from "../redux";
 
 const ProductInBasket = ({productInBasket}) => {
     const [userId, setUserId] = useState(null);
+    const [quantity, setQuantity] = useState(productInBasket.quantity);
+
     const dispatch = useDispatch();
     const location = useLocation();
 
     const isOrder = location.pathname.includes('/order');
-
 
     useEffect(() => {
         const user = authService.getUser();
@@ -24,9 +25,35 @@ const ProductInBasket = ({productInBasket}) => {
         }
     }, [])
 
+    const updateQuantityInBasket = async (newQuantity) => {
+        await dispatch(basketActions.updateProductInBasketQuantity({
+            userId: userId,
+            productId: productInBasket._id,
+            quantity: newQuantity
+        }))
+        dispatch(basketActions.getBasket(userId));
+    }
+
+    const increaseQuantity = () => {
+        const newQuantity = quantity + 1;
+        setQuantity(newQuantity);
+        updateQuantityInBasket(newQuantity);
+    };
+
+
+    const decreaseQuantity = () => {
+        if (quantity > 1) {
+            const newQuantity = quantity - 1;
+            setQuantity(newQuantity);
+            updateQuantityInBasket(newQuantity);
+        } else {
+            handleDeleteProductInBasket(productInBasket);
+        }
+    };
+
 
     const handleDeleteProductInBasket = async (productInBasket) => {
-        await dispatch(basketActions.deleteFromBasket({userId: userId, productId: productInBasket._id}))
+        await dispatch(basketActions.deleteFromBasket({userId, productId: productInBasket._id}))
         dispatch(basketActions.getBasket(userId))
     };
 
@@ -50,9 +77,9 @@ const ProductInBasket = ({productInBasket}) => {
                             justifyContent: "space-around",
                             alignItems: "center"
                         }}>
-                            <Button style={{backgroundColor: "dimgrey"}}>+</Button>
+                            <Button style={{backgroundColor: "dimgrey"}} onClick={increaseQuantity}>+</Button>
                             <h5>{productInBasket.quantity}</h5>
-                            <Button style={{backgroundColor: "dimgrey"}}>-</Button>
+                            <Button style={{backgroundColor: "dimgrey"}} onClick={decreaseQuantity}>-</Button>
                         </div>
                     </Col>
                 </Container>
@@ -64,7 +91,7 @@ const ProductInBasket = ({productInBasket}) => {
                     textAlign: "center",
                     width: "70px"
                 }}>
-                    <h5>{productInBasket.price} грн.</h5>
+                    <h5>{productInBasket.price * productInBasket.quantity} грн.</h5>
                     {isOrder ?
                         <img style={{width: '18px', marginTop: "10px"}} src={binBlack} alt="bin"
                              onClick={() => handleDeleteProductInBasket(productInBasket)}/>

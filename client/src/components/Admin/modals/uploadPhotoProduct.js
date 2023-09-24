@@ -25,7 +25,6 @@ const UploadPhotoProduct = ({show, onHide}) => {
                 await dispatch(productsActions.uploadPhoto({productId: selectedProduct._id, image: formData}))
             }
             onHide();
-            await dispatch(productsActions.getAll({}))
         } catch (error) {
             console.error('Помилка під час завантаження файлу ', error);
         }

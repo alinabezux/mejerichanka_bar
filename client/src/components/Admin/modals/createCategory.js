@@ -12,7 +12,6 @@ const CreateCategory = ({show, onHide}) => {
     const handleCreateCategory = async () => {
         await dispatch(categoriesActions.createCategory({category: category}))
         onHide()
-        dispatch(categoriesActions.getAll())
         setCategory('')
     };
 

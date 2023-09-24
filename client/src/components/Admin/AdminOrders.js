@@ -2,7 +2,7 @@ import {Container, Table} from "react-bootstrap";
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
-import {orderActions, usersActions} from "../../redux";
+import {orderActions} from "../../redux";
 import AdminOrderItem from "./AdminOrderItem";
 import Pagination from "react-bootstrap/Pagination";
 import generatePagination from "../Pagination";
@@ -13,7 +13,6 @@ const AdminOrders = () => {
 
     const handleSetCurrentPageOrders = async (pageNumber) => {
         dispatch(orderActions.setCurrentPageOrders(pageNumber));
-        await dispatch(orderActions.getAllOrders({page: pageNumber}))
     }
 
     const paginationItemsOrders = generatePagination(totalPagesOrders, currentPageOrders, handleSetCurrentPageOrders);
@@ -24,8 +23,8 @@ const AdminOrders = () => {
     };
 
     useEffect(() => {
-        dispatch(orderActions.getAllOrders({page: currentPageOrders}));
-    }, [dispatch]);
+        dispatch(orderActions.getAllOrders({page: currentPageOrders, isGettingAll: false}));
+    }, [dispatch, currentPageOrders]);
 
     const submit = async (status) => {
         if (status) {
@@ -35,7 +34,7 @@ const AdminOrders = () => {
                 })
             );
 
-            await dispatch(orderActions.getAllOrders());
+            await dispatch(orderActions.getAllOrders({page: currentPageOrders, isGettingAll: false}));
         }
     };
 

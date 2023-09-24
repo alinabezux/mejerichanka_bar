@@ -42,6 +42,18 @@ const deleteFromBasket = createAsyncThunk(
     }
 );
 
+const updateProductInBasketQuantity = createAsyncThunk(
+    'basketSlice/updateProductInBasketQuantity',
+    async ({userId, productId, quantity}, {rejectWithValue}) => {
+        try {
+            const {data} = await basketService.updateProductInBasketQuantity(userId, productId, quantity);
+            return data
+        } catch (e) {
+            return rejectWithValue(e.response.data)
+        }
+    }
+);
+
 
 const basketSlice = createSlice({
     name: 'basketSlice',
@@ -73,12 +85,29 @@ const basketSlice = createSlice({
                 state.error = null;
             })
 
+
+            .addCase(updateProductInBasketQuantity.fulfilled, (state, action) => {
+                // const findProductInBasket = state.basket.find(value => value.id === action.payload.id);
+                // Object.assign(findProductInBasket, action.payload)
+                state.loading = false
+                state.error = null
+
+            })
+            .addCase(updateProductInBasketQuantity.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(updateProductInBasketQuantity.rejected, (state, action) => {
+                state.error = action.payload
+                state.loading = false
+            })
+
 });
 
 
 const {reducer: basketReducer} = basketSlice;
 
-const basketActions = {getBasket, addToBasket, deleteFromBasket}
+const basketActions = {getBasket, addToBasket, deleteFromBasket, updateProductInBasketQuantity}
 
 export {
     basketReducer, basketActions

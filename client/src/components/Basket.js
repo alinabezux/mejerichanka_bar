@@ -36,7 +36,7 @@ const Basket = ({show, onHide}) => {
     };
 
     const totalPrice = basket.reduce((total, productInBasket) => {
-        return total + productInBasket.price;
+        return total + productInBasket.price * productInBasket.quantity;
     }, 0);
 
     return (
@@ -57,10 +57,9 @@ const Basket = ({show, onHide}) => {
                                 display: "flex",
                                 flexDirection: "column",
                             }}>
-                                {
-                                    basket.map(productInBasket =>
-                                        <ProductInBasket key={productInBasket._id}
-                                                         productInBasket={productInBasket}/>)
+                                {basket.map(productInBasket =>
+                                    <ProductInBasket key={productInBasket._id}
+                                                     productInBasket={productInBasket}/>)
                                 }
                                 <div style={{
                                     display: "flex",
