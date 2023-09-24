@@ -1,0 +1,33 @@
+{
+  "files": {
+    "main.css": "/static/css/main.9767a63b.css",
+    "main.js": "/static/js/main.63d4c608.js",
+    "static/media/fon.png": "/static/media/fon.4b55b4739419de207f41.png",
+    "static/media/zadniydvir2.png": "/static/media/zadniydvir2.b83c44b812f204eaca79.png",
+    "static/media/bbqmenu.png": "/static/media/bbqmenu.d05e1109ba1fbbcad8b9.png",
+    "static/media/complex.png": "/static/media/complex.d38bdd02cb7a1fb592ca.png",
+    "static/media/bankets.png": "/static/media/bankets.5bc077dabf5966b513d8.png",
+    "static/media/muzukanty.png": "/static/media/muzukanty.6667df6a62ab4480f9f9.png",
+    "static/media/MEJERICHANKA.png": "/static/media/MEJERICHANKA.967882fec9479670af4f.png",
+    "static/media/hookahs.jpg": "/static/media/hookahs.69b516394e99a2975843.jpg",
+    "static/media/hookah.png": "/static/media/hookah.5a99b01b8260d3e39373.png",
+    "static/media/korporatuv.jpg": "/static/media/korporatuv.01509ce49fd6ffa9b3e9.jpg",
+    "static/media/redhookah.jpg": "/static/media/redhookah.b65b00042fea8664c0e6.jpg",
+    "static/media/hookanandcoctail.jpg": "/static/media/hookanandcoctail.c34647b5437efcd2d964.jpg",
+    "static/media/fifa.jpg": "/static/media/fifa.74013642c8fac08e882d.jpg",
+    "static/media/aboutUsPageTop2.png": "/static/media/aboutUsPageTop2.1c58ffbbd42d42b922ab.png",
+    "static/media/zadniydvir.jpg": "/static/media/zadniydvir.f8e36afabb5609e175a3.jpg",
+    "static/media/bin_black.png": "/static/media/bin_black.98f03baf7bce29dc4b40.png",
+    "static/media/bin.png": "/static/media/bin.53949655121302fb602b.png",
+    "static/media/ps.jpg": "/static/media/ps.7285a5593a50a68ef1c7.jpg",
+    "static/media/backet.png": "/static/media/backet.186c92e3db10971caa1d.png",
+    "static/media/money.png": "/static/media/money.add4faabaf22c84729f5.png",
+    "index.html": "/index.html",
+    "main.9767a63b.css.map": "/static/css/main.9767a63b.css.map",
+    "main.63d4c608.js.map": "/static/js/main.63d4c608.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9767a63b.css",
+    "static/js/main.63d4c608.js"
+  ]
+}

@@ -1,15 +1,14 @@
 import {Alert, Button, Card, Container, Form, Spinner} from "react-bootstrap";
-import {NavLink, useLocation, useNavigate, useSearchParams} from "react-router-dom";
+import {NavLink,useNavigate} from "react-router-dom";
 import {useCallback, useState} from "react";
 import {useForm} from "react-hook-form";
 import {useDispatch, useSelector} from "react-redux";
 
-import {authActions, usersActions} from "../redux";
+import {usersActions} from "../redux";
 import {joiResolver} from "@hookform/resolvers/joi";
 import {userValidator} from "../validators";
 
 const RegisterPage = () => {
-    const location = useLocation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {handleSubmit, register, formState: {errors}} = useForm({
