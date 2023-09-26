@@ -10,8 +10,9 @@ module.exports = {
 
             if (JSON.parse(isGettingAll)) {
                 const types = await Type.find({})
+                count = await Type.countDocuments();
 
-                return res.json({types})
+                return res.json({types, count: count})
             }
 
             const types = await Type.find({}).limit(limit).skip((page - 1) * limit);

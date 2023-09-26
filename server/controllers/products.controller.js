@@ -13,8 +13,9 @@ module.exports = {
 
             if (JSON.parse(isGettingAll)) {
                 products = await Product.find({})
+                count = await Product.countDocuments();
 
-                return res.json({products});
+                return res.json({products, count: count});
             }
 
             if (!category && !type) {

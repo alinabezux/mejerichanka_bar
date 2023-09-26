@@ -58,7 +58,7 @@ const OrderPage = () => {
     };
 
     const totalPrice = basket.reduce((total, productInBasket) => {
-        return total + productInBasket.price;
+        return total + productInBasket.price * productInBasket.quantity;
     }, 0);
 
 

@@ -14,7 +14,7 @@ const getAll = createAsyncThunk(
     'categoriesSlice/getAll',
     async ({page, isGettingAll}, {rejectWithValue}) => {
         try {
-            const { data } = await categoriesService.getAll(page, isGettingAll);
+            const {data} = await categoriesService.getAll(page, isGettingAll);
             return data;
         } catch (e) {
             return rejectWithValue(e.response.data)
@@ -79,6 +79,7 @@ const categoriesSlice = createSlice(
                 })
                 .addCase(getAll.fulfilled, (state, action) => {
                     state.categories = action.payload.categories
+                    console.log(action.payload);
                     state.totalPagesCategories = action.payload.totalPages
                     state.loading = false
                     state.error = null

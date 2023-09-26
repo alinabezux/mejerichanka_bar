@@ -10,8 +10,9 @@ module.exports = {
 
             if (JSON.parse(isGettingAll)) {
                 const categories = await Category.find({})
+                count = await Category.countDocuments();
 
-                return res.json({categories});
+                return res.json({categories, count: count});
             }
 
             const categories = await Category.find({}).limit(limit).skip((page - 1) * limit);
