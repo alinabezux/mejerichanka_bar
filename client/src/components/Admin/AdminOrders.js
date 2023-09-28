@@ -33,7 +33,6 @@ const AdminOrders = () => {
                     status,
                 })
             );
-
             await dispatch(orderActions.getAllOrders({page: currentPageOrders, isGettingAll: false}));
         }
     };

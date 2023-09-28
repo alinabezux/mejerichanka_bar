@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from "react-redux";
-import {useState} from "react";
+import {useCallback, useState} from "react";
 import {Button, Form, Modal} from "react-bootstrap";
 
 import {productsActions} from "../../../redux";
@@ -15,20 +15,25 @@ const UploadPhotoProduct = ({show, onHide}) => {
         setFile(e.target.files[0])
     }
 
-    const handleUploadFile = async (e) => {
-        e.preventDefault()
+    const handleUploadFile = useCallback(async (e) => {
+        e.preventDefault();
         try {
             if (file) {
                 const formData = new FormData();
-                formData.append('image', file);
+                formData.append("image", file);
 
-                await dispatch(productsActions.uploadPhoto({productId: selectedProduct._id, image: formData}))
+                const uploadData = {
+                    productId: selectedProduct._id,
+                    image: formData,
+                };
+
+                await dispatch(productsActions.uploadPhoto(uploadData));
             }
             onHide();
         } catch (error) {
-            console.error('Помилка під час завантаження файлу ', error);
+            console.error("Помилка під час завантаження файлу ", error);
         }
-    };
+    }, [dispatch, file, onHide, selectedProduct]);
 
     return (
         <Modal size="lg" show={show} onHide={onHide} centered>
@@ -44,7 +49,7 @@ const UploadPhotoProduct = ({show, onHide}) => {
                         type="file"
                         onChange={selectFile}
                     />
-                    <Button className="mt-3" variant="outline-success" type='submit'
+                    <Button className="mt-3" variant="outline-success" type='submit' disabled={!file}
                             onClick={handleUploadFile}>Зберегти</Button>
                 </Form>
             </Modal.Body>

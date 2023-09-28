@@ -1,7 +1,7 @@
 import {Alert, Button, Container, Form, Modal} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {useForm} from "react-hook-form";
-import {useEffect} from "react";
+import {useCallback, useEffect} from "react";
 
 import {productsActions} from "../../../redux";
 import {joiResolver} from "@hookform/resolvers/joi";
@@ -25,16 +25,16 @@ const EditProduct = ({show, onHide}) => {
     }, [setValue, selectedProduct])
 
 
-    const submit = async (data) => {
-        const res = await dispatch(productsActions.updateProduct(
-            {
-                productId: selectedProduct._id,
-                product: data
-            }))
-        if (res.meta.requestStatus === 'fulfilled') {
-            onHide()
-        }
-    }
+    const submit = useCallback(async (data) => {
+            const res = await dispatch(productsActions.updateProduct(
+                {
+                    productId: selectedProduct._id,
+                    product: data
+                }))
+            if (res.meta.requestStatus === 'fulfilled') {
+                onHide()
+            }
+        }, [dispatch, onHide, selectedProduct])
 
     return (
         <Modal size="lg" show={show} onHide={onHide} centered>

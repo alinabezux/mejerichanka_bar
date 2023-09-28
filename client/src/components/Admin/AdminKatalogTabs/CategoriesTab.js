@@ -1,7 +1,7 @@
 import {Button, Tab, Table} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import Pagination from "react-bootstrap/Pagination";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 
 import {categoriesActions} from "../../../redux";
 import generatePagination from "../../Pagination";
@@ -12,6 +12,7 @@ const CategoriesTab = () => {
     const dispatch = useDispatch();
 
     const {categories, totalPagesCategories, currentPageCategories} = useSelector(state => state.categoriesReducer);
+
     const [uploadPhotoCategoryVisible, setUploadPhotoCategoryVisible] = useState(false);
     const [categoryVisible, setCategoryVisible] = useState(false);
 
@@ -20,21 +21,22 @@ const CategoriesTab = () => {
     }
 
     const paginationItemsCategories = generatePagination(totalPagesCategories, currentPageCategories, handleSetCurrentPageCategories);
-
-    const handleUploadPhotoCategory = (category) => {
-        dispatch(categoriesActions.setSelectedCategory(category))
-        setUploadPhotoCategoryVisible(true)
-    };
-
-    const handleDeleteCategory = async (category) => {
-        await dispatch(categoriesActions.deleteById({categoryId: category._id}));
-        dispatch(categoriesActions.getAll({page: currentPageCategories, isGettingAll: false}))
-    };
-
-
     useEffect(() => {
         dispatch(categoriesActions.getAll({page: currentPageCategories, isGettingAll: false}))
     }, [dispatch, currentPageCategories]);
+
+    const handleUploadPhotoCategory = useCallback(
+        (category) => {
+            dispatch(categoriesActions.setSelectedCategory(category));
+            setUploadPhotoCategoryVisible(true);
+        }, [dispatch]);
+
+    const handleDeleteCategory = useCallback(
+        async (category) => {
+            await dispatch(categoriesActions.deleteById({categoryId: category._id}));
+            dispatch(categoriesActions.getAll({page: currentPageCategories, isGettingAll: false}));
+        },
+        [dispatch, currentPageCategories]);
 
 
     return (

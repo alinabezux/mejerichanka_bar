@@ -1,7 +1,7 @@
-import {Button,  Tab, Table} from "react-bootstrap";
+import {Button, Tab, Table} from "react-bootstrap";
 import Pagination from "react-bootstrap/Pagination";
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 
 import {typesActions} from "../../../redux";
 import generatePagination from "../../Pagination";
@@ -21,10 +21,13 @@ const TypesTab = () => {
 
     const paginationItemsTypes = generatePagination(totalPagesTypes, currentPageTypes, handleSetCurrentPageTypes);
 
-    const handleDeleteType = async (type) => {
-        await dispatch(typesActions.deleteById({typeId: type._id}))
-        dispatch(typesActions.getAll({page: currentPageTypes, isGettingAll: false}))
-    };
+    const handleDeleteType = useCallback(
+        async (type) => {
+            await dispatch(typesActions.deleteById({typeId: type._id}));
+            dispatch(
+                typesActions.getAll({page: currentPageTypes, isGettingAll: false})
+            );
+        }, [dispatch, currentPageTypes]);
 
 
     useEffect(() => {

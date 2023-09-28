@@ -1,6 +1,6 @@
 import {Button, Form, Modal} from "react-bootstrap";
 import {useDispatch} from "react-redux";
-import {useState} from "react";
+import {useCallback, useState} from "react";
 
 import {categoriesActions} from "../../../redux";
 
@@ -9,11 +9,11 @@ const CreateCategory = ({show, onHide}) => {
 
     const [category, setCategory] = useState('');
 
-    const handleCreateCategory = async () => {
+    const handleCreateCategory = useCallback(async () => {
         await dispatch(categoriesActions.createCategory({category: category}))
         onHide()
         setCategory('')
-    };
+    }, [category, dispatch, onHide]);
 
 
     return (

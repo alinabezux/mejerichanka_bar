@@ -14,13 +14,17 @@ module.exports = {
 
             for (const productInBasket of productsInBasket) {
                 const product = await Product.findById(productInBasket._product)
-                products.push(`${product.title} `)
+                products.push(`${product.title} - ${productInBasket.quantity} шт.`)
                 total += product.price
+            }
+
+            if (req.body.order.shipping === 'Доставка кур\'єром') {
+                total += 50
             }
 
             const order = await Order.create({
                 ...req.body.order, _user: userId,
-                orderItems: products, totalPrice: total + 50
+                orderItems: products, totalPrice: total
             });
 
             await ProductInBasket.deleteMany({_userId: userId})

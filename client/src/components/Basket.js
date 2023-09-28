@@ -1,6 +1,6 @@
 import {Button, Container, Offcanvas} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 
 import basketph from '../assets/backet.png'
 import {authActions, basketActions} from "../redux";
@@ -27,6 +27,11 @@ const Basket = ({show, onHide}) => {
         }
     }, [dispatch, userId]);
 
+    const totalPrice = useMemo(() => {
+        return basket.reduce((total, productInBasket) => {
+            return total + productInBasket.price * productInBasket.quantity;
+        }, 0);
+    }, [basket]);
 
     const handleLogOut = async () => {
         const accessToken = authService.getAccessToken();
@@ -35,9 +40,6 @@ const Basket = ({show, onHide}) => {
         window.location.reload()
     };
 
-    const totalPrice = basket.reduce((total, productInBasket) => {
-        return total + productInBasket.price * productInBasket.quantity;
-    }, 0);
 
     return (
         <Offcanvas show={show} onHide={onHide} className="basket" placement="end" data-bs-theme="dark">

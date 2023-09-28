@@ -1,6 +1,6 @@
 import {Button, Form, Modal} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
-import {useState} from "react";
+import {useCallback, useState} from "react";
 
 import {categoriesActions} from "../../../redux";
 
@@ -16,21 +16,28 @@ const UploadPhotoCategory = ({show, onHide}) => {
         setFile(e.target.files[0])
     }
 
-    const handleUploadFile = async (e) => {
-        e.preventDefault()
-        try {
-            if (file) {
-                const formData = new FormData();
-                formData.append('image', file);
+    const handleUploadFile = useCallback(async (e) => {
+            e.preventDefault();
+            try {
+                if (file) {
+                    const formData = new FormData();
+                    formData.append("image", file);
 
-                await dispatch(categoriesActions.uploadPhoto({categoryId: selectedCategory._id, image: formData}))
+                    await dispatch(
+                        categoriesActions.uploadPhoto({
+                            categoryId: selectedCategory._id,
+                            image: formData,
+                        })
+                    );
+                }
+                onHide();
+                await dispatch(categoriesActions.getAll());
+            } catch (error) {
+                console.error("Помилка під час завантаження файлу ", error);
             }
-            onHide();
-            await dispatch(categoriesActions.getAll())
-        } catch (error) {
-            console.error('Помилка під час завантаження файлу ', error);
-        }
-    };
+        },
+        [dispatch, file, onHide, selectedCategory._id]
+    );
 
     return (
         <Modal size="lg" show={show} onHide={onHide} centered>

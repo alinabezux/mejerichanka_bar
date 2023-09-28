@@ -1,6 +1,6 @@
 import {Button, Col, Container, FloatingLabel, Form, InputGroup, Row} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useMemo, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
 
@@ -39,7 +39,7 @@ const OrderPage = () => {
 
     const isCurier = shipping === "Доставка кур'єром";
 
-    const handleCreateOrder = async (data) => {
+    const handleCreateOrder = useCallback(async (data) => {
         await dispatch(orderActions.createOrder({
             userId: userId, order: {
                 firstName: data.firstName,
@@ -55,11 +55,14 @@ const OrderPage = () => {
         setShipping('');
         setCity('');
         navigate('/');
-    };
+    }, [dispatch, userId, reset, navigate, setShipping, setCity, city, shipping]);
 
-    const totalPrice = basket.reduce((total, productInBasket) => {
-        return total + productInBasket.price * productInBasket.quantity;
-    }, 0);
+    const totalPrice = useMemo(() =>
+        basket.reduce(
+            (total, productInBasket) =>
+                total + productInBasket.price * productInBasket.quantity,
+            0
+        ), [basket]);
 
 
     return (

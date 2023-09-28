@@ -24,9 +24,9 @@ const createOrder = createAsyncThunk(
 
 const getAllOrders = createAsyncThunk(
     'orderSlice/getAllOrders',
-    async ({page}, {rejectWithValue}) => {
+    async ({page, isGettingAll}, {rejectWithValue}) => {
         try {
-            const {data} = await orderService.getAllOrders(page);
+            const {data} = await orderService.getAllOrders(page, isGettingAll);
             return data;
         } catch (e) {
             return rejectWithValue(e.response.data)
@@ -62,7 +62,16 @@ const orderSlice = createSlice({
         builder
             .addCase(createOrder.fulfilled, (state, action) => {
                 state.orders.push(action.payload)
+                state.loading = false
+                state.error = null
             })
+            .addCase(createOrder.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(createOrder.rejected, (state, action) => {
+                state.error = action.payload
+            })
+
 
             .addCase(getAllOrders.fulfilled, (state, action) => {
                 state.orders = action.payload.orders
@@ -72,25 +81,22 @@ const orderSlice = createSlice({
             })
             .addCase(getAllOrders.pending, (state) => {
                 state.loading = true
-                state.error = null
             })
             .addCase(getAllOrders.rejected, (state, action) => {
                 state.error = action.payload
-                state.loading = false
             })
 
+
             .addCase(updateOrderStatus.fulfilled, (state, action) => {
-                const findOrder = state.orders.find(value => value.id === action.payload.id);
+                const findOrder = state.orders.find(value => value._id === action.payload._id);
                 Object.assign(findOrder, action.payload)
                 state.selectedOrder = null
             })
             .addCase(updateOrderStatus.pending, (state) => {
                 state.loading = true
-                state.error = null
             })
             .addCase(updateOrderStatus.rejected, (state, action) => {
                 state.error = action.payload
-                state.loading = false
             })
 });
 

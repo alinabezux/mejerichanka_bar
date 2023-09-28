@@ -77,7 +77,8 @@ const ProductInBasket = ({productInBasket}) => {
                             justifyContent: "space-around",
                             alignItems: "center"
                         }}>
-                            <Button style={{backgroundColor: "dimgrey"}} onClick={increaseQuantity}>+</Button>
+                            <Button style={{backgroundColor: "dimgrey"}}
+                                    onClick={increaseQuantity}>+</Button>
                             <h5>{productInBasket.quantity}</h5>
                             <Button style={{backgroundColor: "dimgrey"}} onClick={decreaseQuantity}>-</Button>
                         </div>

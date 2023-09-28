@@ -1,6 +1,6 @@
 import {Button, Form, Modal} from "react-bootstrap";
-import {useDispatch} from "react-redux";
-import {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {useCallback, useState} from "react";
 
 import {typesActions} from "../../../redux";
 
@@ -9,13 +9,14 @@ const CreateType = ({show, onHide}) => {
     const dispatch = useDispatch();
 
     const [value, setValue] = useState('')
+    const {currentPageTypes} = useSelector(state => state.typesReducer);
 
-    const handleCreateType = async () => {
+    const handleCreateType = useCallback(async () => {
         await dispatch(typesActions.createType({type: value}))
         onHide()
-        dispatch(typesActions.getAll())
+        dispatch(typesActions.getAll({page: currentPageTypes, isGettingAll: false}))
         setValue('')
-    }
+    }, [value, currentPageTypes, dispatch, onHide])
 
     return (
         <Modal size="lg" show={show} onHide={onHide} centered>

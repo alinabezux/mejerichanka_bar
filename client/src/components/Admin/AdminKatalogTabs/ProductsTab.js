@@ -1,7 +1,7 @@
 import {Button, Tab, Table} from "react-bootstrap";
 import Pagination from "react-bootstrap/Pagination";
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 
 import {productsActions} from "../../../redux";
 import generatePagination from "../../Pagination";
@@ -22,20 +22,26 @@ const ProductsTab = () => {
 
     const paginationItemsProducts = generatePagination(totalPagesProducts, currentPageProducts, handleSetCurrentPageProducts);
 
-    const handleEditProduct = (product) => {
-        dispatch(productsActions.setSelectedProduct(product))
-        setEditProductVisible(true)
-    };
+    const handleEditProduct = useCallback(
+        (product) => {
+            dispatch(productsActions.setSelectedProduct(product));
+            setEditProductVisible(true);
+        }, [dispatch]);
 
-    const handleUploadPhotoProduct = (product) => {
-        dispatch(productsActions.setSelectedProduct(product))
-        setUploadPhotoProductVisible(true)
-    };
+    const handleUploadPhotoProduct = useCallback(
+        (product) => {
+            dispatch(productsActions.setSelectedProduct(product));
+            setUploadPhotoProductVisible(true);
+        }, [dispatch]);
 
-    const handleDeleteProduct = async (product) => {
-        await dispatch(productsActions.deleteById({productId: product._id}))
-        dispatch(productsActions.getAll({page: currentPageProducts, isGettingAll: false}))
-    };
+
+    const handleDeleteProduct = useCallback(
+        async (product) => {
+            await dispatch(productsActions.deleteById({productId: product._id}));
+            dispatch(
+                productsActions.getAll({page: currentPageProducts, isGettingAll: false})
+            );
+        }, [dispatch, currentPageProducts]);
 
     useEffect(() => {
         dispatch(productsActions.getAll({page: currentPageProducts, isGettingAll: false}))

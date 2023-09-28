@@ -71,12 +71,19 @@ const basketSlice = createSlice({
             })
             .addCase(getBasket.rejected, (state, action) => {
                 state.error = action.payload
-                state.loading = false
             })
 
 
             .addCase(addToBasket.fulfilled, (state, action) => {
                 state.basket.push(action.payload)
+                state.loading = false
+                state.error = null;
+            })
+            .addCase(addToBasket.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(addToBasket.rejected, (state, action) => {
+                state.error = action.payload
             })
 
 
@@ -84,22 +91,28 @@ const basketSlice = createSlice({
                 state.loading = false
                 state.error = null;
             })
+            .addCase(deleteFromBasket.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(deleteFromBasket.rejected, (state, action) => {
+                state.error = action.payload
+            })
 
 
             .addCase(updateProductInBasketQuantity.fulfilled, (state, action) => {
-                // const findProductInBasket = state.basket.find(value => value.id === action.payload.id);
-                // Object.assign(findProductInBasket, action.payload)
-                state.loading = false
-                state.error = null
-
+                const findIndex = state.basket.findIndex(value => value._id === action.payload._id);
+                if (findIndex !== -1) {
+                    state.basket[findIndex] = {...state.basket[findIndex], ...action.payload};
+                }
+                // const findProduct = state.basket.find(value => value._id === action.payload._id);
+                // console.log(findProduct);
+                // Object.assign(findProduct, action.payload)
             })
             .addCase(updateProductInBasketQuantity.pending, (state) => {
                 state.loading = true
-                state.error = null
             })
             .addCase(updateProductInBasketQuantity.rejected, (state, action) => {
                 state.error = action.payload
-                state.loading = false
             })
 
 });
@@ -107,7 +120,12 @@ const basketSlice = createSlice({
 
 const {reducer: basketReducer} = basketSlice;
 
-const basketActions = {getBasket, addToBasket, deleteFromBasket, updateProductInBasketQuantity}
+const basketActions = {
+    getBasket,
+    addToBasket,
+    deleteFromBasket,
+    updateProductInBasketQuantity
+}
 
 export {
     basketReducer, basketActions

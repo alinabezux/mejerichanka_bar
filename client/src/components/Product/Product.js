@@ -1,5 +1,5 @@
 import {Button, Card} from 'react-bootstrap';
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 
 import {basketActions} from "../../redux";
@@ -20,11 +20,14 @@ const Product = ({product}) => {
         }
     }, [])
 
-    const handleAddProductToBasket = async (product) => {
-        await dispatch(basketActions.addToBasket({userId: userId, productId: product._id}));
-        setBasketVisible(true)
-        dispatch(basketActions.getBasket(userId))
-    };
+
+    const handleAddProductToBasket = useCallback(async (product) => {
+        if (userId) {
+            await dispatch(basketActions.addToBasket({userId, productId: product._id}));
+            setBasketVisible(true);
+            dispatch(basketActions.getBasket(userId));
+        }
+    }, [userId, dispatch]);
 
     return (
         <Card className="m-2" style={{width: '18rem'}}>

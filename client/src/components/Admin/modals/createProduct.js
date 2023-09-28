@@ -1,5 +1,5 @@
 import {Alert, Button, Container, Form, Modal} from "react-bootstrap";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useForm} from "react-hook-form";
 
@@ -14,6 +14,7 @@ const CreateProduct = ({show, onHide}) => {
 
     const [category, setCategory] = useState('');
     const [type, setType] = useState('');
+    const {currentPageProducts} = useSelector(state => state.productsReducer);
 
     const {error} = useSelector(state => state.productsReducer);
     const {categories} = useSelector(state => state.categoriesReducer);
@@ -31,38 +32,30 @@ const CreateProduct = ({show, onHide}) => {
     });
 
 
-    const handleCreateProduct = async (data) => {
+    const handleCreateProduct = useCallback(async (data) => {
+        let productProperties = {
+            title: data.title,
+            category: category,
+            price: data.price,
+        };
+
         if (type !== '') {
-            const res = await dispatch(productsActions.createProduct({
-                product: {
-                    title: data.title,
-                    category: category,
-                    type: type,
-                    price: data.price,
-                }
-            }))
-            if (res.meta.requestStatus === 'fulfilled') {
-                onHide();
-                reset();
-                setCategory('');
-                setType('');
-            }
-        } else {
-            const res = await dispatch(productsActions.createProduct({
-                product: {
-                    title: data.title,
-                    category: category,
-                    price: data.price,
-                }
-            }))
-            if (res.meta.requestStatus === 'fulfilled') {
-                onHide();
-                reset();
-                setCategory('');
-                setType('');
-            }
+            productProperties.type = type;
         }
-    }
+
+        const response = await dispatch(productsActions.createProduct({
+            product: productProperties
+        }));
+
+
+        if (response.meta.requestStatus === 'fulfilled') {
+            onHide();
+            reset();
+            setCategory('');
+            setType('');
+            dispatch(productsActions.getAll({page: currentPageProducts, isGettingAll: false}))
+        }
+    }, [category, type, dispatch, onHide, reset, setCategory, setType,currentPageProducts])
 
 
     return (

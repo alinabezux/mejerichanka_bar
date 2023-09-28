@@ -3,6 +3,7 @@ import {productsService} from "../../services";
 
 const initialState = {
     products: [],
+    selectedProduct: null,
     currentPageProducts: 1,
     totalPagesProducts: null,
     loading: false,
@@ -113,11 +114,9 @@ const productsSlice = createSlice({
 
 
             .addCase(updateProduct.fulfilled, (state, action) => {
-                const findProduct = state.products.find(value => value.id === action.payload.id);
+                const findProduct = state.products.find(value => value._id === action.payload._id);
                 Object.assign(findProduct, action.payload)
                 state.selectedProduct = null
-                state.error = null
-                state.loading = false
             })
             .addCase(updateProduct.pending, (state) => {
                 state.loading = true
@@ -130,19 +129,15 @@ const productsSlice = createSlice({
 
 
             .addCase(uploadPhoto.fulfilled, (state, action) => {
-                const findProduct = state.products.find(value => value.id === action.payload.id);
+                const findProduct = state.products.find(value => value._id === action.payload._id);
                 Object.assign(findProduct, action.payload)
                 state.selectedProduct = null
-                state.error = null
-                state.loading = false
             })
             .addCase(uploadPhoto.pending, (state) => {
                 state.loading = true
-                state.error = null
             })
             .addCase(uploadPhoto.rejected, (state, action) => {
                 state.error = action.payload
-                state.loading = false
             })
 
 

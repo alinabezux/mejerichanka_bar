@@ -7,6 +7,7 @@ import {authService} from "../services";
 
 const AdminPage = () => {
     const [userId, setUserId] = useState(null);
+
     useEffect(() => {
         const user = authService.getUser();
         if (user) {

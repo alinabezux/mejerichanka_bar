@@ -30,10 +30,12 @@ const Products = () => {
         }
     }, [products, selectedCategory, selectedType])
 
-    const scroll = document.getElementById("scrollTo");
-    if (scroll) {
-        scroll.scrollIntoView({behavior: 'smooth'});
-    }
+    useEffect(() => {
+        const scroll = document.getElementById("scrollTo");
+        if (scroll) {
+            scroll.scrollIntoView({behavior: "smooth"});
+        }
+    }, []);
 
     return (
         <Container className="products m-3 " id="scrollTo">

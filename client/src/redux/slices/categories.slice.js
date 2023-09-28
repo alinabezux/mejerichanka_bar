@@ -73,19 +73,16 @@ const categoriesSlice = createSlice(
         },
         extraReducers: builder =>
             builder
-                .addCase(getAll.pending, (state) => {
-                    state.loading = true
-                    state.error = null
-                })
                 .addCase(getAll.fulfilled, (state, action) => {
                     state.categories = action.payload.categories
-                    console.log(action.payload);
                     state.totalPagesCategories = action.payload.totalPages
                     state.loading = false
                     state.error = null
                 })
+                .addCase(getAll.pending, (state) => {
+                    state.loading = true
+                })
                 .addCase(getAll.rejected, (state, action) => {
-                    state.loading = false
                     state.error = action.payload
                 })
 
@@ -95,17 +92,36 @@ const categoriesSlice = createSlice(
                     state.loading = false
                     state.error = null
                 })
+                .addCase(createCategory.pending, (state) => {
+                    state.loading = true
+                })
+                .addCase(createCategory.rejected, (state, action) => {
+                    state.error = action.payload
+                })
 
 
                 .addCase(uploadPhoto.fulfilled, (state, action) => {
-                    const findCategory = state.categories.find(value => value.id === action.payload.id);
+                    const findCategory = state.categories.find(value => value._id === action.payload._id);
                     Object.assign(findCategory, action.payload)
+                    state.selectedCategory = {}
+                })
+                .addCase(uploadPhoto.pending, (state) => {
+                    state.loading = true
+                })
+                .addCase(uploadPhoto.rejected, (state, action) => {
+                    state.error = action.payload
                 })
 
 
                 .addCase(deleteById.fulfilled, (state, action) => {
                     state.loading = false
                     state.error = null
+                })
+                .addCase(deleteById.pending, (state) => {
+                    state.loading = true
+                })
+                .addCase(deleteById.rejected, (state, action) => {
+                    state.error = action.payload
                 })
     }
 );
