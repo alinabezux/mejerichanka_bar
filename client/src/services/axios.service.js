@@ -4,8 +4,7 @@ import {createBrowserHistory} from "history";
 import {authService} from "./auth.service";
 import {devURL, prodURL} from "../configs/urls";
 
-// const baseURL = process.env.NODE_ENV === "production" ? prodURL : devURL;
-const baseURL = 'http://localhost/api/api'
+const baseURL = process.env.NODE_ENV === "production" ? prodURL : devURL;
 
 const $host = axios.create({baseURL})
 const $authHost = axios.create({baseURL})
