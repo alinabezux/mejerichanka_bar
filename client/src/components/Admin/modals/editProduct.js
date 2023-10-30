@@ -21,20 +21,21 @@ const EditProduct = ({show, onHide}) => {
         if (selectedProduct) {
             setValue('title', selectedProduct.title)
             setValue('price', selectedProduct.price)
+            setValue('info', selectedProduct.info)
         }
     }, [setValue, selectedProduct])
 
 
     const submit = useCallback(async (data) => {
-            const res = await dispatch(productsActions.updateProduct(
-                {
-                    productId: selectedProduct._id,
-                    product: data
-                }))
-            if (res.meta.requestStatus === 'fulfilled') {
-                onHide()
-            }
-        }, [dispatch, onHide, selectedProduct])
+        const res = await dispatch(productsActions.updateProduct(
+            {
+                productId: selectedProduct._id,
+                product: data
+            }))
+        if (res.meta.requestStatus === 'fulfilled') {
+            onHide()
+        }
+    }, [dispatch, onHide, selectedProduct])
 
     return (
         <Modal size="lg" show={show} onHide={onHide} centered>
@@ -54,6 +55,14 @@ const EditProduct = ({show, onHide}) => {
                                       type="text"
                                       placeholder={'title'}
                                       {...register('title')}
+                        />
+
+                        {errors.info &&
+                            <Alert style={{marginTop: "15px"}} variant={"danger"}>{errors.info.message}</Alert>}
+                        <Form.Control className="mb-3"
+                                      type="text"
+                                      placeholder="Опис..."
+                                      {...register('info')}
                         />
 
                         {errors.price &&

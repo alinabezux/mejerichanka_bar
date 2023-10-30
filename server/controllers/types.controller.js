@@ -1,4 +1,5 @@
 const Type = require("../dataBase/models/Type");
+const Category = require("../dataBase/models/Category");
 
 
 module.exports = {
@@ -35,6 +36,18 @@ module.exports = {
             res.status(201).json('Created.');
         } catch (e) {
             next(e)
+        }
+    },
+
+    updateType: async (req, res, next) => {
+        try {
+            const newInfo = req.body.type;
+            const updatedType = await Type.findByIdAndUpdate(req.params.typeId, newInfo, {new: true});
+
+            res.status(201).json(updatedType);
+            res.json('ok');
+        } catch (e) {
+            next(e);
         }
     },
     deleteType: async (req, res, next) => {

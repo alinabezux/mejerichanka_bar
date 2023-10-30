@@ -1,5 +1,6 @@
 const Category = require('../dataBase/models/Category');
 const S3Service = require("../services/s3.service");
+const Product = require("../dataBase/models/Product");
 
 module.exports = {
     getAllCategories: async (req, res, next) => {
@@ -48,7 +49,17 @@ module.exports = {
             next(e)
         }
     },
+    updateCategory: async (req, res, next) => {
+        try {
+            const newInfo = req.body.category;
+            const updatedCategory = await Category.findByIdAndUpdate(req.params.categoryId, newInfo, {new: true});
 
+            res.status(201).json(updatedCategory);
+            res.json('ok');
+        } catch (e) {
+            next(e);
+        }
+    },
     uploadImage: async (req, res, next) => {
         try {
             const sendData = await S3Service.uploadPublicFile(req.files.image, 'categories', req.params.categoryId);

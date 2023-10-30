@@ -14,12 +14,18 @@ categoriesRouter.get('/:categoryId',
 
 categoriesRouter.post('/',
     checkRoleMiddleware.checkRole,
+    categoriesMiddleware.isNewCategoryValid,
     categoriesMiddleware.checkIfCategoryExistsForCreateCategory,
     categoriesController.createCategory);
 
 categoriesRouter.delete('/:categoryId',
     checkRoleMiddleware.checkRole,
     categoriesController.deleteCategory);
+
+categoriesRouter.put('/:categoryId',
+    checkRoleMiddleware.checkRole,
+    categoriesMiddleware.isEditCategoryValid,
+    categoriesController.updateCategory);
 
 categoriesRouter.patch('/:categoryId',
     checkRoleMiddleware.checkRole,

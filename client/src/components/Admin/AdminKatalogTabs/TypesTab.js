@@ -6,6 +6,7 @@ import {useCallback, useEffect, useState} from "react";
 import {typesActions} from "../../../redux";
 import generatePagination from "../../Pagination";
 import {CreateType} from "../modals";
+import {EditType} from "../modals/editType";
 
 
 const TypesTab = () => {
@@ -13,6 +14,7 @@ const TypesTab = () => {
 
     const {types, totalPagesTypes, currentPageTypes} = useSelector(state => state.typesReducer);
     const [typeVisible, setTypeVisible] = useState(false);
+    const [editTypeVisible, setEditTypeVisible] = useState(false);
 
 
     const handleSetCurrentPageTypes = async (pageNumber) => {
@@ -20,6 +22,12 @@ const TypesTab = () => {
     }
 
     const paginationItemsTypes = generatePagination(totalPagesTypes, currentPageTypes, handleSetCurrentPageTypes);
+
+    const handleEditType = useCallback(
+        (type) => {
+            dispatch(typesActions.setSelectedType(type));
+            setEditTypeVisible(true);
+        }, [dispatch]);
 
     const handleDeleteType = useCallback(
         async (type) => {
@@ -51,19 +59,30 @@ const TypesTab = () => {
                 <thead>
                 <tr>
                     <th>Тип</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
                 {types.map(type =>
                     <tr key={type._id}>
+                        <td>{type.type}</td>
+
                         <td>
                             <div style={{
                                 display: 'flex',
+                                flexDirection: 'column',
                                 alignItems: 'center',
-                                justifyContent: 'space-between',
+                                justifyContent: 'center',
                                 margin: '5px'
                             }}>
-                                {type.type}
+                                <Button style={{marginBottom: '10px'}}
+                                        onClick={() => handleEditType(type)}
+                                >Редагувати</Button>
+
+                                <EditType show={editTypeVisible}
+                                          onHide={() => setEditTypeVisible(false)}/>
+
+
                                 <Button onClick={() => handleDeleteType(type)}
                                         variant={'outline-danger'}>Видалити</Button>
                             </div>

@@ -6,6 +6,7 @@ import {useCallback, useEffect, useState} from "react";
 import {categoriesActions} from "../../../redux";
 import generatePagination from "../../Pagination";
 import {CreateCategory, UploadPhotoCategory} from "../modals";
+import {EditCategory} from "../modals/editCategory";
 
 
 const CategoriesTab = () => {
@@ -13,6 +14,7 @@ const CategoriesTab = () => {
 
     const {categories, totalPagesCategories, currentPageCategories} = useSelector(state => state.categoriesReducer);
 
+    const [editCategoryVisible, setEditCategoryVisible] = useState(false);
     const [uploadPhotoCategoryVisible, setUploadPhotoCategoryVisible] = useState(false);
     const [categoryVisible, setCategoryVisible] = useState(false);
 
@@ -24,6 +26,12 @@ const CategoriesTab = () => {
     useEffect(() => {
         dispatch(categoriesActions.getAll({page: currentPageCategories, isGettingAll: false}))
     }, [dispatch, currentPageCategories]);
+
+    const handleEditCategory = useCallback(
+        (category) => {
+            dispatch(categoriesActions.setSelectedCategory(category));
+            setEditCategoryVisible(true);
+        }, [dispatch]);
 
     const handleUploadPhotoCategory = useCallback(
         (category) => {
@@ -85,13 +93,20 @@ const CategoriesTab = () => {
                                                      onHide={() => setUploadPhotoCategoryVisible(false)}
                                 />
 
+
+                                <Button style={{marginBottom: '10px'}}
+                                        onClick={() => handleEditCategory(category)}
+                                >Редагувати</Button>
+
+                                <EditCategory show={editCategoryVisible}
+                                              onHide={() => setEditCategoryVisible(false)}/>
+
                                 <Button
                                     onClick={() => handleDeleteCategory(category)}
                                     variant={'outline-danger'}>Видалити</Button>
                             </div>
                         </td>
-                    </tr>
-                )
+                    </tr>)
                 }
                 </tbody>
             </Table>

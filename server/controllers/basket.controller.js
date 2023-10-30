@@ -24,11 +24,22 @@ module.exports = {
 
     addToBasket: async (req, res, next) => {
         try {
+            let addedProductInBasket ;
+
             const product = await Product.findById(req.params.productId);
-            const addedProductInBasket = await ProductInBasket.create({
-                _product: product,
-                _userId: req.params.userId,
-            });
+
+            const productInBasket = await ProductInBasket.findOne({_product: product._id})
+
+            if (productInBasket) {
+                addedProductInBasket = await ProductInBasket.findOneAndUpdate(
+                    {_product: product},
+                    {quantity: productInBasket.quantity + 1},
+                    {new: true});
+            } else
+                addedProductInBasket = await ProductInBasket.create({
+                    _product: product,
+                    _userId: req.params.userId,
+                });
 
             res.json(addedProductInBasket)
 

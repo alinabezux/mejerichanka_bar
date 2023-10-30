@@ -30,15 +30,15 @@ const Products = () => {
         }
     }, [products, selectedCategory, selectedType])
 
-    useEffect(() => {
-        const scroll = document.getElementById("scrollTo");
-        if (scroll) {
-            scroll.scrollIntoView({behavior: "smooth"});
-        }
-    }, []);
+
+    const scroll = document.getElementById("scrollTo");
+    if (scroll) {
+        scroll.scrollIntoView({behavior: "smooth"});
+    }
+
 
     return (
-        <Container className="products m-3 " id="scrollTo">
+        <Container className="products m-3" id="scrollTo">
             {
                 filteredProducts.map(product =>
                     <Product key={product._id} product={product}/>)

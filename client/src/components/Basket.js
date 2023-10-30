@@ -40,9 +40,9 @@ const Basket = ({show, onHide}) => {
         window.location.reload()
     };
 
-
     return (
-        <Offcanvas show={show} onHide={onHide} className="basket" placement="end" data-bs-theme="dark">
+        <Offcanvas style={{zIndex: "9999"}} show={show} onHide={onHide} className="basket" placement="end"
+                   data-bs-theme="dark">
             <Offcanvas.Header closeButton>
                 <div style={{display: "flex", alignItems: "center"}}>
                     <Offcanvas.Title><h3 style={{marginRight: "15px"}}>Корзина</h3></Offcanvas.Title>

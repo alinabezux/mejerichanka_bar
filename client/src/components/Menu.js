@@ -3,7 +3,7 @@ import {CategoryBar} from "./CategoryBar";
 
 const Menu = () => {
     return (
-        <div className="menu">
+        <div className="menu" >
             <h1 className="title" id="menu">Меню</h1>
             <CategoryBar/>
             <Products/>

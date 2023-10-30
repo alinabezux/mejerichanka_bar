@@ -1,5 +1,6 @@
 export * from './Product/Products'
 export * from './Product/Product'
+export * from './Product/ProductDetails'
 
 export * from './Slider'
 export * from './Menu'

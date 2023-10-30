@@ -75,7 +75,10 @@ const ProductsTab = () => {
                     <tr key={product._id}>
                         <td><img style={{width: '100px'}} src={product.image}
                                  alt={product.title}/></td>
-                        <td>{product.title}</td>
+                        <td>{product.title}
+                            <hr/>
+                            <p style={{color: "black", fontSize: "16px"}}>{product.info}</p>
+                        </td>
                         <td>{product.price} грн.</td>
                         <td>
                             <div style={{

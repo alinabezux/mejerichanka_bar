@@ -36,7 +36,8 @@ const CreateProduct = ({show, onHide}) => {
         let productProperties = {
             title: data.title,
             category: category,
-            price: data.price,
+            info: data.info,
+            price: data.price
         };
 
         if (type !== '') {
@@ -55,7 +56,7 @@ const CreateProduct = ({show, onHide}) => {
             setType('');
             dispatch(productsActions.getAll({page: currentPageProducts, isGettingAll: false}))
         }
-    }, [category, type, dispatch, onHide, reset, setCategory, setType,currentPageProducts])
+    }, [category, type, dispatch, onHide, reset, setCategory, setType, currentPageProducts])
 
 
     return (
@@ -103,6 +104,14 @@ const CreateProduct = ({show, onHide}) => {
                                 </Form.Select>
                             </>
                         }
+
+                        {errors.info &&
+                            <Alert style={{marginTop: "15px"}} variant={"danger"}>{errors.info.message}</Alert>}
+                        <Form.Control className="mb-3"
+                                      type="text"
+                                      placeholder="Опис..."
+                                      {...register('info')}
+                        />
 
                         {errors.price &&
                             <Alert style={{marginTop: "15px"}} variant={"danger"}>{errors.price.message}</Alert>}

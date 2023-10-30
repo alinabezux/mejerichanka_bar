@@ -34,6 +34,19 @@ const createCategory = createAsyncThunk(
     }
 );
 
+
+const updateCategory = createAsyncThunk(
+    'categoriesSlice/updateCategory',
+    async ({categoryId, category}, {rejectWithValue}) => {
+        try {
+            const {data} = await categoriesService.updateCategory(categoryId, category);
+            return data
+        } catch (e) {
+            return rejectWithValue(e.response.data)
+        }
+    }
+);
+
 const uploadPhoto = createAsyncThunk(
     'categoriesSlice/uploadPhoto',
     async ({categoryId, image}, {rejectWithValue}) => {
@@ -100,6 +113,19 @@ const categoriesSlice = createSlice(
                 })
 
 
+                .addCase(updateCategory.fulfilled, (state, action) => {
+                    const findCategory = state.categories.find(value => value._id === action.payload._id);
+                    Object.assign(findCategory, action.payload)
+                    state.selectedCategory = {}
+                })
+                .addCase(updateCategory.pending, (state) => {
+                    state.loading = true
+                })
+                .addCase(updateCategory.rejected, (state, action) => {
+                    state.error = action.payload
+                })
+
+
                 .addCase(uploadPhoto.fulfilled, (state, action) => {
                     const findCategory = state.categories.find(value => value._id === action.payload._id);
                     Object.assign(findCategory, action.payload)
@@ -129,7 +155,7 @@ const categoriesSlice = createSlice(
 const {reducer: categoriesReducer, actions: {setSelectedCategory, setCurrentPageCategories}} = categoriesSlice;
 
 const categoriesActions = {
-    getAll, createCategory, uploadPhoto, deleteById, setSelectedCategory, setCurrentPageCategories
+    getAll, createCategory, updateCategory, uploadPhoto, deleteById, setSelectedCategory, setCurrentPageCategories
 }
 
 export {

@@ -1,6 +1,6 @@
 import {Button, Col, Container, Image, Row} from "react-bootstrap";
 import {useDispatch} from "react-redux";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
 
 import bin from '../assets/bin.png'
@@ -25,21 +25,15 @@ const ProductInBasket = ({productInBasket}) => {
         }
     }, [])
 
-    const updateQuantityInBasket = async (newQuantity) => {
-        await dispatch(basketActions.updateProductInBasketQuantity({
-            userId: userId,
-            productId: productInBasket._id,
-            quantity: newQuantity
-        }))
-        dispatch(basketActions.getBasket(userId));
-    }
-
+    const handleDeleteProductInBasket = async (productInBasket) => {
+        await dispatch(basketActions.deleteFromBasket({userId, productId: productInBasket._id}))
+        dispatch(basketActions.getBasket(userId))
+    };
     const increaseQuantity = () => {
         const newQuantity = quantity + 1;
         setQuantity(newQuantity);
         updateQuantityInBasket(newQuantity);
     };
-
 
     const decreaseQuantity = () => {
         if (quantity > 1) {
@@ -49,13 +43,16 @@ const ProductInBasket = ({productInBasket}) => {
         } else {
             handleDeleteProductInBasket(productInBasket);
         }
-    };
+    }
 
-
-    const handleDeleteProductInBasket = async (productInBasket) => {
-        await dispatch(basketActions.deleteFromBasket({userId, productId: productInBasket._id}))
-        dispatch(basketActions.getBasket(userId))
-    };
+    const updateQuantityInBasket = useCallback(async (newQuantity) => {
+        await dispatch(basketActions.updateProductInBasketQuantity({
+            userId: userId,
+            productId: productInBasket._id,
+            quantity: newQuantity
+        }))
+        dispatch(basketActions.getBasket(userId));
+    }, [dispatch, productInBasket._id, userId])
 
 
     return (
@@ -77,10 +74,10 @@ const ProductInBasket = ({productInBasket}) => {
                             justifyContent: "space-around",
                             alignItems: "center"
                         }}>
+                            <Button style={{backgroundColor: "dimgrey"}} onClick={decreaseQuantity}>-</Button>
+                            <h5>{productInBasket.quantity}</h5>
                             <Button style={{backgroundColor: "dimgrey"}}
                                     onClick={increaseQuantity}>+</Button>
-                            <h5>{productInBasket.quantity}</h5>
-                            <Button style={{backgroundColor: "dimgrey"}} onClick={decreaseQuantity}>-</Button>
                         </div>
                     </Col>
                 </Container>

@@ -25,7 +25,7 @@ const CategoryBar = () => {
 
     return (
         <>
-            <div className="categories">
+            <div className="categories" >
                 {categories.map(category => (
                     <img
                         className="m-3"
