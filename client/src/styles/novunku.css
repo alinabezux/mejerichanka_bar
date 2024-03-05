@@ -1,0 +1,70 @@
+@media only screen and (max-width: 767px) {
+    /*phone*/
+    .new-fon {
+        height: auto;
+        overflow: hidden;
+        position: absolute;
+        width: 250%;
+        margin-left: -74%;
+        margin-top: -20px;
+    }
+
+    .main {
+        position: relative;
+        top: 65vw;
+        text-align: center;
+    }
+
+    .images {
+        flex-direction: column;
+
+    }
+
+    .images img {
+        margin: 10px 0;
+        width: 80vw;
+        height: auto;
+    }
+
+}
+
+/*pc*/
+@media only screen and (min-width: 768px) {
+    .new-fon {
+        width: 100%;
+        margin-top: -50px;
+        position: absolute;
+    }
+
+    .main {
+        position: relative;
+        top: 25vw;
+        text-align: center;
+    }
+
+    .images {
+        flex-wrap: wrap;
+        flex-direction: row;
+
+    }
+
+    .images img {
+        width: 25%;
+        height: auto;
+        margin: 15px 40px;
+    }
+}
+
+/*general*/
+.new-page {
+    background-color: #D5D3BE;
+    height: 20000px;
+}
+
+
+.images {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+

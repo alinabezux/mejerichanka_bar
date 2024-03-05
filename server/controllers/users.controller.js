@@ -6,7 +6,7 @@ module.exports = {
         try {
             let {page} = req.query;
             page = page || 1;
-            const limit = 5;
+            const limit = 10;
             let count;
 
             const users = await User.find({}).limit(limit).skip((page - 1) * limit);

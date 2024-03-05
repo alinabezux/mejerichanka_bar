@@ -56,58 +56,41 @@ const ProductsTab = () => {
             <CreateProduct show={productVisible}
                            onHide={() => setProductVisible(false)}/>
 
-            <Table
-                style={{
-                    fontFamily: '\'Nunito\', sans-serif',
-                    fontWeight: "normal",
-                    fontSize: "25px"
-                }}>
+            <Table className="adminTable">
                 <thead>
                 <tr>
                     <th>Фото</th>
                     <th>Назва</th>
                     <th>Ціна</th>
-                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
                 {products.map(product =>
                     <tr key={product._id}>
-                        <td><img style={{width: '100px'}} src={product.image}
-                                 alt={product.title}/></td>
-                        <td>{product.title}
-                            <hr/>
-                            <p style={{color: "black", fontSize: "16px"}}>{product.info}</p>
-                        </td>
-                        <td>{product.price} грн.</td>
                         <td>
-                            <div style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                margin: '5px'
-                            }}>
-                                <Button style={{marginBottom: '10px'}}
-                                        onClick={() => handleEditProduct(product)}
-                                >Редагувати</Button>
+                            <img src={product.image} alt={product.title}/>
+                            <div>
+                                <Button onClick={() => handleEditProduct(product)}>Редагувати</Button>
 
                                 <EditProduct show={editProductVisible}
-                                             onHide={() => setEditProductVisible(false)}
-                                />
-
-                                <Button style={{marginBottom: '10px'}}
-                                        variant={'secondary'}
-                                        onClick={() => handleUploadPhotoProduct(product)}
-                                >+ Фото</Button>
+                                             onHide={() => setEditProductVisible(false)}/>
+                                <Button
+                                    variant={'secondary'}
+                                    onClick={() => handleUploadPhotoProduct(product)}>+ Фото</Button>
 
                                 <UploadPhotoProduct show={uploadPhotoProductVisible}
-                                                    onHide={() => setUploadPhotoProductVisible(false)}
-                                />
-
-                                <Button onClick={() => handleDeleteProduct(product)}
-                                        variant={'outline-danger'}>Видалити</Button>
+                                                    onHide={() => setUploadPhotoProductVisible(false)}/>
+                                <Button
+                                    onClick={() => handleDeleteProduct(product)}
+                                    variant={'outline-danger'}>Видалити
+                                </Button>
                             </div>
+                        </td>
+                        <td>{product.title}
+                            <hr/>
+                            <p>{product.info}</p>
+                        </td>
+                        <td>{product.price} грн.
                         </td>
                     </tr>)
                 }
@@ -118,4 +101,6 @@ const ProductsTab = () => {
     );
 }
 
-export {ProductsTab}
+export {
+    ProductsTab
+}

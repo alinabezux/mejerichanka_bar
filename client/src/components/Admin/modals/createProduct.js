@@ -13,7 +13,6 @@ const CreateProduct = ({show, onHide}) => {
     const dispatch = useDispatch();
 
     const [category, setCategory] = useState('');
-    const [type, setType] = useState('');
     const {currentPageProducts} = useSelector(state => state.productsReducer);
 
     const {error} = useSelector(state => state.productsReducer);
@@ -22,9 +21,14 @@ const CreateProduct = ({show, onHide}) => {
 
 
     useEffect(() => {
-        dispatch(categoriesActions.getAll())
-        dispatch(typesActions.getAll())
+        dispatch(categoriesActions.getAll({isGettingAll: true}))
     }, [dispatch]);
+
+    useEffect(() => {
+        console.log(category);
+        dispatch(typesActions.getTypesByCategoryId({categoryId: category, isGettingAll: true}))
+    }, [dispatch, category]);
+
 
     const {register, handleSubmit, reset, formState: {errors}} = useForm({
         resolver: joiResolver(productValidator.newProductValidator),
@@ -33,15 +37,16 @@ const CreateProduct = ({show, onHide}) => {
 
 
     const handleCreateProduct = useCallback(async (data) => {
+
         let productProperties = {
             title: data.title,
-            category: category,
+            category: data.category,
             info: data.info,
             price: data.price
         };
 
-        if (type !== '') {
-            productProperties.type = type;
+        if (data.type !== '') {
+            productProperties.type = data.type;
         }
 
         const response = await dispatch(productsActions.createProduct({
@@ -53,10 +58,9 @@ const CreateProduct = ({show, onHide}) => {
             onHide();
             reset();
             setCategory('');
-            setType('');
-            dispatch(productsActions.getAll({page: currentPageProducts, isGettingAll: false}))
+            // dispatch(productsActions.getAll({page: currentPageProducts, isGettingAll: false}))
         }
-    }, [category, type, dispatch, onHide, reset, setCategory, setType, currentPageProducts])
+    }, [dispatch, onHide, reset, currentPageProducts])
 
 
     return (
@@ -81,28 +85,37 @@ const CreateProduct = ({show, onHide}) => {
 
                         {errors.category &&
                             <Alert style={{marginTop: "15px"}} variant={"danger"}>{errors.category.message}</Alert>}
-                        <Form.Select className="mb-3" value={category}
-                                     onChange={(e) => setCategory(e.target.value)}>
-                            <option>Виберіть категорію</option>
-                            {categories.map(category =>
-                                <option value={category.category} key={category._id}>
-                                    {category.category}
-                                </option>
-                            )}
-                        </Form.Select>
+                        {
+                            categories ?
+                                <Form.Select className="mb-3" type="text"
+                                             {...register('category')}
 
-                        {category === 'Головне меню' &&
-                            <>
-                                <Form.Select className="mb-3" value={type}
-                                             onChange={(e) => setType(e.target.value)}>
-                                    <option>Виберіть тип</option>
-                                    {types.map(type =>
-                                        <option value={type.type} key={type._id}>
-                                            {type.type}
+                                             onChange={(e) => {
+                                                 const find = categories.find(cater => cater.category === e.target.value);
+                                                 setCategory(find._id)
+                                                 console.log(find._id);
+                                             }}
+                                >
+                                    <option>Виберіть категорію</option>
+                                    {categories.map(category =>
+                                        <option value={category.category} key={category._id}>
+                                            {category.category}
                                         </option>
                                     )}
-                                </Form.Select>
-                            </>
+                                </Form.Select> : null
+
+                        }
+
+                        {category ?
+                            <Form.Select className="mb-3" type="text"
+                                         {...register('type')}>
+                                <option>Виберіть тип</option>
+                                {types.map(type =>
+                                    <option value={type.type} key={type._id}>
+                                        {type.type}
+                                    </option>
+                                )}
+                            </Form.Select> : null
                         }
 
                         {errors.info &&
@@ -128,7 +141,8 @@ const CreateProduct = ({show, onHide}) => {
                 <Button variant="outline-danger" onClick={onHide}>Закрити</Button>
             </Modal.Footer>
         </Modal>
-    );
+    )
+        ;
 }
 
 export {CreateProduct}

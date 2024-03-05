@@ -1,12 +1,11 @@
 import {Carousel} from "react-bootstrap";
 
-import music from '../assets/muzukanty.png' ;
 import hookah from '../assets/hookah.png'
 import bbq from '../assets/bbqmenu.png'
-import banket from '../assets/bankets.png'
+import banket from '../assets/banket.png'
 import bar from '../assets/MEJERICHANKA.png'
 import lunches from '../assets/complex.png'
-import outside from '../assets/zadniydvir2.png'
+import outside from '../assets/zad.png'
 
 const Slider = () => {
     return (
@@ -28,13 +27,6 @@ const Slider = () => {
 
             <Carousel.Item>
                 <img
-                    src={lunches}
-                    alt="Комплексні обіди"
-                />
-            </Carousel.Item>
-
-            <Carousel.Item>
-                <img
                     src={outside}
                     alt="Задній двір"
                 />
@@ -42,15 +34,16 @@ const Slider = () => {
 
             <Carousel.Item>
                 <img
-                    src={bbq}
-                    alt="Мангал-меню"
+                    src={lunches}
+                    alt="Комплексні обіди"
                 />
             </Carousel.Item>
 
+
             <Carousel.Item>
                 <img
-                    src={music}
-                    alt="Жива музика"
+                    src={bbq}
+                    alt="Мангал-меню"
                 />
             </Carousel.Item>
 

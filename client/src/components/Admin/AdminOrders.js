@@ -54,7 +54,7 @@ const AdminOrders = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {orders.map((order, index) => (
+                {orders.slice().reverse().map((order, index) => (
                     <AdminOrderItem
                         key={`${order._id}-${index}`}
                         order={order}

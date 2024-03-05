@@ -1,5 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useCallback, useState} from "react";
+
 import {Button, Form, Modal} from "react-bootstrap";
 
 import {productsActions} from "../../../redux";
@@ -19,8 +20,11 @@ const UploadPhotoProduct = ({show, onHide}) => {
         e.preventDefault();
         try {
             if (file) {
+                console.log(file);
+
                 const formData = new FormData();
                 formData.append("image", file);
+                console.log(formData);
 
                 const uploadData = {
                     productId: selectedProduct._id,

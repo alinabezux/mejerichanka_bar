@@ -3,6 +3,7 @@ import {
     authReducer,
     basketReducer,
     categoriesReducer,
+    newsReducer,
     orderReducer,
     productsReducer,
     typesReducer,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     usersReducer,
     authReducer,
     basketReducer,
-    orderReducer
+    orderReducer,
+    newsReducer
 })
 const setupStore = () => configureStore({reducer: rootReducer})
 

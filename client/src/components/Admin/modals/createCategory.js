@@ -1,19 +1,29 @@
-import {Button, Form, Modal} from "react-bootstrap";
-import {useDispatch} from "react-redux";
-import {useCallback, useState} from "react";
+import {Alert, Button, Form, Modal} from "react-bootstrap";
+import {useDispatch, useSelector} from "react-redux";
+import {useCallback} from "react";
 
 import {categoriesActions} from "../../../redux";
+import {useForm} from "react-hook-form";
+import {joiResolver} from "@hookform/resolvers/joi";
+import {categoryValidator} from "../../../validators/category.validator";
 
 const CreateCategory = ({show, onHide}) => {
     const dispatch = useDispatch();
+    const {error} = useSelector(state => state.categoriesReducer);
 
-    const [category, setCategory] = useState('');
+    const {register, handleSubmit, reset, formState: {errors}} = useForm({
+        resolver: joiResolver(categoryValidator.newCategoryValidator),
+        mode: 'all'
+    });
 
-    const handleCreateCategory = useCallback(async () => {
-        await dispatch(categoriesActions.createCategory({category: category}))
-        onHide()
-        setCategory('')
-    }, [category, dispatch, onHide]);
+    const handleCreateCategory = useCallback(async (data) => {
+        const res = await dispatch(categoriesActions.createCategory({category: data}));
+        if (res.meta.requestStatus === 'fulfilled') {
+            onHide();
+            reset();
+        }
+
+    }, [dispatch, onHide, reset]);
 
 
     return (
@@ -24,17 +34,20 @@ const CreateCategory = ({show, onHide}) => {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Form>
+                <Form onSubmit={handleSubmit(handleCreateCategory)}>
+                    {(error && <Alert style={{marginTop: "15px"}} variant={"danger"}>{error.message}</Alert>)}
+
+                    {errors.category &&
+                        <Alert style={{marginTop: "15px"}} variant={"danger"}>{errors.category.message}</Alert>}
                     <Form.Control className="mb-3"
                                   type="text"
                                   placeholder="Введіть назву категорії"
-                                  value={category}
-                                  onChange={(e) => setCategory(e.target.value)}
+                                  {...register('category')}
                     />
+                    <Button variant="outline-success" type='submit'>Зберегти</Button>
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="outline-success" onClick={handleCreateCategory}>Зберегти</Button>
                 <Button variant="outline-danger" onClick={onHide}>Закрити</Button>
             </Modal.Footer>
         </Modal>

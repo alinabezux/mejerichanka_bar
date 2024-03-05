@@ -4,10 +4,12 @@ const typesMiddleware = require("../middlewares/type.middleware")
 const checkRoleMiddleware = require('../middlewares/checkRole.middleware');
 
 const typesController = require("../controllers/types.controller");
-const categoriesController = require("../controllers/categories.controller");
 
 typesRouter.get('/',
     typesController.getAllTypes);
+
+typesRouter.get('/:categoryId',
+    typesController.getTypesByCategoryId);
 
 typesRouter.post('/',
     checkRoleMiddleware.checkRole,

@@ -1,5 +1,5 @@
 const Type = require("../dataBase/models/Type");
-const Category = require("../dataBase/models/Category");
+
 
 
 module.exports = {
@@ -25,15 +25,24 @@ module.exports = {
                 totalPages: Math.ceil(count / limit),
                 currentPage: page
             });
+
+        } catch (e) {
+            next(e);
+        }
+    },
+
+    getTypesByCategoryId: async (req, res, next) => {
+        try {
+            const typesByCategory = await Type.find({_category: req.params.categoryId});
+            res.json(typesByCategory);
         } catch (e) {
             next(e);
         }
     },
     createType: async (req, res, next) => {
         try {
-            await Type.create(req.body);
-
-            res.status(201).json('Created.');
+            const type = await Type.create(req.body.type);
+            return res.status(201).json(type);
         } catch (e) {
             next(e)
         }
@@ -43,9 +52,7 @@ module.exports = {
         try {
             const newInfo = req.body.type;
             const updatedType = await Type.findByIdAndUpdate(req.params.typeId, newInfo, {new: true});
-
             res.status(201).json(updatedType);
-            res.json('ok');
         } catch (e) {
             next(e);
         }

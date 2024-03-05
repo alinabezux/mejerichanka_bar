@@ -3,11 +3,12 @@ import {useDispatch} from "react-redux";
 import {useCallback, useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
 
+import {authService} from "../services";
+import {basketActions} from "../redux";
+
 import bin from '../assets/bin.png'
 import binBlack from '../assets/bin_black.png'
-import {authService} from "../services";
 
-import {basketActions} from "../redux";
 
 const ProductInBasket = ({productInBasket}) => {
     const [userId, setUserId] = useState(null);

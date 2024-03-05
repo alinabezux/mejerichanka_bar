@@ -51,11 +51,7 @@ const TypesTab = () => {
             <CreateType show={typeVisible}
                         onHide={() => setTypeVisible(false)}/>
 
-            <Table style={{
-                fontFamily: '\'Nunito\', sans-serif',
-                fontWeight: "normal",
-                fontSize: "25px"
-            }}>
+            <Table className="adminTable">
                 <thead>
                 <tr>
                     <th>Тип</th>
@@ -66,30 +62,17 @@ const TypesTab = () => {
                 {types.map(type =>
                     <tr key={type._id}>
                         <td>{type.type}</td>
-
                         <td>
-                            <div style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                margin: '5px'
-                            }}>
-                                <Button style={{marginBottom: '10px'}}
-                                        onClick={() => handleEditType(type)}
-                                >Редагувати</Button>
-
+                            <div>
+                                <Button onClick={() => handleEditType(type)}>Редагувати</Button>
                                 <EditType show={editTypeVisible}
                                           onHide={() => setEditTypeVisible(false)}/>
-
-
                                 <Button onClick={() => handleDeleteType(type)}
                                         variant={'outline-danger'}>Видалити</Button>
                             </div>
                         </td>
                     </tr>
-                )
-                }
+                )}
                 </tbody>
             </Table>
             <Pagination style={{display: "flex", justifyContent: "center"}}>{paginationItemsTypes}</Pagination>

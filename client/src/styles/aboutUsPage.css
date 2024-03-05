@@ -19,14 +19,9 @@
         align-items: center;
     }
 
-    .wrap-item img {
-        width: 250px;
-        height: 250px;
-    }
-
     iframe {
-        width: 250px;
-        height: 250px;
+        width: 300px;
+        height: 300px;
     }
 
     .delivery-info {
@@ -41,11 +36,16 @@
     .delivery-info-item p {
         font-size: large;
     }
+
+    .carousel-aboutUs img {
+        width: 80vw;
+        height: auto;
+        margin-left: 0;
+    }
 }
 
 /*big*/
 @media only screen and (min-width: 768px) {
-
     .about-page img#first {
         width: 100%;
         margin-top: -220px;
@@ -63,6 +63,12 @@
     .wrap-item {
         display: flex;
         flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .banket p {
+        font-size: 25px;
     }
 
     .wrap-item p {
@@ -96,7 +102,7 @@
 
     iframe {
         width: 600px;
-        height: auto;
+        height: 600px;
     }
 }
 
@@ -112,7 +118,7 @@
 }
 
 .wrap div {
-    padding: 15px
+    padding: 5px 15px
 }
 
 

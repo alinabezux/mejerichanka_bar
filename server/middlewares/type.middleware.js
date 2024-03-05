@@ -6,11 +6,11 @@ module.exports = {
     checkIfTypeExistsForTypes: async (req, res, next) => {
         try {
             if (req.body.type) {
-                const typeOfProduct = req.body.type;
+                const typeOfProduct = req.body.type.type;
                 const type = await Type.findOne({type: `${typeOfProduct}`});
 
                 if (type) {
-                    throw new ApiError(404, `Тип ${typeOfProduct}  не існує в базі даних.`)
+                    throw new ApiError(404, `Тип ${typeOfProduct} вже існує в базі даних.`)
                 }
             }
 

@@ -56,11 +56,7 @@ const CategoriesTab = () => {
             <CreateCategory show={categoryVisible}
                             onHide={() => setCategoryVisible(false)}/>
 
-            <Table style={{
-                fontFamily: '\'Nunito\', sans-serif',
-                fontWeight: "normal",
-                fontSize: "25px"
-            }}>
+            <Table className="adminTable">
                 <thead>
                 <tr>
                     <th>Фото</th>
@@ -72,35 +68,20 @@ const CategoriesTab = () => {
                 {categories.map(category =>
                     <tr key={category._id}>
                         <td>
-                            <img style={{width: '100px'}} src={category.image}
+                            <img style={{width: '150px'}} src={category.image}
                                  alt={category.category}/>
                         </td>
                         <td>{category.category}</td>
                         <td>
-                            <div style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                margin: '5px'
-                            }}>
-                                <Button style={{marginBottom: '10px'}}
-                                        variant={'secondary'}
-                                        onClick={() => handleUploadPhotoCategory(category)}
-                                >+ Фото</Button>
+                            <div>
+                                <Button variant={'secondary'}
+                                        onClick={() => handleUploadPhotoCategory(category)}>+ Фото</Button>
 
                                 <UploadPhotoCategory show={uploadPhotoCategoryVisible}
-                                                     onHide={() => setUploadPhotoCategoryVisible(false)}
-                                />
-
-
-                                <Button style={{marginBottom: '10px'}}
-                                        onClick={() => handleEditCategory(category)}
-                                >Редагувати</Button>
-
+                                                     onHide={() => setUploadPhotoCategoryVisible(false)}/>
+                                <Button onClick={() => handleEditCategory(category)}>Редагувати</Button>
                                 <EditCategory show={editCategoryVisible}
                                               onHide={() => setEditCategoryVisible(false)}/>
-
                                 <Button
                                     onClick={() => handleDeleteCategory(category)}
                                     variant={'outline-danger'}>Видалити</Button>

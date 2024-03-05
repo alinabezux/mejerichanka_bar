@@ -1,6 +1,6 @@
 export * from './HomePage'
 export * from './AboutUsPage'
-export * from './HookahPage'
+export * from './NovunkuPage'
 export * from './AdminPage'
 export * from './RegisterPage'
 export * from './LogInPage'

@@ -1,16 +1,15 @@
 import {Container, Table} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
+import Pagination from "react-bootstrap/Pagination";
 
 import {usersActions} from "../../redux"
 import generatePagination from "../Pagination";
-import Pagination from "react-bootstrap/Pagination";
 
 const AdminClients = () => {
     const dispatch = useDispatch();
 
     const {users, totalPagesUsers, currentPageUsers} = useSelector(state => state.usersReducer);
-
 
     const handleSetCurrentPageUsers = async (pageNumber) => {
         dispatch(usersActions.setCurrentPageUsers(pageNumber));
@@ -34,7 +33,7 @@ const AdminClients = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {users.map(user =>
+                {users.slice().reverse().map(user =>
                     <tr key={user._id}>
                         <td>{user._id}</td>
                         <td>{user.name}</td>

@@ -51,7 +51,7 @@ const EditCategory = ({show, onHide}) => {
                             <Alert style={{marginTop: "15px"}} variant={"danger"}>{errors.category.message}</Alert>}
                         <Form.Control className="mb-3"
                                       type="text"
-                                      placeholder={'category'}
+                                      placeholder={'Введіть назву категорії'}
                                       {...register('category')}
                         />
                         <Button variant="outline-success" type='submit'>Зберегти</Button>

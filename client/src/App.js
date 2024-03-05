@@ -3,16 +3,15 @@ import './styles'
 
 import {Route, Routes, useLocation} from "react-router-dom";
 import {unstable_HistoryRouter as BrowserRouter} from "react-router-dom";
-import {AboutUsPage, AdminPage, HomePage, HookahPage, RegisterPage, OrderPage, LogInPage} from "./pages";
+import {AboutUsPage, AdminPage, HomePage, NovunkuPage, RegisterPage, OrderPage, LogInPage} from "./pages";
 import {NaviBar} from "./components";
 import {history} from "./services";
 
 
-// Компонент, який відповідає за виведення NaviBar
 function RenderNaviBar() {
     const location = useLocation();
     if (location.pathname.includes('/admin') || location.pathname.includes('/logIn') || location.pathname.includes('/registration') || location.pathname.includes('/order')) {
-        return null; // Повертаємо null, щоб NaviBar не відображався на /admin
+        return null;
     }
     return <NaviBar/>;
 }
@@ -25,7 +24,7 @@ function App() {
             <Routes>
                 <Route path={'/'} element={<HomePage/>}/>
                 <Route path={'/about'} element={<AboutUsPage/>}/>
-                <Route path={'/hookah'} element={<HookahPage/>}/>
+                <Route path={'/news'} element={<NovunkuPage/>}/>
                 <Route path={'/logIn'} element={<LogInPage/>}/>
                 <Route path={'/registration'} element={<RegisterPage/>}/>
                 <Route path={'/admin'} element={<AdminPage/>}/>

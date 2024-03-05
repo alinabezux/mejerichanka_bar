@@ -53,7 +53,7 @@ const EditProduct = ({show, onHide}) => {
                             <Alert style={{marginTop: "15px"}} variant={"danger"}>{errors.title.message}</Alert>}
                         <Form.Control className="mb-3"
                                       type="text"
-                                      placeholder={'title'}
+                                      placeholder={'Назва продукту'}
                                       {...register('title')}
                         />
 
@@ -69,7 +69,7 @@ const EditProduct = ({show, onHide}) => {
                             <Alert style={{marginTop: "15px"}} variant={"danger"}>{errors.price.message}</Alert>}
                         <Form.Control className="mb-3"
                                       type="number"
-                                      placeholder={'price'}
+                                      placeholder={'Ціна'}
                                       {...register('price')}
                         />
 

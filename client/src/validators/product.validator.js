@@ -8,10 +8,11 @@ const productValidator = {
             'string.max': 'Назва продукту повинна містити не більше 20 символів.',
             'string.empty': 'Назва продукту є обов\'язковим полем!',
         }),
-        category: Joi.string().min(5).max(20).messages({
+        category: Joi.string().min(5).messages({
+            'string.min': 'Категорія продукту повинна складатися з 5 і більше символів.',
             'string.empty': 'Категорія продукту є обов\'язковим полем!'
         }),
-        type: Joi.string().min(5).max(20).optional(),
+        type: Joi.string().min(5).optional(),
         info: Joi.string().max(500).required().messages({
             'string.empty': 'Опис продукту не може бути порожнім полем!',
             'string.max': 'Опис продукту повинен містити не більше 200 символів.',

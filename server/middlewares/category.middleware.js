@@ -6,12 +6,12 @@ const categoryValidator = require("../validators/category.validator");
 module.exports = {
     checkIfCategoryExistsForCreateCategory: async (req, res, next) => {
         try {
-            const categoryOfProduct = req.body.category;
+            const categoryOfProduct = req.body.category.category;
 
             const category = await Category.findOne({category: `${categoryOfProduct}`});
 
             if (category) {
-                throw new ApiError(`Категорія ${categoryOfProduct} не існує в базі даних.`)
+                throw new ApiError(404,`Категорія ${categoryOfProduct} вже існує в базі даних.`)
             }
 
             next();
@@ -23,6 +23,7 @@ module.exports = {
     isNewCategoryValid: async (req, res, next) => {
         try {
             let validate = categoryValidator.newCategoryValidator.validate(req.body.category);
+            console.log(validate);
             if (validate.error) {
                 const errorDetails = validate.error.details[0] || null;
                 console.log(errorDetails);

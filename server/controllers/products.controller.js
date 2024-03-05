@@ -1,9 +1,7 @@
 const Product = require('../dataBase/models/Product');
 const S3Service = require('../services/s3.service')
-const Category = require("../dataBase/models/Category");
 
 module.exports = {
-
     getAllProducts: async (req, res, next) => {
         try {
             let {category, type, page = 1, isGettingAll} = req.query;
@@ -66,7 +64,7 @@ module.exports = {
             const newInfo = req.body.product;
 
             const updatedProduct = await Product.findByIdAndUpdate(req.params.productId, newInfo, {new: true});
-            res.status(201).json(updatedProduct);
+            res.status(200).json(updatedProduct);
 
         } catch (e) {
             next(e)

@@ -14,6 +14,7 @@ productsRouter.get('/:productId',
 
 productsRouter.post('/',
     checkRoleMiddleware.checkRole,
+    productsMiddleware.checkIfProductExistsForCreateProduct,
     productsMiddleware.isNewProductValid,
     productsController.createProduct);
 

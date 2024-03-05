@@ -1,6 +1,7 @@
 import {Alert, Button, Modal, Image} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {useCallback, useEffect, useState} from "react";
+
 import {basketActions} from "../../redux";
 import {authService} from "../../services";
 import {Basket} from "../Basket";

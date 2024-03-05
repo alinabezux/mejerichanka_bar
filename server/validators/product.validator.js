@@ -8,14 +8,12 @@ module.exports = {
             'string.max': 'Назва продукту повинна містити не більше 20 символів.',
             'string.empty': 'Назва продукту є обов\'язковим полем',
         }),
-        category: Joi.string().min(5).max(20).required().messages({
+        category: Joi.string().min(5).messages({
             'string.min': 'Категорія продукту повинна складатися з 5 і більше символів.',
-            'string.max': 'Категорія продукту повинна містити не більше 20 символів.',
             'string.empty': 'Категорія продукту є обов\'язковим полем'
         }),
-        type: Joi.string().min(5).max(20).optional().messages({
+        type: Joi.string().min(5).optional().messages({
             'string.min': 'Тип продукту повинен складатися з 5 і більше символів.',
-            'string.max': 'Тип продукту повинен містити не більше 20 символів.'
         }),
         info: Joi.string().max(500).required().messages({
             'string.empty': 'Опис продукту не може бути порожнім полем!',

@@ -1,6 +1,5 @@
 const Category = require('../dataBase/models/Category');
 const S3Service = require("../services/s3.service");
-const Product = require("../dataBase/models/Product");
 
 module.exports = {
     getAllCategories: async (req, res, next) => {
@@ -42,7 +41,7 @@ module.exports = {
     },
     createCategory: async (req, res, next) => {
         try {
-            const category = await Category.create(req.body);
+            const category = await Category.create(req.body.category);
 
             res.json(category)
         } catch (e) {

@@ -1,19 +1,27 @@
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
 import {Button, Spinner} from "react-bootstrap";
 
-import {typesActions} from "../redux";
+import {categoriesActions, typesActions} from "../redux";
+import {useCallback, useEffect} from "react";
 
-const TypeBar = () => {
+const TypeBar = ({types}) => {
     const dispatch = useDispatch();
-    const {types, selectedType, loading, error} = useSelector(state => state.typesReducer);
+    const {selectedType, loading, error} = useSelector(state => state.typesReducer);
 
-    useEffect(() => {
-        dispatch(typesActions.getAll({isGettingAll: true}))
-    }, [dispatch]);
+    // useEffect(() => {
+    //     if (selectedType) {
+    //         console.log(selectedType);
+    //         const scroll = document.getElementById("scrollTo");
+    //         if (scroll) {
+    //             scroll.scrollIntoView({behavior: "smooth"});
+    //         }
+    //     }
+    //
+    // }, [dispatch, selectedType]);
+
 
     return (
-        <div className="types">
+        <div className="types" id="scrollTo">
             {
                 types.map(type =>
                     <Button className=" m-3"

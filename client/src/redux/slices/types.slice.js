@@ -23,6 +23,19 @@ const getAll = createAsyncThunk(
     }
 );
 
+const getTypesByCategoryId = createAsyncThunk(
+    'typesSlice/getTypesByCategoryId',
+    async ({categoryId}, {rejectByValue}) => {
+        try {
+            const {data} = await typesService.getTypesByCategoryId(categoryId);
+            return data;
+        } catch (e) {
+            return rejectByValue(e.response.data)
+        }
+    }
+)
+
+
 const createType = createAsyncThunk(
     'typesSlice/createType',
     async ({type}, {rejectWithValue}) => {
@@ -87,6 +100,20 @@ const typesSlice = createSlice({
                 state.loading = false
             })
 
+            .addCase(getTypesByCategoryId.fulfilled, (state, action) => {
+                state.types = action.payload
+                state.loading = false
+                state.error = null
+
+            })
+            .addCase(getTypesByCategoryId.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(getTypesByCategoryId.rejected, (state, action) => {
+                state.error = action.payload
+                state.loading = false
+            })
+
 
             .addCase(createType.fulfilled, (state, action) => {
                 state.types.push(action.payload)
@@ -129,7 +156,7 @@ const typesSlice = createSlice({
 const {reducer: typesReducer, actions: {setSelectedType, setCurrentPageTypes}} = typesSlice;
 
 const typesActions = {
-    getAll, deleteById, createType, updateType, setSelectedType, setCurrentPageTypes
+    getAll, getTypesByCategoryId, deleteById, createType, updateType, setSelectedType, setCurrentPageTypes
 }
 
 export {

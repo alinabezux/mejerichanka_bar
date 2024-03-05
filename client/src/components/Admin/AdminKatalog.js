@@ -1,5 +1,5 @@
 import {Col, Nav, Row, Tab} from "react-bootstrap";
-import {CategoriesTab, ProductsTab, TypesTab} from "./AdminKatalogTabs";
+import {CategoriesTab, NewsTab, ProductsTab, TypesTab} from "./AdminKatalogTabs";
 
 
 const AdminKatalog = () => {
@@ -23,6 +23,9 @@ const AdminKatalog = () => {
                         <Nav.Item>
                             <Nav.Link eventKey="types">Типи</Nav.Link>
                         </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link eventKey="news">Новинки</Nav.Link>
+                        </Nav.Item>
                     </Nav>
                 </Col>
 
@@ -31,6 +34,7 @@ const AdminKatalog = () => {
                         <ProductsTab/>
                         <CategoriesTab/>
                         <TypesTab/>
+                        <NewsTab/>
                     </Tab.Content>
                 </Col>
             </Row>
