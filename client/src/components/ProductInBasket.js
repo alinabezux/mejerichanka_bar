@@ -7,7 +7,7 @@ import {authService} from "../services";
 import {basketActions} from "../redux";
 
 import bin from '../assets/bin.png'
-import binBlack from '../assets/bin_black.png'
+// import binBlack from '../assets/bin_black.png'
 
 
 const ProductInBasket = ({productInBasket}) => {
@@ -92,7 +92,7 @@ const ProductInBasket = ({productInBasket}) => {
                 }}>
                     <h5>{productInBasket.price * productInBasket.quantity} грн.</h5>
                     {isOrder ?
-                        <img style={{width: '18px', marginTop: "10px"}} src={binBlack} alt="bin"
+                        <img style={{width: '18px', marginTop: "10px"}} src={bin} alt="bin"
                              onClick={() => handleDeleteProductInBasket(productInBasket)}/>
                         : <img style={{width: '18px', marginTop: "10px"}} src={bin} alt="bin"
                                onClick={() => handleDeleteProductInBasket(productInBasket)}/>
