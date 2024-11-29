@@ -4,7 +4,7 @@ const S3Service = require('../services/s3.service')
 module.exports = {
     getAllProducts: async (req, res, next) => {
         try {
-            let {category, type, page = 1, isGettingAll} = req.query;
+            let { category, type, page = 1, isGettingAll } = req.query;
             const limit = 10;
             let products;
             let count;
@@ -13,7 +13,7 @@ module.exports = {
                 products = await Product.find({})
                 count = await Product.countDocuments();
 
-                return res.json({products, count: count});
+                return res.json({ products, count: count });
             }
 
             if (!category && !type) {
@@ -21,14 +21,14 @@ module.exports = {
                 count = await Product.countDocuments();
             }
             if (category && !type) {
-                products = await Product.find({category}).limit(limit).skip((page - 1) * limit);
-                count = await Product.countDocuments({category});
+                products = await Product.find({ category }).limit(limit).skip((page - 1) * limit);
+                count = await Product.countDocuments({ category });
             }
             if (category && type) {
-                products = await Product.find({category, type}).limit(limit).skip((page - 1) * limit);
-                count = await Product.countDocuments({category, type});
+                products = await Product.find({ category, type }).limit(limit).skip((page - 1) * limit);
+                count = await Product.countDocuments({ category, type });
             }
-
+            console.log('products page')
             return res.json({
                 products,
                 count: count,
@@ -63,7 +63,7 @@ module.exports = {
         try {
             const newInfo = req.body.product;
 
-            const updatedProduct = await Product.findByIdAndUpdate(req.params.productId, newInfo, {new: true});
+            const updatedProduct = await Product.findByIdAndUpdate(req.params.productId, newInfo, { new: true });
             res.status(200).json(updatedProduct);
 
         } catch (e) {
@@ -73,7 +73,7 @@ module.exports = {
     uploadImage: async (req, res, next) => {
         try {
             const sendData = await S3Service.uploadPublicFile(req.files.image, 'products', req.params.productId);
-            const newProduct = await Product.findByIdAndUpdate(req.params.productId, {image: sendData.Location}, {new: true});
+            const newProduct = await Product.findByIdAndUpdate(req.params.productId, { image: sendData.Location }, { new: true });
 
             res.json(newProduct);
         } catch (e) {
@@ -83,7 +83,7 @@ module.exports = {
 
     deleteProduct: async (req, res, next) => {
         try {
-            await Product.deleteOne({_id: req.params.productId})
+            await Product.deleteOne({ _id: req.params.productId })
 
             res.sendStatus(204);
         } catch (e) {
