@@ -32,7 +32,7 @@ const LogInPage = () => {
         } catch (e) {
             console.log("catch e: ", e);
         }
-    }, [dispatch, authActions, error, LogIn, isAdmin, navigate])
+    }, [dispatch, LogIn, isAdmin, navigate])
 
 
     return (

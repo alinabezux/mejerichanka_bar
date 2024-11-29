@@ -38,7 +38,7 @@ const RegisterPage = () => {
             } catch (e) {
                 console.log("catch e: ", e);
             }
-        }, [dispatch, usersActions, navigate]
+        }, [dispatch, navigate]
     )
 
 

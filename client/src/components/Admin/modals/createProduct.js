@@ -13,7 +13,6 @@ const CreateProduct = ({show, onHide}) => {
     const dispatch = useDispatch();
 
     const [category, setCategory] = useState('');
-    const {currentPageProducts} = useSelector(state => state.productsReducer);
 
     const {error} = useSelector(state => state.productsReducer);
     const {categories} = useSelector(state => state.categoriesReducer);
@@ -58,9 +57,8 @@ const CreateProduct = ({show, onHide}) => {
             onHide();
             reset();
             setCategory('');
-            // dispatch(productsActions.getAll({page: currentPageProducts, isGettingAll: false}))
         }
-    }, [dispatch, onHide, reset, currentPageProducts])
+    }, [dispatch, onHide, reset])
 
 
     return (
