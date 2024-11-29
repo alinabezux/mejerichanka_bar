@@ -12,7 +12,7 @@ const ApiError = require("./errors/ApiError");
 
 const app = express();
 
-app.use(cors({ origin: "*"}));
+app.use(cors({ origin: "https://mejerichanka-bar-api.vercel.app"}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, 'static')));
