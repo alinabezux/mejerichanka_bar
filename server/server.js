@@ -12,7 +12,12 @@ const ApiError = require("./errors/ApiError");
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+    credentials: true,
+    origin: configs.CLIENT_URL,
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Token', 'X-Sign']
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, 'static')));
@@ -38,10 +43,7 @@ app.listen(configs.PORT, configs.HOST, async () => {
     await mongoose.connect(configs.MONGO_URL, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-    })
-        .then(() => console.log('MongoDB connected!'))
-        .catch(err => console.error('MongoDB connection error:', err));
-    // console.log(`Backend server is running on port ${configs.PORT} !`);
+    });
+    console.log(`Backend server is running on port ${configs.PORT} !`);
 });
-
 
