@@ -25,6 +25,11 @@ app.use(express.static(path.resolve(__dirname, 'static')));
 app.use(fileUpload());
 
 app.use('/api', router);
+app.use('/api2', (req, res, next) => {
+    console.log(`Request to ${req.originalUrl}`);
+    next();
+});
+
 
 app.get('/', (req, res) => {
     res.json({ message: "WELCOME" });
