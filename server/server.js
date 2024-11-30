@@ -12,7 +12,11 @@ const ApiError = require("./errors/ApiError");
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+    origin: ['https://mejerichanka.vercel.app', 'http://localhost:3000'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, 'static')));
