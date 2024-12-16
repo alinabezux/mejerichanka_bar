@@ -1,13 +1,13 @@
-import {Menu, Slider} from "../components";
+import { Menu, Slider } from "../components";
 
 const HomePage = () => {
 
     return (
         <div className="home-page">
-            <Slider/>
-            <Menu/>
+            <Slider />
+            <Menu />
         </div>
     )
 }
 
-export {HomePage}
+export { HomePage }

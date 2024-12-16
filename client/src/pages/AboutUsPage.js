@@ -5,10 +5,13 @@ import strava from '../assets/strava.png'
 import aboutUsPageTop from '../assets/aboutUsPageTop.png'
 import inst from '../assets/inst.png'
 import {Carousel} from "react-bootstrap";
-import banket1 from "../assets/banket1.PNG";
-import banket2 from "../assets/banket2.PNG";
-import banket3 from "../assets/banket3.PNG";
-import banket4 from "../assets/banket4.PNG";
+import banket1 from "../assets/banket1.JPG";
+import banket2 from "../assets/banket2.JPG";
+import banket3 from "../assets/banket3.JPG";
+import banket4 from "../assets/banket4.JPEG";
+import banket5 from "../assets/banket5.JPEG";
+import banket6 from "../assets/banket6.JPEG";
+import zad from "../assets/zad.JPG";
 import zad1 from "../assets/zad1.PNG";
 import zad2 from "../assets/zad2.PNG";
 import zad3 from "../assets/zad3.PNG";
@@ -104,6 +107,19 @@ const AboutUsPage = () => {
                                     alt="банкет"
                                 />
                             </Carousel.Item>
+
+                            <Carousel.Item>
+                                <img
+                                    src={banket5}
+                                    alt="банкет"
+                                />
+                            </Carousel.Item>
+                            <Carousel.Item>
+                                <img
+                                    src={banket6}
+                                    alt="банкет"
+                                />
+                            </Carousel.Item>
                         </Carousel>
                     </div>
                 </div>
@@ -112,6 +128,12 @@ const AboutUsPage = () => {
                     <h1>Задній двір</h1>
                     <div className="wrap-item">
                         <Carousel className="carousel-aboutUs">
+                            <Carousel.Item>
+                                <img
+                                    src={zad}
+                                    alt="задній двір"
+                                />
+                            </Carousel.Item>
                             <Carousel.Item>
                                 <img
                                     src={zad1}
