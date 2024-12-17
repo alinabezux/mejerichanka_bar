@@ -1,5 +1,5 @@
 const devURL = 'http://localhost:5001/api'
-const prodURL = 'https://mejerichanka-bar-api.vercel.app/api'
+const prodURL = 'https://bar-api-97868bc1f59e.herokuapp.com/api'
 
 const urls = {
     products: '/products',
