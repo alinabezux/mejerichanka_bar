@@ -1,0 +1,38 @@
+{
+  "files": {
+    "main.css": "/static/css/main.dde9b150.css",
+    "main.js": "/static/js/main.cb9c8fd5.js",
+    "static/media/banket4.JPEG": "/static/media/banket4.53cd7736a39ef0d0aa06.JPEG",
+    "static/media/banket6.JPEG": "/static/media/banket6.4505b2570fb055502f38.JPEG",
+    "static/media/banket5.JPEG": "/static/media/banket5.20b9aa4334df30c2eb98.JPEG",
+    "static/media/banket2.JPG": "/static/media/banket2.ea4a4b88dc18e692f226.JPG",
+    "static/media/banket3.JPG": "/static/media/banket3.2be34509e19c1c3acc4d.JPG",
+    "static/media/zad4.PNG": "/static/media/zad4.12ae7133f069bca73827.PNG",
+    "static/media/zad6.PNG": "/static/media/zad6.a9266a2dabdd4326e7a3.PNG",
+    "static/media/zad5.PNG": "/static/media/zad5.e72611149b66f3c7ad8b.PNG",
+    "static/media/zad1.PNG": "/static/media/zad1.f4fde5199dfb225d6c5d.PNG",
+    "static/media/zad3.PNG": "/static/media/zad3.203af14de83cc50377be.PNG",
+    "static/media/zad.JPG": "/static/media/zad.fea94c19613cd6d9e901.JPG",
+    "static/media/bbqmenu.png": "/static/media/bbqmenu.d05e1109ba1fbbcad8b9.png",
+    "static/media/banket1.JPG": "/static/media/banket1.19b7672eef15eb5518f9.JPG",
+    "static/media/banket.png": "/static/media/banket.24a80116d8ef2ac2d944.png",
+    "static/media/zad2.PNG": "/static/media/zad2.72027146d36fc89b68ec.PNG",
+    "static/media/complex.png": "/static/media/complex.081fb265167f348004d6.png",
+    "static/media/MEJERICHANKA.png": "/static/media/MEJERICHANKA.967882fec9479670af4f.png",
+    "static/media/zad.png": "/static/media/zad.ca2d7b340f9c1588b856.png",
+    "static/media/hookah.png": "/static/media/hookah.5a99b01b8260d3e39373.png",
+    "static/media/inst.png": "/static/media/inst.eb7819ac263829d8c330.png",
+    "static/media/news.jpg": "/static/media/news.24e07661f601d2bde4bb.jpg",
+    "static/media/aboutUsPageTop.png": "/static/media/aboutUsPageTop.1c58ffbbd42d42b922ab.png",
+    "static/media/bin.png": "/static/media/bin.53949655121302fb602b.png",
+    "static/media/backet.png": "/static/media/backet.186c92e3db10971caa1d.png",
+    "static/media/money.png": "/static/media/money.add4faabaf22c84729f5.png",
+    "index.html": "/index.html",
+    "main.dde9b150.css.map": "/static/css/main.dde9b150.css.map",
+    "main.cb9c8fd5.js.map": "/static/js/main.cb9c8fd5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.dde9b150.css",
+    "static/js/main.cb9c8fd5.js"
+  ]
+}
