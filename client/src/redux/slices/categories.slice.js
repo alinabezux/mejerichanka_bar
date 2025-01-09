@@ -49,9 +49,9 @@ const updateCategory = createAsyncThunk(
 
 const uploadPhoto = createAsyncThunk(
     'categoriesSlice/uploadPhoto',
-    async ({categoryId, image}, {rejectWithValue}) => {
+    async ({categoryId, formData}, {rejectWithValue}) => {
         try {
-            const {data} = await categoriesService.uploadPhoto(categoryId, image);
+            const {data} = await categoriesService.uploadPhoto(categoryId, formData);
             return data
         } catch (e) {
             return rejectWithValue(e.response.data)

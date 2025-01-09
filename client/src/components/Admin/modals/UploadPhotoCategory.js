@@ -1,42 +1,43 @@
-import {Button, Form, Modal} from "react-bootstrap";
-import {useDispatch, useSelector} from "react-redux";
-import {useCallback, useState} from "react";
+import { Button, Form, Modal } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { useCallback, useState } from "react";
 
-import {categoriesActions} from "../../../redux";
+import { categoriesActions } from "../../../redux";
 
 
-const UploadPhotoCategory = ({show, onHide}) => {
+const UploadPhotoCategory = ({ show, onHide }) => {
 
     const [file, setFile] = useState(null)
 
     const dispatch = useDispatch();
-    const {selectedCategory} = useSelector(state => state.categoriesReducer);
+    const { selectedCategory } = useSelector(state => state.categoriesReducer);
 
     const selectFile = e => {
         setFile(e.target.files[0])
     }
 
     const handleUploadFile = useCallback(async (e) => {
-            e.preventDefault();
-            try {
-                if (file) {
-                    const formData = new FormData();
-                    formData.append("image", file);
+        e.preventDefault();
+        try {
+            if (file) {
+                const formData = new FormData();
+                formData.append("image", file);
+                formData.append("prevImage", selectedCategory.image);
+                console.log(formData);
 
-                    await dispatch(
-                        categoriesActions.uploadPhoto({
-                            categoryId: selectedCategory._id,
-                            image: formData,
-                        })
-                    );
-                }
-                onHide();
-                await dispatch(categoriesActions.getAll());
-            } catch (error) {
-                console.error("Помилка під час завантаження файлу ", error);
+                await dispatch(
+                    categoriesActions.uploadPhoto({
+                        categoryId: selectedCategory._id,
+                        formData,
+                    })
+                );
             }
-        },
-        [dispatch, file, onHide, selectedCategory._id]
+            onHide();
+            await dispatch(categoriesActions.getAll());
+        } catch (error) {
+            console.error("Помилка під час завантаження файлу ", error);
+        }
+    }, [dispatch, file, onHide, selectedCategory._id]
     );
 
     return (
@@ -54,7 +55,7 @@ const UploadPhotoCategory = ({show, onHide}) => {
                         onChange={selectFile}
                     />
                     <Button className="mt-3" variant="outline-success" type='submit'
-                            onClick={handleUploadFile}>Зберегти</Button>
+                        onClick={handleUploadFile}>Зберегти</Button>
                 </Form>
             </Modal.Body>
             <Modal.Footer>
@@ -64,4 +65,4 @@ const UploadPhotoCategory = ({show, onHide}) => {
     );
 }
 
-export {UploadPhotoCategory}
+export { UploadPhotoCategory }
