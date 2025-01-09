@@ -83,9 +83,9 @@ module.exports = {
             }
            
 
-            // if (prevImage) {
-            //     await S3Service.deleteImage('products', productId, prevImage);
-            // }
+            if (prevImage) {
+                await S3Service.deleteImage('products', productId, prevImage);
+            }
 
             const sendData = await S3Service.uploadPublicFile(req.files.image, 'products', productId);
             const newProduct = await Product.findByIdAndUpdate(productId, { image: sendData.Location }, { new: true });
