@@ -24,11 +24,12 @@ const UploadPhotoProduct = ({show, onHide}) => {
 
                 const formData = new FormData();
                 formData.append("image", file);
+                formData.append("prevImage", selectedProduct.image);
                 console.log(formData);
 
                 const uploadData = {
                     productId: selectedProduct._id,
-                    image: formData,
+                    formData,
                 };
 
                 await dispatch(productsActions.uploadPhoto(uploadData));

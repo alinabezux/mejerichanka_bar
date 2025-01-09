@@ -59,12 +59,27 @@ module.exports = {
             next(e);
         }
     },
+
     uploadImage: async (req, res, next) => {
         try {
-            const sendData = await S3Service.uploadPublicFile(req.files.image, 'categories', req.params.categoryId);
-            const updatedCategory = await Category.findByIdAndUpdate(req.params.categoryId, {image: sendData.Location}, {new: true});
+            const { prevImage } = req.body;
+            const { categoryId } = req.params;
 
-            res.json(updatedCategory);
+            console.log('prevImage')
+            console.log(prevImage)
+
+            if (!req.files.image) {
+                return res.status(400).json({ message: 'No image file provided' });
+            }
+
+            if (prevImage) {
+                await S3Service.deleteImage('categories', categoryId, prevImage);
+            }
+
+            const sendData = await S3Service.uploadPublicFile(req.files.image, 'categories', categoryId);
+            const newCategory = await Category.findByIdAndUpdate(categoryId, { image: sendData.Location }, { new: true });
+
+            res.status(200).json(newCategory);
         } catch (e) {
             next(e);
         }

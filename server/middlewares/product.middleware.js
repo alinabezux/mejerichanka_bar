@@ -3,12 +3,11 @@ const Product = require('../dataBase/models/Product');
 const productValidator = require('../validators/product.validator');
 
 const {IMAGE_MAX_SIZE, IMAGE_MIMETYPES} = require("../configs/fileUpload.configs");
-const Category = require("../dataBase/models/Category");
 
 module.exports = {
     checkIfProductExists: async (req, res, next) => {
         try {
-            const {productId} = req.params;
+            const { productId } = req.params;
 
             const product = await Product.findById(productId);
 
@@ -51,7 +50,7 @@ module.exports = {
         try {
             const product = req.body.product.title;
 
-            const find = await Product.findOne({title: `${product}`});
+            const find = await Product.findOne({ title: `${product}` });
 
             if (find) {
                 throw new ApiError(404, `Продукт ${product} вже існує в базі даних.`)
@@ -88,26 +87,26 @@ module.exports = {
             next(e);
         }
     },
-    checkImage:
-        async (req, res, next) => {
-            try {
-                if (!req.files) {
-                    throw new ApiError(403, 'There file to upload.');
-                }
-
-                const {name, size, mimetype} = req.files.image;
-
-                if (size > IMAGE_MAX_SIZE) {
-                    throw new ApiError(400, `File ${name} is too big.`,);
-                }
-
-                if (!IMAGE_MIMETYPES.includes(mimetype)) {
-                    throw new ApiError(400, `File ${name} has invalid format.`);
-                }
-
-                next();
-            } catch (e) {
-                next(e);
+    checkImage: async (req, res, next) => {
+        try {
+            console.log(req.body)
+            if (!req.files) {
+                throw new ApiError(403, 'There file to upload.');
             }
+
+            const { name, size, mimetype } = req.files.image;
+
+            if (size > IMAGE_MAX_SIZE) {
+                throw new ApiError(400, `File ${name} is too big.`,);
+            }
+
+            if (!IMAGE_MIMETYPES.includes(mimetype)) {
+                throw new ApiError(400, `File ${name} has invalid format.`);
+            }
+
+            next();
+        } catch (e) {
+            next(e);
         }
+    }
 }

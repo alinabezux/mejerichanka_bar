@@ -27,9 +27,8 @@ categoriesRouter.put('/:categoryId',
     categoriesMiddleware.isEditCategoryValid,
     categoriesController.updateCategory);
 
-categoriesRouter.patch('/:categoryId',
-    checkRoleMiddleware.checkRole,
-    productsMiddleware.checkImage,
-    categoriesController.uploadImage);
+// categoriesRouter.patch('/:categoryId',
+//     checkRoleMiddleware.checkRole,
+//     categoriesController.uploadImage);
 
 module.exports = categoriesRouter;

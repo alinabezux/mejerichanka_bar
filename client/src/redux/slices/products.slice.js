@@ -59,9 +59,9 @@ const updateProduct = createAsyncThunk(
 
 const uploadPhoto = createAsyncThunk(
     'productsSlice/uploadPhoto',
-    async ({productId, image}, {rejectWithValue}) => {
+    async ({productId, formData}, {rejectWithValue}) => {
         try {
-            const {data} = await productsService.uploadPhoto(productId, image);
+            const {data} = await productsService.uploadPhoto(productId, formData);
             return data
         } catch (e) {
             return rejectWithValue(e.response.data)

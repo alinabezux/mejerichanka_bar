@@ -12,7 +12,8 @@ const productsService = {
     }),
     createProduct: (product) => $authHost.post(urls.products, {product}),
     updateProduct: (productId, product) => $authHost.put(`${urls.products}/${productId}`, {product}),
-    uploadPhoto: (productId, image) => $authHost.patch(`${urls.products}/${productId}`, image),
+    uploadPhoto: (productId, formData) => $authHost.patch(`${urls.products}/${productId}`, formData),
+
     deleteById: (productId) => $authHost.delete(`${urls.products}/${productId}`),
 }
 

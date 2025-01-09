@@ -2,7 +2,7 @@ const S3 = require('aws-sdk/clients/s3');
 const path = require("path");
 const uuid = require('uuid');
 
-const {S3_BUCKET_REGION, S3_ACCESS_KEY, S3_SECRET_KEY, S3_BUCKET_NAME} = require("../configs/configs");
+const { S3_BUCKET_REGION, S3_ACCESS_KEY, S3_SECRET_KEY, S3_BUCKET_NAME } = require("../configs/configs");
 
 const s3Bucket = new S3({
     region: S3_BUCKET_REGION,
@@ -25,4 +25,21 @@ function createFileName(fileName, itemType, itemId) {
     return `${itemType}/${itemId}/${uuid.v4()}${extname}`;
 }
 
-module.exports = {uploadPublicFile}
+async function deleteImage(itemType, itemId, imageUrl) {
+    try {
+        const imageName = imageUrl.split('/').pop();
+        // console.log('imageName', imageName);
+
+        await s3Bucket.deleteObject({
+            Bucket: S3_BUCKET_NAME,
+            Key: `${itemType}/${itemId}/${imageName}`
+        }).promise();
+
+        console.log('Image deleted successfully');
+    } catch (err) {
+        console.error('Error deleting image:', err);
+    }
+}
+
+
+module.exports = { uploadPublicFile, deleteImage }

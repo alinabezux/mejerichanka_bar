@@ -31,6 +31,7 @@ productsRouter.put('/:productId',
 productsRouter.patch('/:productId',
     checkRoleMiddleware.checkRole,
     productsMiddleware.checkImage,
-    productsController.uploadImage);
+    productsController.uploadImage
+);
 
 module.exports = productsRouter;
